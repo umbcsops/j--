@@ -1,0 +1,470 @@
+<!-- 
+// Copyright 2013 Bill Campbell, Swami Iyer and Bahar Akbal-Delibas
+-->
+
+<project default="runCompilerTests">
+
+    <property name="APP_FULL_NAME" value="j-- (A Non-trivial Subset of Java)" />
+    <property name="SRC_DIR" value="src" />
+    <property name="CLASS_DIR" value="classes" />
+    <property name="LIB_DIR" value="lib" />
+    <property name="JAVADOC_DIR" value="javadoc" />
+    <property name="J2H_DIR" value="java2html" />
+    <property name="PASS_TESTS_DIR" value="${basedir}/tests/pass" />
+    <property name="FAIL_TESTS_DIR" value="${basedir}/tests/fail" />
+    <property name="GEN_CLASS_DIR" value="${basedir}/${CLASS_DIR}" />
+
+    <!-- help: Lists main targets -->
+    <target name="help">
+        <echo message="package: Creates a distributable for j--"/>
+        <echo message="runCompilerTests: Compiles and runs j-- (JVM) tests"/>
+        <echo message="runCompilerTestsJavaCC: Compiles and runs j-- (JVM) tests using JavaCC frontend"/>
+        <echo message="testScanner: Tokenizes j-- tests"/>
+        <echo message="testJavaCCScanner: Tokenizes j-- tests using JavaCC scanner"/>
+        <echo message="testParser: Parses j-- tests"/>
+        <echo message="testJavaCCParser: Parses j-- tests using JavaCC parser"/>
+        <echo message="testPreAnalysis: Pre-analyzes j-- tests"/>
+        <echo message="testAnalysis: Analyzes j-- tests"/>
+    	<echo message="help: Lists main targets"/>
+    </target>
+    
+    <!-- javacc: Generates JavaCC scanner and parser. -->
+    <target name="javacc">
+        <echo message="Generating JavaCC files..."/>
+        <javacc target="${SRC_DIR}/jminusminus/j--.jj"
+                outputdirectory="${SRC_DIR}/jminusminus"
+                javacchome="${LIB_DIR}"
+                static="false" />
+    </target>
+
+    <!-- compile: Compiles the jminusminus and SPIM source files. -->
+    <target name="compile">
+        <echo message="Compiling j-- source files..."/>
+        <mkdir dir="${CLASS_DIR}" />
+        <javac srcdir="${SRC_DIR}"
+               destdir="${CLASS_DIR}"
+               includes="jminusminus/**"
+	           excludes="jminusminus/JavaCCMain.java"
+	       includeantruntime="false"
+               debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+        </javac>
+    </target>
+
+    <!-- 
+	 compileJavaCC: Compiles the jminusminus source files including 
+	 JavaCC frontend.
+    -->
+    
+    <target name="compileJavaCC">
+        <echo message="Compiling j-- source files..."/>
+        <mkdir dir="${CLASS_DIR}" />
+        <javac srcdir="${SRC_DIR}"
+               destdir="${CLASS_DIR}"
+               includes="jminusminus/**"
+	       includeantruntime="false"
+               debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+        </javac>
+    </target>
+
+    <!-- compile: Compiles the SPIM runtime files. -->
+    <target name="compileSPIM">
+        <echo message="Compiling j-- source files..."/>
+        <mkdir dir="${CLASS_DIR}" />
+        <javac srcdir="${SRC_DIR}"
+               destdir="${CLASS_DIR}"
+               includes="spim/**"
+	       includeantruntime="false"
+    	       debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+        </javac>
+    </target>
+
+    <!-- 
+       jar: Bundles the jminusminus classes and SPIM runtime  
+       classes into respective jar files.
+    -->
+    
+    <target name="jar">
+        <echo message="Bundling class files into jar files..."/>
+        <jar destfile="${LIB_DIR}/j--.jar" basedir="${CLASS_DIR}" includes="jminusminus/**"/>
+        <jar destfile="${LIB_DIR}/spim.jar" basedir="${CLASS_DIR}" includes="spim/**"/>
+    </target>
+
+    <!-- javadoc: Generates javadoc for jminusminus and spim runtime classes. -->
+    <target name="javadoc">
+        <echo message="Generating javadoc for j-- classes..."/>
+        <mkdir dir="${JAVADOC_DIR}" />
+        <javadoc overview="${SRC_DIR}/overview.html"
+                 package="Yes"
+                 sourcepath="${SRC_DIR}" destdir="${JAVADOC_DIR}"
+                 packagenames="jminusminus.*,spim.*"
+                 windowtitle="${APP_FULL_NAME}" 
+		 	     doctitle="${APP_FULL_NAME}">
+            <link href="http://java.sun.com/javase/6/docs/api/" />
+        </javadoc>
+    </target>
+
+    <!-- j2h: Generates browsable code using java2html. -->
+    <target name="j2h">
+        <echo message="Generating browsable code for j--..."/>
+        <mkdir dir="${J2H_DIR}" />
+	<java jar="${LIB_DIR}/j2h.jar"
+           fork="true"
+           failonerror="true"
+           maxmemory="128m">
+          <arg value="-m"/>
+          <arg value="4"/>
+          <arg value="-d"/>
+          <arg value="${J2H_DIR}"/>
+          <arg value="-js"/>
+          <arg value="${SRC_DIR}"/>
+       </java>
+    </target>
+
+    <!-- 
+    package: Makes a distributable package for the compiler which includes the 
+    sources, binaries, documentation and junit test framework. 
+    -->
+    <target name="package" 
+	    depends="clean,javacc,compileJavaCC,compileSPIM,jar,javadoc,j2h">
+        <echo message="Making a distributable j--.zip..."/>
+        <zip destfile="j--.zip"
+             basedir="../"
+             includes="j--/**"
+             excludes="j--/${CLASS_DIR}/**,j--/*.zip" />
+    </target>
+
+    <!-- 
+    runCompilerTests: We first compile the tests in tests/pass and 
+    tests/fail directories using the jminusminus compiler. We  
+    use a JUnit test JMinusMinusTest.java to run the jminusminus 
+    compiler on each of the tests. We then run the 
+    JMinusMinusTestRunner JUnit test suite, which includes a JUnit test 
+    case for each jminusminus test file under tests/pass directory. 
+    For example, there is a GCDTest.java test case under tests/junit 
+    corresponding to the jminusminus test GCD.java under tests/pass. 
+    -->
+    <target name="runCompilerTests" depends="compile,compileSPIM,jar">
+        <echo message="Compiling and running j-- (JVM) programs..."/>
+        <javac srcdir="${basedir}/tests/"
+               destdir="${CLASS_DIR}"
+               includes="junit/JMinusMinusTest.java"
+	       includeantruntime="false"
+        	   debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+            </classpath>
+        </javac>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <sysproperty key="PASS_TESTS_DIR" value="${PASS_TESTS_DIR}" />
+            <sysproperty key="FAIL_TESTS_DIR" value="${FAIL_TESTS_DIR}" />
+            <sysproperty key="GEN_CLASS_DIR" value="${GEN_CLASS_DIR}" />
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+            <test name="junit.JMinusMinusTest"
+                  haltonfailure="no">
+                <formatter type="plain" usefile="false"/>
+            </test>
+        </junit>
+        <javac srcdir="${basedir}/tests"
+               sourcepath=""
+               destdir="${CLASS_DIR}"
+               includes="junit/**"
+               excludes="junit/JavaCCScannerTest.java,junit/JavaCCParserTest.java,junit/JMinusMinusTestJavaCC.java"
+	       includeantruntime="false"
+	       debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+        </javac>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+            <test name="junit.JMinusMinusTestRunner"
+                  haltonfailure="no">
+                <formatter type="plain" usefile="false"/>
+            </test>
+        </junit>
+    </target>
+    
+    <!-- 
+    runCompilerTestsJavaCC: Same as run compilerTests, but using 
+    JavaCC frontend.                                 
+    -->
+    <target name="runCompilerTestsJavaCC" 
+	    depends="javacc,compileJavaCC,compileSPIM,jar">
+        <echo message=
+            "Compiling and running j-- (JVM) programs using JavaCC frontend..."/>
+        <javac srcdir="${basedir}/tests/"
+               destdir="${CLASS_DIR}"
+               includes="junit/JMinusMinusTestJavaCC.java"
+	       includeantruntime="false"
+               debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+            </classpath>
+        </javac>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <sysproperty key="PASS_TESTS_DIR" value="${PASS_TESTS_DIR}" />
+            <sysproperty key="FAIL_TESTS_DIR" value="${FAIL_TESTS_DIR}" />
+            <sysproperty key="GEN_CLASS_DIR" value="${GEN_CLASS_DIR}" />
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+            <test name="junit.JMinusMinusTestJavaCC"
+                  haltonfailure="no">
+                <formatter type="plain" usefile="false"/>
+            </test>
+        </junit>
+        <javac srcdir="${basedir}/tests"
+               sourcepath=""
+               destdir="${CLASS_DIR}"
+               includes="junit/**"
+               excludes="clemitter/**,pass/**,fail/**"
+	       includeantruntime="false"
+               debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+        </javac>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+            <test name="junit.JMinusMinusTestRunner"
+                  haltonfailure="no">
+                <formatter type="plain" usefile="false"/>
+            </test>
+        </junit>
+    </target>
+
+    <!-- 
+    testScanner: Tests handwritten scanner by running it on all tests under 
+    tests/pass directory. 
+    -->
+    <target name="testScanner" depends="compile,jar">
+        <echo message="Running handwritten scanner on the j-- programs..."/>
+        <javac srcdir="${basedir}/tests/"
+               destdir="${CLASS_DIR}"
+               includes="junit/ScannerTest.java"
+	       includeantruntime="false"
+               debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+            </classpath>
+        </javac>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <sysproperty key="PASS_TESTS_DIR" value="${PASS_TESTS_DIR}" />
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+            <test name="junit.ScannerTest"
+                  haltonfailure="no">
+                <formatter type="plain" usefile="false"/>
+            </test>
+        </junit>
+    </target>
+    
+    <!-- 
+    testJavaCCScanner: Tests JavaCC scanner by running it on all tests 
+    under tests/pass directory. 
+    -->
+    <target name="testJavaCCScanner" depends="javacc,compileJavaCC,jar">
+        <echo message="Running JavaCC scanner on the j-- programs..."/>
+        <javac srcdir="${basedir}/tests/"
+               destdir="${CLASS_DIR}"
+               includes="junit/JavaCCScannerTest.java"
+	       includeantruntime="false"
+               debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+            </classpath>
+        </javac>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <sysproperty key="PASS_TESTS_DIR" value="${PASS_TESTS_DIR}" />
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+            <test name="junit.JavaCCScannerTest"
+                  haltonfailure="no">
+                <formatter type="plain" usefile="false"/>
+            </test>
+        </junit>
+    </target>
+
+    <!-- 
+    testParser: Tests hand-written parser by running it on all tests 
+    under tests/pass directory. 
+    -->
+    <target name="testParser" depends="compile,jar">
+        <echo message="Running handwritten parser on the j-- programs..."/>
+        <javac srcdir="${basedir}/tests/"
+               destdir="${CLASS_DIR}"
+               includes="junit/ParserTest.java"
+	       includeantruntime="false"
+               debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+            </classpath>
+        </javac>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <sysproperty key="PASS_TESTS_DIR" value="${PASS_TESTS_DIR}" />
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+            <test name="junit.ParserTest"
+                  haltonfailure="no">
+                <formatter type="plain" usefile="false"/>
+            </test>
+        </junit>
+    </target>
+    
+    <!-- 
+    testJavaCCParser: Tests JavaCC parser by running it on all tests 
+    under tests/pass directory. 
+    -->
+    <target name="testJavaCCParser" depends="javacc,compileJavaCC,jar">
+        <echo message="Running JavaCC parser on the j-- programs..."/>
+        <javac srcdir="${basedir}/tests/"
+               destdir="${CLASS_DIR}"
+               includes="junit/JavaCCParserTest.java"
+	       includeantruntime="false"
+               debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+            </classpath>
+        </javac>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <sysproperty key="PASS_TESTS_DIR" value="${PASS_TESTS_DIR}" />
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+            <test name="junit.JavaCCParserTest"
+                  haltonfailure="no">
+                <formatter type="plain" usefile="false"/>
+            </test>
+        </junit>
+    </target>
+
+    <!-- 
+    testPreAnalysis: Runs the jminusminus compiler on each test under 
+    tests/pass up to the stage where the AST has been pre-analyzed. 
+    -->
+    <target name="testPreAnalysis" depends="compile,jar">
+        <echo message="Running compiler on j-- programs up to pre-analysis..."/>
+        <javac srcdir="${basedir}/tests/"
+               destdir="${CLASS_DIR}"
+               includes="junit/PreAnalysisTest.java"
+	       includeantruntime="false"
+               debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+            </classpath>
+        </javac>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <sysproperty key="PASS_TESTS_DIR" value="${PASS_TESTS_DIR}" />
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+            <test name="junit.PreAnalysisTest"
+                  haltonfailure="no">
+                <formatter type="plain" usefile="false"/>
+            </test>
+        </junit>
+    </target>
+    
+    <!-- 
+    testAnalysis: Runs the jminusminus compiler on each test under 
+    tests/pass up to the stage where the AST has been analyzed. 
+    -->
+    <target name="testAnalysis" depends="compile,jar">
+        <echo message="Running compiler on j-- programs up to analysis..."/>
+        <javac srcdir="${basedir}/tests/"
+               destdir="${CLASS_DIR}"
+               includes="junit/AnalysisTest.java"
+	       includeantruntime="false"
+               debug="on">
+            <!-- Uncomment the following to see compiler warnings. -->
+            <!-- <compilerarg value="-Xlint" />                    -->
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+            </classpath>
+        </javac>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <sysproperty key="PASS_TESTS_DIR" value="${PASS_TESTS_DIR}" />
+            <classpath>
+                <pathelement location="${LIB_DIR}/junit.jar" />
+                <pathelement location="${basedir}/${CLASS_DIR}" />
+            </classpath>
+            <test name="junit.AnalysisTest"
+                  haltonfailure="no">
+                <formatter type="plain" usefile="false"/>
+            </test>
+        </junit>
+    </target>
+
+    <!-- clean: Removes generated files and folders. -->
+    <target name="clean">
+        <echo message="Removing generated files and folders..."/>
+        <delete file="${SRC_DIR}/jminusminus/Token.java" />
+        <delete file="${SRC_DIR}/jminusminus/TokenMgrError.java" />
+        <delete file="${SRC_DIR}/jminusminus/ParseException.java" />
+        <delete file="${SRC_DIR}/jminusminus/JavaCCParser.java" />
+        <delete file="${SRC_DIR}/jminusminus/JavaCCParserTokenManager.java" />
+        <delete file="${SRC_DIR}/jminusminus/JavaCCParserConstants.java" />
+        <delete file="${SRC_DIR}/jminusminus/SimpleCharStream.java" />
+        <delete>
+            <fileset dir="${basedir}" includes="**/*.class"/>
+        </delete>
+        <delete file="j--.zip" />
+        <delete file="${LIB_DIR}/j--.jar" />
+        <delete file="${LIB_DIR}/spim.jar" />
+        <delete dir="${CLASS_DIR}" />
+        <delete dir="${JAVADOC_DIR}" />
+        <delete dir="${J2H_DIR}" />
+    </target>
+
+</project>
+
+
+
+
+
+
+

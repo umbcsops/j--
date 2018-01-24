@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Copyright 2013 Bill Campbell, Swami Iyer and Bahar Akbal-Delibas
+
+# This is a convenience script for compiling a Java source 
+# file A that uses the CLEmitter interface to programmatically 
+# generate a Java class file B, and running the class A 
+# to produce class B.
+
+BASE_DIR=`dirname $0`
+j=${BASE_DIR}/../
+export j
+JAVA=java
+JAVAC=javac
+CPATH=".:${BASE_DIR}/../lib/j--.jar"
+if [ "$CLASSPATH" != "" ] ; then
+    CPATH=${CPATH}:"${CLASSPATH}"
+fi
+if [ "$1" != "" ] ; then
+    $JAVAC -classpath $CPATH -d . $1
+    $JAVA -classpath $CPATH `basename $1 .java`
+else
+    echo "Usage: clemitter <file>"
+fi
+
+
+

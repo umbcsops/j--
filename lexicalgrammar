@@ -1,0 +1,72 @@
+// Lexical grammar for j--
+// Copyright 2013 Bill Campbell, Swami Iyer and Bahar Akbal-Delibas
+
+// Whitespace -- ignored
+" "|"\t"|"\n"|"\r"|"\f"
+
+// Single line comment -- ignored
+"//" {~("\n"|"\r")} ("\n"|"\r"["\n"])
+
+// Reserved words
+ABSTRACT    ::= "abstract"
+BOOLEAN     ::= "boolean"
+CHAR        ::= "char"
+CLASS       ::= "class"
+ELSE        ::= "else"
+EXTENDS     ::= "extends"
+FALSE       ::= "false"
+IF          ::= "if"
+IMPORT      ::= "import"
+INSTANCEOF  ::= "instanceof"
+INT         ::= "int"
+NEW         ::= "new"
+NULL        ::= "null"
+PACKAGE     ::= "package"
+PRIVATE     ::= "private"
+PROTECTED   ::= "protected"
+PUBLIC      ::= "public"
+RETURN      ::= "return"
+STATIC      ::= "static"
+SUPER       ::= "super"
+THIS        ::= "this"
+TRUE        ::= "true"
+VOID        ::= "void"
+WHILE       ::= "while"
+
+// Operators
+ASSIGN      ::= "="
+EQUAL       ::= "=="
+GT          ::= ">"
+INC         ::= "++"
+LAND        ::= "&&"
+LE          ::= "<="
+LNOT        ::= "!"
+MINUS       ::= "-"
+PLUS        ::= "+"
+PLUS_ASSIGN ::= "+="
+STAR        ::= "*"
+
+// Separators
+COMMA       ::= ","
+DOT         ::= "."
+LBRACK      ::= "["
+LCURLY      ::= "{"
+LPAREN      ::= "("
+RBRACK      ::= "]"
+RCURLY      ::= "}"
+RPAREN      ::= ")"
+SEMI        ::= ";"
+
+// Identifiers
+IDENTIFIER ::= ("a"-"z"|"A"-"Z"|"_"|"$") {"a"-"z"|"A"-"Z"|"_"|"0"-"9"|"$"}
+
+// Literals
+INT_LITERAL    ::= "0" | ("1"-"9") {"0"-"9"}
+ESC            ::= "\\" ("n"|"r"|"t"|"b"|"f"|"'"|"\""|"\\")
+STRING_LITERAL ::= "\"" {ESC | ~("\""|"\\"|"\n"|"\r")} "\""
+CHAR_LITERAL   ::= "'" (ESC | ~("'"|"\n"|"\r"|"\\")) "'"
+
+// End of file
+EOF            ::= "<end of file>"
+
+
