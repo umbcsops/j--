@@ -5,30 +5,34 @@ package jminusminus;
 import java.util.StringTokenizer;
 
 /**
- * Ambiguous names are meant to deal with snippets like
- * 
+ * This class is used to encapsulate ambiguous names that the parser can't
+ * distinguish and disambiguates them during the analysis phase. Ambiguous 
+ * names are meant to deal with snippets like:
+ *
  * <pre>
  *   x.y.z
  *   a.b.c()
  * </pre>
- * 
- * Clearly, z is a field and c is a method. But what about x.y and a.b ? x could
- * be a package name and y a type, making for a (static) class field selection.
- * Or, x could be a local variable and y an instance field. The parser cannot
- * know how to parse these.
- * 
+ *
+ * Clearly, z is a field and c is a method. But what about <em>x.y</em> and 
+ * <em>a.b</em>? x could be a package name and y a type, making for a (static) 
+ * class field selection. Or, x could be a local variable and y an instance 
+ * field. The parser cannot know how to parse these.
+ * <p>
  * Disambiguating the ambiguity must wait until analysis time. The parser can,
- * with x.y.z, treat the .z as a field selection, but constructs an
- * AmbiguousName object encapsulating the x.y . And it can, with a.b.c(), treat
- * the .c() as a message expression, but constructs an AbiguousName object
- * encapsulating a.b.
- * 
- * reclassify() is called upon in JFieldSelection.analyze() and
- * JMessageExpression.analyze() to reclassify the components and construct the
- * proper ast, following the rules for names in the Java language Specification
- * (Third Edition), section 6.5.2. In j--, both x.y and a.b are clearly
- * expressions in these contexts. If inner types were to be introduced, their
- * meaning and their reclassification would necessarily be more complicated.
+ * with <em>x.y.z</em>, treat the <em>.z</em> as a field selection, but 
+ * constructs an AmbiguousName object encapsulating the <em>x.y</em>. And it 
+ * can, with <em>a.b.c()</em>, treat <em>.c()</em> as a message expression, 
+ * but constructs an AbiguousName object encapsulating <em>a.b</em>.
+ * <p>
+ * The {@code reclassify()} method is called upon in 
+ * {@link JFieldSelection#analyze(Context)} and 
+ * {@link JMessageExpression#analyze(Context)} to reclassify the components and
+ * construct the proper AST, following the rules for names in the Java Language
+ * Specification (Third Edition), section 6.5.2. In j--, both <em>x.y</em> and 
+ * <em>a.b</em> are clearly expressions in these contexts. If inner types were 
+ * to be introduced, their meaning and their reclassification would necessarily
+ * be more complicated.
  */
 
 class AmbiguousName {
@@ -38,12 +42,12 @@ class AmbiguousName {
      */
     private int line;
 
-    /** The ambiguous part, eg x.y */
+    /** The ambiguous part, for example x.y */
     private String name;
 
     /**
-     * Construct an encapsulation of the ambiguous portion of a snippet like
-     * x.y.z.
+     * Constructs an encapsulation of the ambiguous portion of a snippet like
+     * <em>x.y.z</em>.
      * 
      * @param line
      *            line in which the ambiguous name occurs in the source file.
@@ -57,7 +61,7 @@ class AmbiguousName {
     }
 
     /**
-     * Reclassify the name according to the rules in the Java Language
+     * Reclassifies the name according to the rules in the Java Language
      * Specification.
      * 
      * @param context

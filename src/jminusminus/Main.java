@@ -4,33 +4,35 @@ package jminusminus;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
 import static jminusminus.TokenKind.EOF;
 
 /**
  * Driver class for j-- compiler using hand-written front-end. This is the main
  * entry point for the compiler. The compiler proceeds as follows:
+ * <ol>
+ *   <li>It reads arguments that affects its behavior.
  * 
- * (1) It reads arguments that affects its behavior.
+ *   <li>It builds a scanner.
  * 
- * (2) It builds a scanner.
+ *   <li>It builds a parser (using the scanner) and parses the input for producing
+ *       an abstact syntax tree (AST).
  * 
- * (3) It builds a parser (using the scanner) and parses the input for producing
- * an abstact syntax tree (AST).
+ *   <li>It sends the {@code preAnalyze} message to that AST, which recursively 
+ *       descends the tree so far as the memeber headers for declaring types and 
+ *       members in the symbol table (represented as a string of contexts).
  * 
- * (4) It sends the preAnalyze() message to that AST, which recursively descends
- * the tree so far as the memeber headers for declaring types and members in the
- * symbol table (represented as a string of contexts).
+ *   <li>It sends the {@code analyze} message to that AST for declaring local 
+ *       variables, and checking and assigning types to expressions. Analysis 
+ *       also sometimes rewrites some of the abstract syntax tree for clarifying 
+ *       the semantics. Analysis does all of this by recursively descending the 
+ *       AST down to its leaves.
  * 
- * (5) It sends the analyze() message to that AST for declaring local variables,
- * and cheking and assigning types to expressions. Analysis also sometimes
- * rewrites some of the abstract syntax trees for clarifying the semantics.
- * Analysis does all of this by recursively descending the AST down to its
- * leaves.
- * 
- * (6) Finally, it sends a codegen() message to the AST for generating code.
- * Again, codegen() recursively descends the tree, down to its leaves,
- * generating JVM code for producing a .class or .s (SPIM) file for each defined
- * type (class).
+ *   <li>Finally, it sends a {@code codegen} message to the AST for generating 
+ *       code. Again, {@code codegen} recursively descends the tree, down to its 
+ *       leaves, generating JVM code for producing a .class or .s (SPIM) file 
+ *       for each defined type (class).
+ * </ol>
  */
 
 public class Main {
@@ -40,6 +42,9 @@ public class Main {
 
     /**
      * Entry point.
+     *
+     * @param args
+     *            the command-line arguments.
      */
 
     public static void main(String args[]) {
@@ -162,9 +167,9 @@ public class Main {
     }
 
     /**
-     * Return true if an error occurred during compilation; false otherwise.
+     * Returns true if an error occurred during compilation; false otherwise.
      * 
-     * @return true or false.
+     * @return {@code true} if error has occurred and {@code false} otherwise.
      */
 
     public static boolean errorHasOccurred() {
@@ -172,7 +177,7 @@ public class Main {
     }
 
     /**
-     * Print command usage to STDOUT.
+     * Prints command usage to STDOUT.
      * 
      * @param caller
      *            denotes how this class is invoked.
