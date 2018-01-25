@@ -16,7 +16,7 @@ class JFormalParameter extends JAST {
     private Type type;
 
     /**
-     * Construct an AST node for a formal parameter declaration given its line
+     * Constructs an AST node for a formal parameter declaration given its line
      * number, name, and type.
      * 
      * @param line
@@ -34,7 +34,7 @@ class JFormalParameter extends JAST {
     }
 
     /**
-     * Return the parameter's name.
+     * Returns the parameter's name.
      * 
      * @return the parameter's name.
      */
@@ -44,7 +44,7 @@ class JFormalParameter extends JAST {
     }
 
     /**
-     * Return the parameter's type.
+     * Returns the parameter's type.
      * 
      * @return the parameter's type.
      */
@@ -54,7 +54,7 @@ class JFormalParameter extends JAST {
     }
 
     /**
-     * Set the type to the specified type.
+     * Sets the type to the specified type.
      * 
      * @param newType
      *            the new type.

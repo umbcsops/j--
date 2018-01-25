@@ -3,7 +3,8 @@
 package jminusminus;
 
 /**
- * The abstract superclass of all nodes in the abstract syntax tree (AST).
+ * JAST is the abstract superclass of all nodes in the abstract syntax tree
+ * (AST).
  */
 
 abstract class JAST {
@@ -15,7 +16,7 @@ abstract class JAST {
     protected int line;
 
     /**
-     * Construct an AST node the given its line number in the source file.
+     * Constructs an AST node the given its line number in the source file.
      * 
      * @param line
      *            line in which the source for the AST was found.
@@ -26,7 +27,7 @@ abstract class JAST {
     }
 
     /**
-     * Return the line in which the source for the AST was found.
+     * Returns the line in which the source for the AST was found.
      * 
      * @return the line number.
      */
@@ -36,7 +37,7 @@ abstract class JAST {
     }
 
     /**
-     * Perform semantic analysis on this AST. In some instances a new returned
+     * Performs semantic analysis on this AST. In some instances a new returned
      * AST reflects surgery.
      * 
      * @param context
@@ -47,7 +48,7 @@ abstract class JAST {
     public abstract JAST analyze(Context context);
 
     /**
-     * Generate a partial class for this type, reflecting only the member
+     * Generates a partial class for this type, reflecting only the member
      * information required to do analysis.
      * 
      * @param context
@@ -62,7 +63,7 @@ abstract class JAST {
     }
 
     /**
-     * Perform code generation for this AST.
+     * Performs code generation for this AST.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -72,7 +73,7 @@ abstract class JAST {
     public abstract void codegen(CLEmitter output);
 
     /**
-     * Write the information pertaining to this AST to STDOUT.
+     * Writes the information pertaining to this AST to STDOUT.
      * 
      * @param p
      *            for pretty printing with indentation.

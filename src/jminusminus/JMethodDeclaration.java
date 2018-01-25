@@ -33,17 +33,17 @@ class JMethodDeclaration
     /** Computed by preAnalyze(). */
     protected String descriptor;
 
-    /** Is method abstract. */
+    /** Is this method abstract? */
     protected boolean isAbstract;
 
-    /** Is method static. */
+    /** Is this method static? */
     protected boolean isStatic;
 
-    /** Is method private. */
+    /** Is this method private? */
     protected boolean isPrivate;
 
     /**
-     * Construct an AST node for a method declaration given the
+     * Constructs an AST node for a method declaration given the
      * line number, method name, return type, formal parameters,
      * and the method body.
      * 
@@ -79,7 +79,7 @@ class JMethodDeclaration
     }
 
     /**
-     * Declare this method in the parent (class) context.
+     * Declares this method in the parent (class) context.
      * 
      * @param context
      *                the parent (class) context.
@@ -165,7 +165,7 @@ class JMethodDeclaration
     }
 
     /**
-     * Add this method declaration to the partial class.
+     * Adds this method declaration to the partial class.
      * 
      * @param context
      *                the parent (class) context.
@@ -195,7 +195,7 @@ class JMethodDeclaration
     }
 
     /**
-     * Generate code for the method declaration.
+     * Generates code for the method declaration.
      * 
      * @param output
      *                the code emitter (basically an abstraction

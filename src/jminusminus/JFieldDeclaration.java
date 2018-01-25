@@ -20,7 +20,7 @@ class JFieldDeclaration extends JAST implements JMember {
     private ArrayList<JStatement> initializations;
 
     /**
-     * Construct an AST node for a field declaration given the line number,
+     * Constructs an AST node for a field declaration given the line number,
      * modifiers, and the variable declarators.
      * 
      * @param line
@@ -41,7 +41,7 @@ class JFieldDeclaration extends JAST implements JMember {
     }
 
     /**
-     * Return the list of modifiers.
+     * Returns the list of modifiers.
      * 
      * @return list of modifiers.
      */
@@ -51,7 +51,7 @@ class JFieldDeclaration extends JAST implements JMember {
     }
 
     /**
-     * Declare fields in the parent's (partial) class.
+     * Declares fields in the parent's (partial) class.
      * 
      * @param context
      *            the parent (class) context.
@@ -100,7 +100,7 @@ class JFieldDeclaration extends JAST implements JMember {
     }
 
     /**
-     * Generate code for any field initializations (now rewritten as assignment
+     * Generates code for any field initializations (now rewritten as assignment
      * statements).
      * 
      * @param output
@@ -115,7 +115,8 @@ class JFieldDeclaration extends JAST implements JMember {
     }
 
     /**
-     * Code generation for field declaration involves generate field the header.
+     * Code generation for field declaration involves generating fields
+     * for the header.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the

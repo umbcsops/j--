@@ -10,6 +10,8 @@ import static jminusminus.CLConstants.*;
  * class block; it distinguishes between instance fields and static (class)
  * fields for initialization, and it defines a type. It also introduces its own
  * (class) context.
+ *
+ * @see ClassContext
  */
 
 class JClassDeclaration extends JAST implements JTypeDecl {
@@ -42,7 +44,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     private ArrayList<JFieldDeclaration> staticFieldInitializations;
 
     /**
-     * Construct an AST node for a class declaration given the line number, list
+     * Constructs an AST node for a class declaration given the line number, list
      * of class modifiers, name of the class, its super class type, and the
      * class block.
      * 
@@ -71,7 +73,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * Return the class name.
+     * Returns the class name.
      * 
      * @return the class name.
      */
@@ -81,7 +83,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * Return the class' super class type.
+     * Returns the class' super class type.
      * 
      * @return the super class type.
      */
@@ -91,7 +93,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * Return the type that this class declaration defines.
+     * Returns the type that this class declaration defines.
      * 
      * @return the defined type.
      */
@@ -101,8 +103,8 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * The initializations for instance fields (now expressed as assignment
-     * statments).
+     * Returns the initializations for instance fields (now expressed as 
+     * assignment statements).
      * 
      * @return the field declarations having initializations.
      */
@@ -112,7 +114,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * Declare this class in the parent (compilation unit) context.
+     * Declares this class in the parent (compilation unit) context.
      * 
      * @param context
      *            the parent (compilation unit) context.
@@ -129,7 +131,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * Pre-analyze the members of this declaration in the parent context.
+     * Pre-analyzes the members of this declaration in the parent context.
      * Pre-analysis extends to the member headers (including method headers) but
      * not into the bodies.
      * 
@@ -186,7 +188,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * Perform semantic analysis on the class and all of its members within the
+     * Performs semantic analysis on the class and all of its members within the
      * given context. Analysis includes field initializations and the method
      * bodies.
      * 
@@ -229,7 +231,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * Generate code for the class declaration.
+     * Generates code for the class declaration.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -290,7 +292,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * Generate code for an implicit empty constructor. (Necessary only if there
+     * Generates code for an implicit empty constructor. (Necessary only if there
      * is not already an explicit one.)
      * 
      * @param partial
@@ -312,7 +314,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * Generate code for an implicit empty constructor. (Necessary only if there
+     * Generates code for an implicit empty constructor. (Necessary only if there
      * is not already an explicit one.
      * 
      * @param output
@@ -340,7 +342,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * Generate code for class initialization, in j-- this means static field
+     * Generates code for class initialization, in j-- this means static field
      * initializations.
      * 
      * @param output

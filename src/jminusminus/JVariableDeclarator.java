@@ -21,7 +21,7 @@ class JVariableDeclarator extends JAST {
     public boolean isInitialized;
 
     /**
-     * Construct an AST node for a variable declarator given the line number,
+     * Constructs an AST node for a variable declarator given the line number,
      * variable name, its type, and the initializer.
      * 
      * @param line
@@ -35,9 +35,7 @@ class JVariableDeclarator extends JAST {
      */
 
     public JVariableDeclarator(int line, String name, Type type,
-            JExpression initializer)
-
-    {
+                                             JExpression initializer) {
         super(line);
         this.name = name;
         this.type = type;
@@ -45,7 +43,7 @@ class JVariableDeclarator extends JAST {
     }
 
     /**
-     * Return the variable name.
+     * Returns the variable name.
      * 
      * @return the variable name.
      */
@@ -55,7 +53,7 @@ class JVariableDeclarator extends JAST {
     }
 
     /**
-     * Return the variable type.
+     * Returns the variable type.
      * 
      * @return the variable type.
      */
@@ -65,7 +63,7 @@ class JVariableDeclarator extends JAST {
     }
 
     /**
-     * Set the declarator's type.
+     * Sets the declarator's type.
      * 
      * @param type
      *            the new type
@@ -76,7 +74,7 @@ class JVariableDeclarator extends JAST {
     }
 
     /**
-     * Return the variable initializer.
+     * Returns the variable initializer.
      * 
      * @return the variable initializer.
      */
@@ -86,7 +84,7 @@ class JVariableDeclarator extends JAST {
     }
 
     /**
-     * Set the variable initializer.
+     * Sets the variable initializer.
      * 
      * @param initial
      *            initializer.

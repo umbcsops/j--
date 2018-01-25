@@ -7,35 +7,39 @@ import java.util.ArrayList;
 /**
  * The abstract syntax tree (AST) node representing a compilation unit, and so
  * the root of the AST.
- * 
+ * <p>
  * It keeps track of the name of the source file, its package name, a list of
- * imported types, a list of type (eg class) declarations, and a flag indicating
- * if a semantic error has been detected in analysis or code generation. It also
- * maintains a CompilationUnitContext (built in pre-analysis) for declaring both
- * imported and declared types.
- * 
- * The AST is produced by the Parser. Once the AST has been built, three
+ * imported types, a list of type (for example a class) declarations, and a flag
+ * indicating if a semantic error has been detected in analysis or code 
+ * generation. It also maintains a {@link CompilationUnitContext} 
+ * (built in pre-analysis) for declaring both imported and declared types.
+ * <p>
+ * The AST is produced by the {@link Parser}. Once the AST has been built, three
  * successive methods are invoked:
+ * <ol>
+ *   <li>Method {@code preAnalyze} is invoked for making a first pass at type 
+ *       analysis, recursively reaching down to the member headers for declaring
+ *       types and member interfaces in the environment (contexts). 
+ *       {@code preAnalyze} also creates a partial class file (in memory) for 
+ *       recording member header information, using the {@code partialCodegen} 
+ *       method.
  * 
- * (1) Method preAnalyze() is invoked for making a first pass at type analysis,
- * recursively reaching down to the member headers for declaring types and
- * member interfaces in the environment (contexts). preAnalyze() also creates a
- * partial class file (in memory) for recording member header information, using
- * the partialCodegen() method.
+ *   <li>Method {@code analyze} is invoked for type-checking field 
+ *       initializations and method bodies, and determining the types of all 
+ *       expressions. A certain amount of tree surgery is also done here. And 
+ *       stack frame offsets are computed for method parameters and local 
+ *       variables.
  * 
- * (2) Method analyze() is invoked for type-checking field initializations and
- * method bodies, and determining the types of all expressions. A certain amount
- * of tree surgery is also done here. And stack frame offsets are computed for
- * method parameters and local variables.
- * 
- * (3) Method codegen() is invoked for generating code for the compilation unit
- * to a class file. For each type declaration, it instantiates a CLEmmiter
- * object (an abstraction of the class file) and then invokes methods on that
- * CLEmitter for generating instructions. At the end of each type declaration, a
- * method is invoked on the CLEmitter which writes the class out to the file
- * system either as .class file or as a .s (SPIM) file. Of course, codegen()
- * makes recursive calls down the tree, to the codegen() methods at each node,
- * for generating the appropriate instructions.
+ *   <li>Method {@code codegen} is invoked for generating code for the 
+ *       compilation unit to a class file. For each type declaration, it 
+ *       instantiates a {@link CLEmitter} object (an abstraction of the class 
+ *       file) and then invokes methods on that CLEmitter for generating 
+ *       instructions. At the end of each type declaration, a method is invoked
+ *       on the CLEmitter which writes the class out to the file system either 
+ *       as .class file or as a .s (SPIM) file. Of course, {@code codegen}
+ *       makes recursive calls down the tree, to the {@code codegen} methods 
+ *       at each node, for generating the appropriate instructions.
+ * </ol>
  */
 
 class JCompilationUnit extends JAST {
@@ -65,7 +69,7 @@ class JCompilationUnit extends JAST {
     private boolean isInError;
 
     /**
-     * Construct an AST node for a compilation unit given a file name, class
+     * Constructs an AST node for a compilation unit given a file name, class
      * directory, line number, package name, list of imports, and type
      * declarations.
      * 
@@ -93,7 +97,7 @@ class JCompilationUnit extends JAST {
     }
 
     /**
-     * The package in which this compilation unit is defined.
+     * Returns the package in which this compilation unit is defined.
      * 
      * @return the package name.
      */
@@ -105,7 +109,8 @@ class JCompilationUnit extends JAST {
     /**
      * Has a semantic error occurred up to now?
      * 
-     * @return true or false.
+     * @return {@code true} if a semantic error has occurred; 
+     *         {@code false} otherwise.
      */
 
     public boolean errorHasOccurred() {
@@ -113,7 +118,7 @@ class JCompilationUnit extends JAST {
     }
 
     /**
-     * Report a semantic error.
+     * Reports a semantic error.
      * 
      * @param line
      *            line in which the error occurred in the source file.
@@ -132,7 +137,7 @@ class JCompilationUnit extends JAST {
     }
 
     /**
-     * Construct a context for the compilation unit, initializing it with
+     * Constructs a context for the compilation unit, initializing it with
      * imported types. Then pre-analyze the unit's type declarations, adding
      * their types to the context.
      */
@@ -172,7 +177,7 @@ class JCompilationUnit extends JAST {
     }
 
     /**
-     * Perform semantic analysis on the AST in the specified context.
+     * Performs semantic analysis on the AST in the specified context.
      * 
      * @param context
      *            context in which names are resolved (ignored here).
@@ -204,7 +209,7 @@ class JCompilationUnit extends JAST {
     }
 
     /**
-     * Return the list of CLFile objects corresponding to the type declarations
+     * Returns the list of CLFile objects corresponding to the type declarations
      * in this compilation unit.
      * 
      * @return list of CLFile objects.
