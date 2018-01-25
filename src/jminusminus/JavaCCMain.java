@@ -17,7 +17,7 @@ import java.io.FileNotFoundException;
  *       an abstact syntax tree (AST).
  * 
  *   <li>It sends the {@code preAnalyze} message to that AST, which recursively 
- *       descends the tree so far as the memeber headers for declaring types and 
+ *       descends the tree so far as the member headers for declaring types and 
  *       members in the symbol table (represented as a string of contexts).
  * 
  *   <li>It sends the {@code analyze} message to that AST for declaring local 
@@ -40,6 +40,9 @@ public class JavaCCMain {
 
     /**
      * Entry point.
+     *
+     * @param args
+     *            the command-line arguments.
      */
 
     public static void main(String args[]) {

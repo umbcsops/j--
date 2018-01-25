@@ -6,15 +6,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+
 import java.util.Hashtable;
+
 import static jminusminus.TokenKind.*;
 
 /**
  * A lexical analyzer for j--, that has no backtracking mechanism.
- * 
+ * <p>
  * When you add a new token to the scanner, you must also add an entry in the
- * TokenKind enum in TokenInfo.java specifying the kind and image of the new
- * token.
+ * {@link TokenKind} enum in {@code TokenInfo.java} specifying the kind and 
+ * image of the new token.
+ * <p>
+ * See Appendix C.2.1 of the textbook or the
+ * <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.12">Java Language Specifications</a>
+ * for the full lexical grammar.
  */
 
 class Scanner {
@@ -41,7 +47,7 @@ class Scanner {
     private int line;
 
     /**
-     * Construct a Scanner object.
+     * Constructs a Scanner object.
      * 
      * @param fileName
      *            the name of the file containing the source.
@@ -86,9 +92,9 @@ class Scanner {
     }
 
     /**
-     * Scan the next token from input.
+     * Scans the next token from input.
      * 
-     * @return the the next scanned token.
+     * @return the next scanned token.
      */
 
     public TokenInfo getNextToken() {
@@ -286,7 +292,7 @@ class Scanner {
     }
 
     /**
-     * Scan and return an escaped character.
+     * Scans and returns an escaped character.
      * 
      * @return escaped character.
      */
@@ -325,7 +331,8 @@ class Scanner {
     }
 
     /**
-     * Advance ch to the next character from input, and update the line number.
+     * Advances ch to the next character from input, and updates the line 
+     * number.
      */
 
     private void nextCh() {
@@ -338,9 +345,9 @@ class Scanner {
     }
 
     /**
-     * Report a lexcial error and record the fact that an error has occured.
+     * Reports a lexcial error and records the fact that an error has occured.
      * This fact can be ascertained from the Scanner by sending it an
-     * errorHasOccurred() message.
+     * {@code errorHasOccurred} message.
      * 
      * @param message
      *            message identifying the error.
@@ -356,7 +363,7 @@ class Scanner {
     }
 
     /**
-     * Return true if the specified character is a digit (0-9); false otherwise.
+     * Returns true if the specified character is a digit (0-9); false otherwise.
      * 
      * @param c
      *            character.
@@ -368,7 +375,7 @@ class Scanner {
     }
 
     /**
-     * Return true if the specified character is a whitespace; false otherwise.
+     * Returns true if the specified character is a whitespace; false otherwise.
      * 
      * @param c
      *            character.
@@ -387,7 +394,7 @@ class Scanner {
     }
 
     /**
-     * Return true if the specified character can start an identifier name;
+     * Returns true if the specified character can start an identifier name;
      * false otherwise.
      * 
      * @param c
@@ -400,7 +407,7 @@ class Scanner {
     }
 
     /**
-     * Return true if the specified character can be part of an identifier name;
+     * Returns true if the specified character can be part of an identifier name;
      * false otherwise.
      * 
      * @param c
@@ -415,7 +422,7 @@ class Scanner {
     /**
      * Has an error occurred up to now in lexical analysis?
      * 
-     * @return true or false.
+     * @return {@code true} if an error occurred and {@code false} otherwise.
      */
 
     public boolean errorHasOccurred() {
@@ -423,7 +430,7 @@ class Scanner {
     }
 
     /**
-     * The name of the source file.
+     * Returns the name of the source file.
      * 
      * @return name of the source file.
      */
@@ -452,7 +459,7 @@ class CharReader {
     private String fileName;
 
     /**
-     * Construct a CharReader from a file name.
+     * Constructs a CharReader from a file name.
      * 
      * @param fileName
      *            the name of the input file.
@@ -466,7 +473,7 @@ class CharReader {
     }
 
     /**
-     * Scan the next character.
+     * Scans the next character.
      * 
      * @return the character scanned.
      * @exception IOException
@@ -478,7 +485,7 @@ class CharReader {
     }
 
     /**
-     * The current line number in the source file, starting at 1.
+     * Returns the current line number in the source file, starting at 1.
      * 
      * @return the current line number.
      */
@@ -489,7 +496,7 @@ class CharReader {
     }
 
     /**
-     * Return the file name.
+     * Returns the file name.
      * 
      * @return the file name.
      */
@@ -499,7 +506,7 @@ class CharReader {
     }
 
     /**
-     * Close the file.
+     * Closes the file.
      * 
      * @exception IOException
      *                if an I/O error occurs.

@@ -25,7 +25,7 @@ import java.util.StringTokenizer;
  * can, with <em>a.b.c()</em>, treat <em>.c()</em> as a message expression, 
  * but constructs an AbiguousName object encapsulating <em>a.b</em>.
  * <p>
- * The {@code reclassify()} method is called upon in 
+ * The {@code reclassify} method is called upon in 
  * {@link JFieldSelection#analyze(Context)} and 
  * {@link JMessageExpression#analyze(Context)} to reclassify the components and
  * construct the proper AST, following the rules for names in the Java Language

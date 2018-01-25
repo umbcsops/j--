@@ -3,13 +3,18 @@
 package jminusminus;
 
 import java.util.ArrayList;
+
 import static jminusminus.TokenKind.*;
 
 /**
  * A recursive descent parser that, given a lexical analyzer (a
- * LookaheadScanner), parses a Java compilation unit (program file), taking
- * tokens from the LookaheadScanner, and produces an abstract syntax tree (AST)
- * for it.
+ * {@link LookaheadScanner}), parses a Java compilation unit (program file),
+ * taking tokens from the LookaheadScanner, and produces an abstract syntax 
+ * tree (AST) for it.
+ * <p>
+ * See Appendix C.2.2 in the textbook or the
+ * <a href="https://docs.oracle.com/javase/specs/jls/se8/html/index.html">Java Language Specifications</a>
+ * for the full syntactic grammar.
  */
 
 public class Parser {
@@ -20,11 +25,11 @@ public class Parser {
     /** Whether a parser error has been found. */
     private boolean isInError;
 
-    /** Wheter we have recovered from a parser error. */
+    /** Whether we have recovered from a parser error. */
     private boolean isRecovered;
 
     /**
-     * Construct a parser from the given lexical analyzer.
+     * Constructs a parser from the given lexical analyzer.
      * 
      * @param scanner
      *            the lexical analyzer with which tokens are scanned.
@@ -40,7 +45,7 @@ public class Parser {
     /**
      * Has a parser error occurred up to now?
      * 
-     * @return true or false.
+     * @return {@code true} if a parser error occurred; {@code false} otherwise.
      */
 
     public boolean errorHasOccurred() {
