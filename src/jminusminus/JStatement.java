@@ -3,8 +3,8 @@
 package jminusminus;
 
 /**
- * The AST node for a statement (includes expressions). The mother of all
- * statements.
+ * This abstract base class is the AST node for a statement (includes 
+ * expressions). The mother of all statements.
  */
 
 abstract class JStatement extends JAST {

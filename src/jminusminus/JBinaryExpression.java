@@ -5,8 +5,8 @@ package jminusminus;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for a binary expression. A binary expression has an operator and
- * two operands: a lhs and a rhs.
+ * This abstract base class is the AST node for a binary expression. 
+ * A binary expression has an operator and two operands: a lhs and a rhs.
  */
 
 abstract class JBinaryExpression extends JExpression {
@@ -21,7 +21,7 @@ abstract class JBinaryExpression extends JExpression {
     protected JExpression rhs;
 
     /**
-     * Construct an AST node for a binary expression given its line number, the
+     * Constructs an AST node for a binary expression given its line number, the
      * binary operator, and lhs and rhs operands.
      * 
      * @param line
@@ -75,7 +75,7 @@ abstract class JBinaryExpression extends JExpression {
 class JPlusOp extends JBinaryExpression {
 
     /**
-     * Construct an AST node for an addition expression given its line number,
+     * Constructs an AST node for an addition expression given its line number,
      * and the lhs and rhs operands.
      * 
      * @param line
@@ -119,10 +119,10 @@ class JPlusOp extends JBinaryExpression {
     }
 
     /**
-     * Any string concatenation has been rewritten as a JStringConcatenationOp
-     * (in analyze()), so code generation here involves simply generating code
-     * for loading the operands onto the stack and then generating the
-     * appropriate add instruction.
+     * Any string concatenation has been rewritten as a 
+     * {@link JStringConcatenationOp} (in {@code analyze}), so code generation 
+     * here involves simply generating code for loading the operands onto the 
+     * stack and then generating the appropriate add instruction.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -146,8 +146,8 @@ class JPlusOp extends JBinaryExpression {
 class JSubtractOp extends JBinaryExpression {
 
     /**
-     * Construct an AST node for a subtraction expression given its line number,
-     * and lhs and rhs operands.
+     * Constructs an AST node for a subtraction expression given its line number,
+     * and the lhs and rhs operands.
      * 
      * @param line
      *            line in which the subtraction expression occurs in the source
@@ -204,7 +204,7 @@ class JSubtractOp extends JBinaryExpression {
 class JMultiplyOp extends JBinaryExpression {
 
     /**
-     * Construct an AST for a multiplication expression given its line number,
+     * Constructs an AST for a multiplication expression given its line number,
      * and the lhs and rhs operands.
      * 
      * @param line

@@ -5,7 +5,8 @@ package jminusminus;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for a unary expression. A unary expression has a single operand.
+ * This abstract base class is the AST node for an unary expression.
+ * A unary expression has a single operand.
  */
 
 abstract class JUnaryExpression extends JExpression {
@@ -17,7 +18,7 @@ abstract class JUnaryExpression extends JExpression {
     protected JExpression arg;
 
     /**
-     * Construct an AST node for a unary expression given its line number, the
+     * Constructs an AST node for an unary expression given its line number, the
      * unary operator, and the operand.
      * 
      * @param line
@@ -61,7 +62,7 @@ abstract class JUnaryExpression extends JExpression {
 class JNegateOp extends JUnaryExpression {
 
     /**
-     * Construct an AST node for a negation expression given its line number,
+     * Constructs an AST node for a negation expression given its line number,
      * and the operand.
      * 
      * @param line
@@ -114,7 +115,7 @@ class JNegateOp extends JUnaryExpression {
 class JLogicalNotOp extends JUnaryExpression {
 
     /**
-     * Construct an AST for a logical NOT expression given its line number, and
+     * Constructs an AST for a logical NOT expression given its line number, and
      * the operand.
      * 
      * @param line
@@ -144,9 +145,9 @@ class JLogicalNotOp extends JUnaryExpression {
     }
 
     /**
-     * Generate code for the case where we actually want a boolean value (true
-     * or false) computed onto the stack, eg for assignment to a boolean
-     * variable.
+     * Generates code for the case where we actually want a boolean value 
+     * ({@code true} or {@code false}) computed onto the stack. For example,
+     * assignment to a boolean variable.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -186,7 +187,7 @@ class JLogicalNotOp extends JUnaryExpression {
 class JPostDecrementOp extends JUnaryExpression {
 
     /**
-     * Construct an AST node for an expr-- expression given its line number, and
+     * Constructs an AST node for an expr-- expression given its line number, and
      * the operand.
      * 
      * @param line
@@ -200,8 +201,8 @@ class JPostDecrementOp extends JUnaryExpression {
     }
 
     /**
-     * Analyze the operand as a lhs (since there is a side effect), check types
-     * and determine the type of the result.
+     * Analyzes the operand as a lhs (since there is a side effect), checks types
+     * and determines the type of the result.
      * 
      * @param context
      *            context in which names are resolved.
@@ -223,8 +224,9 @@ class JPostDecrementOp extends JUnaryExpression {
 
     /**
      * In generating code for a post-decrement operation, we treat simple
-     * variable (JVariable) operands specially since the JVM has an increment
-     * instruction. Otherwise, we rely on the JLhs code generation support for
+     * variable ({@link JVariable}) operands specially since the JVM has an 
+     * increment instruction. 
+     * Otherwise, we rely on the {@link JLhs} code generation support for
      * generating the proper code. Notice that we distinguish between
      * expressions that are statement expressions and those that are not; we
      * insure the proper value (before the decrement) is left atop the stack in
@@ -268,7 +270,7 @@ class JPostDecrementOp extends JUnaryExpression {
 class JPreIncrementOp extends JUnaryExpression {
 
     /**
-     * Construct an AST node for a ++expr given its line number, and the
+     * Constructs an AST node for a ++expr given its line number, and the
      * operand.
      * 
      * @param line
@@ -282,7 +284,7 @@ class JPreIncrementOp extends JUnaryExpression {
     }
 
     /**
-     * Analyze the operand as a lhs (since there is a side effect), check types
+     * Analyzes the operand as a lhs (since there is a side effect), check types
      * and determine the type of the result.
      * 
      * @param context
@@ -305,8 +307,9 @@ class JPreIncrementOp extends JUnaryExpression {
 
     /**
      * In generating code for a pre-increment operation, we treat simple
-     * variable (JVariable) operands specially since the JVM has an increment
-     * instruction. Otherwise, we rely on the JLhs code generation support for
+     * variable ({@link JVariable}) operands specially since the JVM has an 
+     * increment instruction. 
+     * Otherwise, we rely on the {@link JLhs} code generation support for
      * generating the proper code. Notice that we distinguish between
      * expressions that are statement expressions and those that are not; we
      * insure the proper value (after the increment) is left atop the stack in

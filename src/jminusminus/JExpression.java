@@ -6,7 +6,7 @@ package jminusminus;
  * The AST node for an expression. The syntax says all expressions are
  * statements, but a semantic check throws some (those without a side-effect)
  * out.
- * 
+ * <p>
  * Every expression has a type and a flag saying whether or not it's a
  * statement-expression.
  */
@@ -20,7 +20,7 @@ abstract class JExpression extends JStatement {
     protected boolean isStatementExpression;
 
     /**
-     * Construct an AST node for an expression given its line number.
+     * Constructs an AST node for an expression given its line number.
      * 
      * @param line
      *            line in which the expression occurs in the source file.
@@ -32,7 +32,7 @@ abstract class JExpression extends JStatement {
     }
 
     /**
-     * Return the expression type.
+     * Returns the expression type.
      * 
      * @return the expression type.
      */
@@ -42,9 +42,10 @@ abstract class JExpression extends JStatement {
     }
 
     /**
-     * Is this a statementRxpression?
+     * Is this a statement expression?
      * 
-     * @return whether or not this is being used as a statement.
+     * @return {@code true} if this is being used as a statement; 
+     *         {@code false} otherwise.
      */
 
     public boolean isStatementExpression() {
@@ -53,7 +54,7 @@ abstract class JExpression extends JStatement {
 
     /**
      * The analysis of any JExpression returns a JExpression. That's all this
-     * (re-)declaration of analyze() says.
+     * (re-)declaration of {@code analyze} method says.
      * 
      * @param context
      *            context in which names are resolved.
@@ -63,7 +64,7 @@ abstract class JExpression extends JStatement {
     public abstract JExpression analyze(Context context);
 
     /**
-     * Perform (short-circuit) code generation for a boolean expression, given
+     * Performs (short-circuit) code generation for a boolean expression, given
      * the code emitter, a target label, and whether we branch to that label on
      * true or on false.
      * 

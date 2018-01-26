@@ -6,7 +6,7 @@ import static jminusminus.CLConstants.*;
 
 /**
  * The AST node for a field selection operation. It has a target object, a field
- * name, and the Field it defines.
+ * name, and the {@link Field} it defines.
  */
 
 class JFieldSelection extends JExpression implements JLhs {
@@ -24,7 +24,7 @@ class JFieldSelection extends JExpression implements JLhs {
     private Field field;
 
     /**
-     * Construct an AST node for a field selection without an ambiguous part.
+     * Constructs an AST node for a field selection without an ambiguous part.
      * 
      * @param line
      *            the line number of the selection.
@@ -127,9 +127,9 @@ class JFieldSelection extends JExpression implements JLhs {
     }
 
     /**
-     * Analyze the field selection expression for use on the lhs of an
-     * assignment. Although the final keyword is not in j--, we do make use of
-     * the Java api and so must repect its constraints.
+     * Analyzes the field selection expression for use on the lhs of an
+     * assignment. Although the {@code final} keyword is not in j--, we do 
+     * make use of the Java API and so must respect its constraints.
      * 
      * @param context
      *            context in which names are resolved.
@@ -147,7 +147,7 @@ class JFieldSelection extends JExpression implements JLhs {
     }
 
     /**
-     * Generate the code necessary to load the Rvalue for this field selection.
+     * Generates the code necessary to load the Rvalue for this field selection.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -168,7 +168,7 @@ class JFieldSelection extends JExpression implements JLhs {
     }
 
     /**
-     * The semantics of j-- require that we implement short-circuiting branching
+     * The semantics of j-- requires that we implement short-circuit branching
      * in implementing field selections.
      * 
      * @param output
@@ -194,8 +194,8 @@ class JFieldSelection extends JExpression implements JLhs {
     }
 
     /**
-     * Generate the code required for setting up an Lvalue, eg, for use in an
-     * assignment.
+     * Generates the code required for setting up an Lvalue, for example, for use
+     * in an assignment.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -211,8 +211,9 @@ class JFieldSelection extends JExpression implements JLhs {
     }
 
     /**
-     * Generate the code required for loading an Rvalue for this variable, eg
-     * for use in a +=. Here, this requires either a getstatic or getfield.
+     * Generates the code required for loading an Rvalue for this variable, for 
+     * example, for use in a {@code +=}. Here, this requires either a 
+     * {@code getstatic} or {@code getfield}.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -232,9 +233,10 @@ class JFieldSelection extends JExpression implements JLhs {
     }
 
     /**
-     * Generate the code required for duplicating the Rvalue that is on the
-     * stack becuase it is to be used in a surrounding expression, as in a[i] =
-     * x = <expr> or x = y--. Here this means copying it down
+     * Generates the code required for duplicating the Rvalue that is on the
+     * stack because it is to be used in a surrounding expression, as in 
+     * {@code a[i] = x =} &lt;expr&gt; or {@code x = y--}. 
+     * Here this means copying it down.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -250,7 +252,7 @@ class JFieldSelection extends JExpression implements JLhs {
     }
 
     /**
-     * Generate the code required for doing the actual assignment.
+     * Generates the code required for doing the actual assignment.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the

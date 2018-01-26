@@ -5,13 +5,13 @@ package jminusminus;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for the boolean "false" literal.
+ * The AST node for the boolean {@code false} literal.
  */
 
 class JLiteralFalse extends JExpression {
 
     /**
-     * Construct an AST node for a "false" literal given its line number.
+     * Constructs an AST node for a {@code false} literal given its line number.
      * 
      * @param line
      *            line in which the literal occurs in the source file.

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for a this(...) constructor.
+ * The AST node for a {@code this(...)} constructor.
  */
 
 class JThisConstruction extends JExpression {
@@ -21,13 +21,13 @@ class JThisConstruction extends JExpression {
     private Type[] argTypes;
 
     /**
-     * Whether this constructor is used properly, ie, as the first statement
+     * Whether this constructor is used properly, that is, as the first statement
      * within a constructor.
      */
     private boolean properUseOfConstructor = false;
 
     /**
-     * Construct the AST node for a this(...) constructor given its line number
+     * Constructs the AST node for a this(...) constructor given its line number
      * and arguments.
      * 
      * @param line
@@ -42,8 +42,8 @@ class JThisConstruction extends JExpression {
     }
 
     /**
-     * Used in JConstructorDeclaration to mark this(...) as being properly
-     * placed, ie, as the first statement in its body.
+     * Marks this(...) as being properly placed, that is, as the first statement
+     * in its body and is used in {@link JConstructorDeclaration}.
      */
 
     public void markProperUseOfConstructor() {

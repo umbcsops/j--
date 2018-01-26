@@ -8,8 +8,8 @@ import java.util.Vector;
 
 /**
  * A lexical analyzer for j-- that interfaces with the hand-written parser
- * (Parser.java). It provides a backtracking mechanism, and makes use of the
- * underlying hand-written Scanner.
+ * ({@link Parser}). It provides a backtracking mechanism, and makes use of the
+ * underlying hand-written {@link Scanner}.
  */
 
 class LookaheadScanner {
@@ -36,7 +36,7 @@ class LookaheadScanner {
     private TokenInfo token;
 
     /**
-     * Construct a LookaheadScanner from a file name.
+     * Constructs a LookaheadScanner from a file name.
      * 
      * @param fileName
      *            the name of the file containing the source.
@@ -53,7 +53,7 @@ class LookaheadScanner {
     }
 
     /**
-     * Scan to the next token in the input.
+     * Scans to the next token in the input.
      */
 
     public void next() {
@@ -69,10 +69,10 @@ class LookaheadScanner {
     }
 
     /**
-     * Record the current position in the input, so that we can start looking
+     * Records the current position in the input, so that we can start looking
      * ahead in the input (and later return to this position). We'll queue up
-     * the current and subsequent tokens until returnToPosition() is invoked.
-     * These recordPosition's can be nested.
+     * the current and subsequent tokens until {@code returnToPosition} is 
+     * invoked. These recordPosition's can be nested.
      */
 
     public void recordPosition() {
@@ -84,7 +84,7 @@ class LookaheadScanner {
     }
 
     /**
-     * Return to the previously recorded position in the input stream of tokens.
+     * Returns to the previously recorded position in the input stream of tokens.
      * If this is a nested lookahead, then return to the previous token queue.
      */
 
@@ -102,7 +102,7 @@ class LookaheadScanner {
     }
 
     /**
-     * The currently scanned token.
+     * Returns the currently scanned token.
      * 
      * @return the current token.
      */
@@ -112,9 +112,9 @@ class LookaheadScanner {
     }
 
     /**
-     * The previously scanned token. We use this in the parser to get at a
-     * token's semantic info (for example an identifier's name), after we've
-     * scanned it.
+     * Returns the previously scanned token. We use this in the parser to get 
+     * at a token's semantic info (for example an identifier's name), after 
+     * we've scanned it.
      * 
      * @return the previous token.
      */
@@ -126,7 +126,7 @@ class LookaheadScanner {
     /**
      * Has an error occurred up to now in lexical analysis?
      * 
-     * @return true or false.
+     * @return {@code true} if an error has occurred; {@code false} otherwise.
      */
 
     public boolean errorHasOccured() {
@@ -134,7 +134,7 @@ class LookaheadScanner {
     }
 
     /**
-     * Return the name of the source file.
+     * Returns the name of the source file.
      * 
      * @return name of the source file.
      */
