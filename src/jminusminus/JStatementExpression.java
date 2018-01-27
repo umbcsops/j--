@@ -4,7 +4,7 @@ package jminusminus;
 
 /**
  * The AST node for an expression that appears as a statement. Only the
- * expressions that have a side-effect are valid statement expressions.
+ * expressions that have a <em>side-effect</em> are valid statement expressions.
  */
 
 class JStatementExpression extends JStatement {
@@ -13,7 +13,7 @@ class JStatementExpression extends JStatement {
     JExpression expr;
 
     /**
-     * Construct an AST node for a statement expression given its line number,
+     * Constructs an AST node for a statement expression given its line number,
      * and expression.
      * 
      * @param line
@@ -29,7 +29,7 @@ class JStatementExpression extends JStatement {
 
     /**
      * Analysis involves analyzing the encapsulated expression if indeed it is a
-     * statement expression, i.e., one with a side effect.
+     * statement expression, to be specific, one with a <em>side effect</em>.
      * 
      * @param context
      *            context in which names are resolved.

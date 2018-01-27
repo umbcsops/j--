@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for a super(...) constructor.
+ * The AST node for a {@code super(...)} constructor.
  */
 
 class JSuperConstruction extends JExpression {
@@ -27,7 +27,7 @@ class JSuperConstruction extends JExpression {
     private boolean properUseOfConstructor = false;
 
     /**
-     * Construct an AST node for a super(...) constructor given its line number
+     * Constructs an AST node for a super(...) constructor given its line number
      * and arguments.
      * 
      * @param line
@@ -42,8 +42,8 @@ class JSuperConstruction extends JExpression {
     }
 
     /**
-     * Used in JConstructorDeclaration to mark super(...) as being properly
-     * placed, ie, as the first statement in its body.
+     * Marks super(...) as being properly placed, that is, as the first 
+     * statement in its body and is used in {@link JConstructorDeclaration}.
      */
 
     public void markProperUseOfConstructor() {

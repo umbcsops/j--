@@ -9,8 +9,8 @@ package jminusminus;
 class Util {
 
     /**
-     * Escape the special XML characters in the specified string and return the
-     * escaped string.
+     * Escapes the special XML characters in the specified string and returns 
+     * the escaped string.
      * 
      * @param s
      *            string to escape.
@@ -27,7 +27,7 @@ class Util {
     }
 
     /**
-     * Unescape the escaped characters in the specified string and return the
+     * Unescapes the escaped characters in the specified string and returns the
      * unescaped string.
      * 
      * @param s
@@ -93,7 +93,7 @@ class PrettyPrinter {
     private int indent;
 
     /**
-     * Construct a PrettyPrinter with an indentation width of 2.
+     * Constructs a PrettyPrinter with an indentation width of 2.
      */
 
     public PrettyPrinter() {
@@ -101,7 +101,7 @@ class PrettyPrinter {
     }
 
     /**
-     * Construct a PrettyPrinter given the indentation width.
+     * Constructs a PrettyPrinter given the indentation width.
      * 
      * @param indentWidth
      *            number of blank spaces for an indent.
@@ -113,7 +113,7 @@ class PrettyPrinter {
     }
 
     /**
-     * Indent right.
+     * Indents right.
      */
 
     public void indentRight() {
@@ -121,7 +121,7 @@ class PrettyPrinter {
     }
 
     /**
-     * Indent left.
+     * Indents left.
      */
 
     public void indentLeft() {
@@ -131,7 +131,7 @@ class PrettyPrinter {
     }
 
     /**
-     * Print an empty line to STDOUT.
+     * Prints an empty line to STDOUT.
      */
 
     public void println() {
@@ -140,7 +140,7 @@ class PrettyPrinter {
     }
 
     /**
-     * Print the specified string (followed by a newline) to STDOUT.
+     * Prints the specified string (followed by a newline) to STDOUT.
      * 
      * @param s
      *            string to print.
@@ -152,7 +152,7 @@ class PrettyPrinter {
     }
 
     /**
-     * Print the specified string to STDOUT.
+     * Prints the specified string to STDOUT.
      * 
      * @param s
      *            string to print.
@@ -164,7 +164,7 @@ class PrettyPrinter {
     }
 
     /**
-     * Print args to STDOUT according to the pecified format.
+     * Prints args to STDOUT according to the specified format.
      * 
      * @param format
      *            format specifier.
@@ -178,7 +178,7 @@ class PrettyPrinter {
     }
 
     /**
-     * Indent by printing spaces to STDOUT.
+     * Indents by printing spaces to STDOUT.
      */
 
     private void doIndent() {

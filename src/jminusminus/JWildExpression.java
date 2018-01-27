@@ -10,7 +10,7 @@ package jminusminus;
 class JWildExpression extends JExpression {
 
     /**
-     * Construct an AST node for a "wild" expression given its line number.
+     * Constructs an AST node for a "wild" expression given its line number.
      * 
      * @param line
      *            line in which the "wild" expression occurs occurs in the
@@ -22,7 +22,7 @@ class JWildExpression extends JExpression {
     }
 
     /**
-     * Simply set the type to ANY (a wild type matching everything).
+     * Simply sets the type to ANY (a wild type matching everything).
      * 
      * @param context
      *            context in which names are resolved (ignored here).

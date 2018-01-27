@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for a "new" expression. It keeps track of its type, the
- * Constructor representing the expression, its arguments and their types.
+ * The AST node for a {@code new} expression. It keeps track of its type, the
+ * {@link Constructor} representing the expression, its arguments and their 
+ * types.
  */
 
 class JNewOp extends JExpression {
@@ -22,7 +23,7 @@ class JNewOp extends JExpression {
     private Type[] argTypes;
 
     /**
-     * Construct an AST node for a "new" expression.
+     * Constructs an AST node for a {@code new} expression.
      * 
      * @param line
      *            the line in which the "new" expression occurs in the source
@@ -85,10 +86,10 @@ class JNewOp extends JExpression {
     }
 
     /**
-     * Generating code for a new operation involves generating the NEW
-     * instruction for creating the object on the stack, then gnerating the code
-     * for the actual arguments, and then code for invoking the constructor (the
-     * initialization method).
+     * Generating code for a new operation involves generating the {@code NEW}
+     * instruction for creating the object on the stack, then generating the 
+     * code for the actual arguments, and then code for invoking the constructor 
+     * (the initialization method).
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the

@@ -12,7 +12,7 @@ import static jminusminus.CLConstants.*;
 class JThis extends JExpression {
 
     /**
-     * Construct an AST node for a "this" expression given its line number.
+     * Constructs an AST node for a "this" expression given its line number.
      * 
      * @param line
      *            line in which the expression occurs in the source file.
@@ -23,7 +23,7 @@ class JThis extends JExpression {
     }
 
     /**
-     * Analysis involves simply determining the type in which we are, since that
+     * Analysis involves simply determining the class in which we are in, since that
      * determines the type of this target.
      * 
      * @param context
@@ -38,7 +38,7 @@ class JThis extends JExpression {
     }
 
     /**
-     * Simply generate code to load "this" onto the stack.
+     * Simply generates code to load "this" onto the stack.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -50,7 +50,7 @@ class JThis extends JExpression {
     }
 
     /**
-     * inheritDoc
+     * @inheritDoc
      */
 
     public void writeToStdOut(PrettyPrinter p) {

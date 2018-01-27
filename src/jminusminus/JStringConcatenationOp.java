@@ -6,7 +6,7 @@ import static jminusminus.CLConstants.*;
 
 /**
  * The AST node for a string concatenation operation. Nodes of this type are not
- * produced by the parser but by analysis of a + operation where the arguments
+ * produced by the parser, but by analysis of a + operation where the arguments
  * are strings. Such operations are rewritten to be string concatenation
  * operations.
  */
@@ -14,10 +14,10 @@ import static jminusminus.CLConstants.*;
 class JStringConcatenationOp extends JBinaryExpression {
 
     /**
-     * Construct an AST node for a string concatenation expression given its
+     * Constructs an AST node for a string concatenation expression given its
      * line number, and the lhs and rhs operands. An expression of this sort is
      * created during the analysis of a (overloaded) + operation (and not by the
-     * Parser).
+     * {@code Parser}).
      * 
      * @param line
      *            line in which the expression occurs in the source file.
@@ -33,7 +33,7 @@ class JStringConcatenationOp extends JBinaryExpression {
 
     /**
      * Analysis is simple here. The operands have already been analyzed (in
-     * JPlusOp) so we simply set the result type.
+     * {@link JPlusOp}) so we simply set the result type.
      * 
      * @param context
      *            context in which names are resolved.
@@ -46,10 +46,10 @@ class JStringConcatenationOp extends JBinaryExpression {
     }
 
     /**
-     * Code generation generates code for creating a StringBuilder atop the
-     * runtime stack, appending the operands (which might contain nested
-     * concatenations; these are handled by cascadingCodegen()), and then for
-     * converting the StringBuilder to a String.
+     * Code generation generates code for creating a {@code StringBuilder} atop 
+     * the runtime stack, appending the operands (which might contain nested
+     * concatenations; these are handled by the {@code nestedCodegen} method), 
+     * and then for converting the StringBuilder to a String.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -72,8 +72,9 @@ class JStringConcatenationOp extends JBinaryExpression {
     }
 
     /**
-     * Like a codegen() but we needn't (and shouldn't) create a StringBuilder
-     * nor convert the result to a String, as that will be done in a parent.
+     * Like a {@code codegen} method, but we needn't (and shouldn't) create a 
+     * {@code StringBuilder} nor convert the result to a String, as that will 
+     * be done in a parent.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the

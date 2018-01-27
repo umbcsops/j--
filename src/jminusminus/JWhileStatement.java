@@ -17,7 +17,7 @@ class JWhileStatement extends JStatement {
     private JStatement body;
 
     /**
-     * Construct an AST node for a while-statement given its line number, the
+     * Constructs an AST node for a while-statement given its line number, the
      * test expression, and the body.
      * 
      * @param line
@@ -51,7 +51,7 @@ class JWhileStatement extends JStatement {
     }
 
     /**
-     * Generate code for the while loop.
+     * Generates code for the while loop.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the

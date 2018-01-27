@@ -11,7 +11,7 @@ package jminusminus;
 abstract class Member {
 
     /**
-     * Return the member's (simple) name.
+     * Returns the member's (simple) name.
      * 
      * @return the name.
      */
@@ -21,7 +21,7 @@ abstract class Member {
     }
 
     /**
-     * Return the type in which this member was declared.
+     * Returns the type in which this member was declared.
      * 
      * @return the declaring type.
      */
@@ -81,10 +81,10 @@ abstract class Member {
     }
 
     /**
-     * Has this member been declared with the final modifier? Note,we cannot
+     * Has this member been declared with the final modifier? Note, we cannot
      * declare anything final as it is not in our lexicon. But we may refer to
-     * names that are declared final in the java API and so we (may) want to
-     * honor those declarations.
+     * names that are declared {@code final} in the Java API and so we (may) want 
+     * to honor those declarations.
      * 
      * @return is the member final?
      */
@@ -94,7 +94,7 @@ abstract class Member {
     }
 
     /**
-     * Return the member's internal representation.
+     * Returns the member's internal representation.
      * 
      * @return the internal representation.
      */
@@ -114,7 +114,7 @@ class Method extends Member {
     private java.lang.reflect.Method method;
 
     /**
-     * Construct a Method is constructed from its internal representation.
+     * Constructs a Method is constructed from its internal representation.
      * 
      * @param method
      *            a Java method in the relection API.
@@ -125,7 +125,7 @@ class Method extends Member {
     }
 
     /**
-     * Return the JVM descriptor for this method.
+     * Returns the JVM descriptor for this method.
      * 
      * @return the descriptor.
      */
@@ -140,7 +140,7 @@ class Method extends Member {
     }
 
     /**
-     * Return the Java representation for this method.
+     * Returns the Java representation for this method.
      * 
      * @return the descriptor.
      */
@@ -155,7 +155,7 @@ class Method extends Member {
     }
 
     /**
-     * Return the method's return type.
+     * Returns the method's return type.
      * 
      * @return the return type.
      */
@@ -178,7 +178,7 @@ class Method extends Member {
     }
 
     /**
-     * Return the member's internal representation.
+     * Returns the member's internal representation.
      * 
      * @return the internal representation.
      */
@@ -199,7 +199,7 @@ class Field extends Member {
     private java.lang.reflect.Field field;
 
     /**
-     * Construct a Field is constructed from its internal representation.
+     * Constructs a Field given its internal representation.
      * 
      * @param field
      *            a Java field in the relection API.
@@ -210,7 +210,7 @@ class Field extends Member {
     }
 
     /**
-     * Return the field's type.
+     * Returns the field's type.
      * 
      * @return the field's type.
      */
@@ -239,7 +239,7 @@ class Constructor extends Member {
     java.lang.reflect.Constructor constructor;
 
     /**
-     * Construct a Constructor from its internal representation.
+     * Constructs a Constructor given its internal representation.
      * 
      * @param constructor
      *            a Java constructor in the relection API.
@@ -250,7 +250,7 @@ class Constructor extends Member {
     }
 
     /**
-     * Return the JVM descriptor for this constructor.
+     * Returns the JVM descriptor for this constructor.
      * 
      * @return the descriptor.
      */
@@ -265,7 +265,7 @@ class Constructor extends Member {
     }
 
     /**
-     * Return the type declaring this constructor.
+     * Returns the type declaring this constructor.
      * 
      * @return the declaring type.
      */

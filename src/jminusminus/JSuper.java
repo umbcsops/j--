@@ -12,7 +12,7 @@ import static jminusminus.CLConstants.*;
 class JSuper extends JExpression {
 
     /**
-     * Construct an AST node for a "super" expression given its line number.
+     * Constructs an AST node for a "super" expression given its line number.
      * 
      * @param line
      *            line in which the expression occurs in the source file.

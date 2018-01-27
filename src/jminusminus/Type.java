@@ -4,22 +4,25 @@ package jminusminus;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Modifier;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
  * For representing j-- types. All types are represented underneath (in the
- * classRep field) by Java objects of type Class. These ojects represent types
- * in Java, so this should ease our interfacing with existing Java classes.
- * 
+ * classRep field) by Java objects of type {@code Class}. These objects 
+ * represent types in Java, so this should ease our interfacing with existing 
+ * Java classes.
+ * <p>
  * Class types (reference types that are represented by the identifiers
- * introduced in class declarations) are represented using TypeName. So for now,
- * every TypeName represents a class. In the future, TypeName could be extended
- * to represent interfaces or enumerations.
- * 
+ * introduced in class declarations) are represented using {@link TypeName}. So 
+ * for now, every TypeName represents a class. In the future, TypeName could be 
+ * extended to represent interfaces or enumerations.
+ * <p>
  * IdentifierTypes must be "resolved" at some point, so that all Types having
- * the same name refer to the same Type object. resolve() does this.
+ * the same name refer to the same Type object. The {@code resolve} method does 
+ * this.
  */
 
 class Type {
@@ -69,7 +72,7 @@ class Type {
     public final static Type ANY = new Type(null);
 
     /**
-     * Construct a Type representation for a type from its Java (Class)
+     * Constructs a Type representation for a type from its Java (Class)
      * representation. Use typeFor() -- that maps types having like classReps to
      * like Types.
      * 
@@ -88,11 +91,12 @@ class Type {
     }
 
     /**
-     * Construct a Type representation for a type from its (Java) Class
+     * Constructs a Type representation for a type from its (Java) Class
      * representation. Make sure there is a unique Type for each unique type.
      * 
      * @param classRep
      *            the Java representation.
+     * @return the Type representation of this classRep.
      */
 
     public static Type typeFor(Class<?> classRep) {
@@ -103,7 +107,7 @@ class Type {
     }
 
     /**
-     * Return the class representation for a type, appropriate for dealing with
+     * Returns the class representation for a type, appropriate for dealing with
      * the Java reflection API.
      * 
      * @return the Class representation for this type.
@@ -114,8 +118,8 @@ class Type {
     }
 
     /**
-     * This setter is used by JCompilationUnit.preAnalyze() to set the classRep
-     * to the specified partial class, computed during pre-analysis.
+     * This setter is used by {@link JCompilationUnit#preAnalyze()} to set this
+     * classRep to the specified partial class, computed during pre-analysis.
      * 
      * @param classRep
      *            the partial class.
@@ -130,7 +134,8 @@ class Type {
      * 
      * @param that
      *            the other Type.
-     * @return true iff the two types are equal.
+     * @return {@code true} iff the two types are equal; 
+     *         {@code false} otherwise.
      */
 
     public boolean equals(Type that) {
@@ -158,10 +163,10 @@ class Type {
     }
 
     /**
-     * Return the Type's super type (or null if there is none). Meaningful only
+     * Returns the Type's super type (or null if there is none). Meaningful only
      * to class Types.
      * 
-     * @return the super type.
+     * @return the super type or {@code null} if there is no super type.
      */
 
     public Type superClass() {
@@ -224,7 +229,8 @@ class Type {
      * 
      * @param that
      *            the candidate subtype.
-     * @return true iff this is a supertype of that.
+     * @return {@code true} iff this is a supertype of that; 
+     *         {@code false} otherwise.
      */
 
     public boolean isJavaAssignableFrom(Type that) {
@@ -232,7 +238,7 @@ class Type {
     }
 
     /**
-     * Return a list of this class' abstract methods? It does has abstract
+     * Return a list of this class' abstract methods? It has abstract
      * methods if (1) Any method declared in the class is abstract, or (2) Its
      * superclass has an abstract method which is not overridden here.
      * 
@@ -256,7 +262,7 @@ class Type {
     }
 
     /**
-     * Return a list of this class' declared abstract methods.
+     * Returns a list of this class' declared abstract methods.
      * 
      * @return a list of declared abstract methods.
      */
@@ -272,7 +278,7 @@ class Type {
     }
 
     /**
-     * Return a list of this class' declared concrete methods.
+     * Returns a list of this class' declared concrete methods.
      * 
      * @return a list of declared concrete methods.
      */
@@ -350,8 +356,8 @@ class Type {
      *            arguments (classReps) of one method.
      * @param argTypes2
      *            arguments (classReps) of another method.
-     * @return true iff all corresponding types of argTypes1 and argTypes2
-     *         match.
+     * @return {@code true} iff all corresponding types of argTypes1 and 
+     *         argTypes2 match; {@code false} otherwise.
      */
 
     public static boolean argTypesMatch(Class<?>[] argTypes1,
@@ -369,8 +375,8 @@ class Type {
     }
 
     /**
-     * Return the simple (unqualified) name for this Type. Eg, String in place
-     * of java.lang.String.
+     * Returns the simple (unqualified) name for this Type. For example, String 
+     * in place of java.lang.String.
      * 
      * @return the simple name.
      */
@@ -380,7 +386,7 @@ class Type {
     }
 
     /**
-     * A printable (j--) string representation of this type. Eg, int[],
+     * A printable (j--) string representation of this type. For example, int[],
      * java.lang.String.
      * 
      * @return the string representation.
@@ -391,7 +397,7 @@ class Type {
     }
 
     /**
-     * The JVM descriptor for this type. Eg, Ljava/lang/String; for
+     * The JVM descriptor for this type. For example, Ljava/lang/String; for
      * java.lang.String, [[Z for boolean[][].
      * 
      * @return the descriptor.
@@ -421,7 +427,8 @@ class Type {
 
     /**
      * The JVM representation for this type's name. This is also called the
-     * internal form of the name. Eg, java/lang/String for java.lang.String.
+     * internal form of the name. For example, java/lang/String for 
+     * java.lang.String.
      * 
      * @return the type's name in internal form.
      */
@@ -432,8 +439,8 @@ class Type {
     }
 
     /**
-     * Return the Java (and so j--) denotation for the specified type. Eg,
-     * int[], java.lang.String.
+     * Returns the Java (and so j--) denotation for the specified type. For 
+     * example, int[], java.lang.String.
      * 
      * @param classRep
      *            the internal representation of type whose Java denotation is
@@ -447,7 +454,8 @@ class Type {
     }
 
     /**
-     * Return the type's package name. Eg, java.lang for java.lang.String.
+     * Returns the type's package name. For example, java.lang for 
+     * java.lang.String.
      * 
      * @return the package name.
      */
@@ -459,8 +467,8 @@ class Type {
     }
 
     /**
-     * The String representation for a type being appended to a StringBuffer for
-     * + and += over strings.
+     * Returns the String representation for a type being appended to a 
+     * {@code StringBuffer} for + and += over strings.
      * 
      * @return a string representation of the type.
      */
@@ -471,8 +479,8 @@ class Type {
     }
 
     /**
-     * Find an appropriate method in this type, given a message (method) name
-     * and it's argument types. This is pretty easy given our (current)
+     * Finds an appropriate method in this type, given a message (method) name
+     * and its argument types. This is pretty easy given our (current)
      * restriction that the types of the actual arguments must exactly match the
      * types of the formal parameters. Returns null if it cannot find one.
      * 
@@ -480,7 +488,7 @@ class Type {
      *            the method name.
      * @param argTypes
      *            the argument types.
-     * @return Method with given name and argument types, or null.
+     * @return Method with given name and argument types, or {@code null}.
      */
 
     public Method methodFor(String name, Type[] argTypes) {
@@ -506,14 +514,14 @@ class Type {
     }
 
     /**
-     * Find an appropriate constructor in this type, given it's argument types.
+     * Finds an appropriate constructor in this type, given its argument types.
      * This is pretty easy given our (current) restriction that the types of the
      * actual arguments must exactly match the types of the formal parameters.
      * Returns null if it cannot find one.
      * 
      * @param argTypes
      *            the argument types.
-     * @return Constructor with the specified argument types, or null.
+     * @return Constructor with the specified argument types, or {@code null}.
      */
 
     public Constructor constructorFor(Type[] argTypes) {
@@ -534,11 +542,11 @@ class Type {
     }
 
     /**
-     * Return the Field having this name.
+     * Returns the {@code Field} having this name.
      * 
      * @param name
      *            the name of the field we want.
-     * @return the Field or null if it's not there.
+     * @return the Field or {@code null} if it's not there.
      */
 
     public Field fieldFor(String name) {
@@ -556,8 +564,9 @@ class Type {
     }
 
     /**
-     * Convert an array of argument types to a string representation of a
-     * parenthesized list of the types, eg, (int, boolean, java.lang.String).
+     * Converts an array of argument types to a string representation of a
+     * parenthesized list of the types, for example, (int, boolean, 
+     * java.lang.String).
      * 
      * @param argTypes
      *            the array of argument types.
@@ -578,14 +587,14 @@ class Type {
     }
 
     /**
-     * Check the accessibility of a member from this type (that is, this type is
-     * the referencing type).
+     * Checks the accessibility of a member from this type (that is, this type 
+     * is the referencing type).
      * 
      * @param line
      *            the line in which the access occurs.
      * @param member
      *            the member being accessed.
-     * @return true if access is valid; false otherwise.
+     * @return {@code true} if access is valid; {@code false} otherwise.
      */
 
     public boolean checkAccess(int line, Member member) {
@@ -641,13 +650,13 @@ class Type {
     }
 
     /**
-     * Check the accesibility of a target type (from this type)
+     * Checks the accesibility of a target type (from this type).
      * 
      * @param line
      *            line in which the access occurs.
      * @param targetType
      *            the type being accessed.
-     * @return true if access is valid; false otherwise.
+     * @return {@code true} if access is valid; {@code false} otherwise.
      */
 
     public boolean checkAccess(int line, Type targetType) {
@@ -661,7 +670,7 @@ class Type {
     }
 
     /**
-     * Check the accessibility of a type.
+     * Checks the accessibility of a type.
      * 
      * @param line
      *            the line in which the access occurs.
@@ -669,7 +678,7 @@ class Type {
      *            the type attempting the access.
      * @param type
      *            the type that we want to access.
-     * @return true if access is valid; false otherwise.
+     * @return {@code true} if access is valid; {@code false} otherwise.
      */
 
     public static boolean checkAccess(int line, Class referencingType,
@@ -689,9 +698,9 @@ class Type {
     }
 
     /**
-     * Resolve this type in the given context. Notice that this has meaning only
-     * for TypeName and ArrayTypeName, where names are replaced by real types.
-     * Names are looked up in the context.
+     * Resolves this type in the given context. Notice that this has meaning 
+     * only for TypeName and ArrayTypeName, where names are replaced by real 
+     * types. Names are looked up in the context.
      * 
      * @param context
      *            context in which the names are resolved.
@@ -743,7 +752,7 @@ class TypeName extends Type {
     private String name;
 
     /**
-     * Construct an TypeName given its line number, and string spelling out its
+     * Constructs a TypeName given its line number, and string spelling out its
      * fully qualified name.
      * 
      * @param line
@@ -758,7 +767,7 @@ class TypeName extends Type {
     }
 
     /**
-     * Return the line in which the identifier occurs in the source file.
+     * Returns the line in which the identifier occurs in the source file.
      * 
      * @return the line number.
      */
@@ -768,7 +777,7 @@ class TypeName extends Type {
     }
 
     /**
-     * Return the JVM name for this (identifier) type.
+     * Returns the JVM name for this (identifier) type.
      * 
      * @return the JVM name.
      */
@@ -778,7 +787,7 @@ class TypeName extends Type {
     }
 
     /**
-     * Return the JVM descriptor for this type.
+     * Returns the JVM descriptor for this type.
      * 
      * @return the descriptor.
      */
@@ -788,7 +797,8 @@ class TypeName extends Type {
     }
 
     /**
-     * Return the Java representation of this type. Eg, java.lang.String.
+     * Returns the Java representation of this type. For example, 
+     * java.lang.String.
      * 
      * @return the qualified name.
      */
@@ -798,9 +808,10 @@ class TypeName extends Type {
     }
 
     /**
-     * Return the simple name for this type. Eg, String for java.lang.String.
+     * Returns the simple name for this type. For example, String for 
+     * java.lang.String.
      * 
-     * @return simple name.
+     * @return the simple name.
      */
 
     public String simpleName() {
@@ -808,9 +819,9 @@ class TypeName extends Type {
     }
 
     /**
-     * Resolve this type in the given context. Notice that this has meaning only
-     * for TypeName and ArrayTypeName, where names are replaced by real types.
-     * Names are looked up in the context.
+     * Resolves this type in the given context. Notice that this has meaning 
+     * only for TypeName and ArrayTypeName, where names are replaced by real 
+     * types. Names are looked up in the context.
      * 
      * @param context
      *            context in which the names are resolved.
@@ -844,9 +855,9 @@ class TypeName extends Type {
 }
 
 /**
- * The (temporary) representation of an array's type. It is built by the Parser
- * to stand in for a Type until analyze(), at which point it is resolved to an
- * actual Type object (having a Class that identifies it).
+ * The (temporary) representation of an array's type. It is built by the 
+ * {@link Parser} to stand in for a {@link Type} until {@code analyze}, at which 
+ * point it is resolved to an actual Type object (having a Class that identifies it).
  */
 
 class ArrayTypeName extends Type {
@@ -855,7 +866,7 @@ class ArrayTypeName extends Type {
     private Type componentType;
 
     /**
-     * Construct an array's type given its component type.
+     * Constructs an array's type given its component type.
      * 
      * @param componentType
      *            the type of its elements.
@@ -866,7 +877,7 @@ class ArrayTypeName extends Type {
     }
 
     /**
-     * Return the (component) type of its elements.
+     * Returns the (component) type of its elements.
      * 
      * @return the component type.
      */
@@ -876,7 +887,7 @@ class ArrayTypeName extends Type {
     }
 
     /**
-     * Return the JVM descriptor for this type.
+     * Returns the JVM descriptor for this type.
      * 
      * @return the descriptor.
      */
@@ -896,7 +907,7 @@ class ArrayTypeName extends Type {
     }
 
     /**
-     * Resolve this type in the given context.
+     * Resolves this type in the given context.
      * 
      * @param context
      *            context in which the names are resolved.
