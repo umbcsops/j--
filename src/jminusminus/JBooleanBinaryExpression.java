@@ -5,16 +5,19 @@ package jminusminus;
 import static jminusminus.CLConstants.*;
 
 /**
- * Most binary expressions that return booleans can be recognized by their
- * syntax. We take advantage of this to define a common codegen(), which relies
- * on the short-circuiting code generation for control and puts either a 1 or a
- * 0 onto the stack.
+ * This abstract base class is the AST node for binary expressions that return
+ * booleans.
+ * <p>
+ * Most binary expressions returning booleans can be recognized by their
+ * syntax. We take advantage of this to define a common {@code codegen} method,
+ * which relies on the short-circuiting code generation for control and pushes 
+ * either a 1 or a 0 onto the stack.
  */
 
 abstract class JBooleanBinaryExpression extends JBinaryExpression {
 
     /**
-     * Construct an AST node for a boolean binary expression.
+     * Constructs an AST node for a boolean binary expression.
      * 
      * @param line
      *            line in which the boolean binary expression occurs in the
@@ -33,9 +36,9 @@ abstract class JBooleanBinaryExpression extends JBinaryExpression {
     }
 
     /**
-     * Generate code for the case where we actually want a boolean value (true
-     * or false) computed onto the stack, eg for assignment to a boolean
-     * variable.
+     * Generates code for the case where we actually want a boolean value 
+     * ({@code true} or {@code false}) computed onto the stack, for example, 
+     * for assignment to a boolean variable.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -63,7 +66,7 @@ abstract class JBooleanBinaryExpression extends JBinaryExpression {
 class JEqualOp extends JBooleanBinaryExpression {
 
     /**
-     * Construct an AST node for an equality expression.
+     * Constructs an AST node for an equality expression.
      * 
      * @param line
      *            line number in which the equality expression occurs in the
@@ -122,14 +125,14 @@ class JEqualOp extends JBooleanBinaryExpression {
 }
 
 /**
- * The AST node for a logical AND (&&) expression. Implements short-circuiting
- * branching.
+ * The AST node for a logical AND (&amp;&amp;) expression. Implements 
+ * short-circuiting branching.
  */
 
 class JLogicalAndOp extends JBooleanBinaryExpression {
 
     /**
-     * Construct an AST node for a logical AND expression given its line number,
+     * Constructs an AST node for a logical AND expression given its line number,
      * and lhs and rhs operands.
      * 
      * @param line

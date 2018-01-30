@@ -5,13 +5,14 @@ package jminusminus;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for the null literal.
+ * The AST node for the {@code null} literal.
  */
 
 class JLiteralNull extends JExpression {
 
     /**
-     * Construct an AST node for the null literal given its line number.
+     * Constructs an AST node for the {@code null} literal given its line 
+     * number.
      * 
      * @param line
      *            line in which the literal occurs in the source file.

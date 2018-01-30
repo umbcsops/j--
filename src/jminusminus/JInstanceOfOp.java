@@ -5,12 +5,11 @@ package jminusminus;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for an instanceof expression, having two
+ * The AST node for an {@code instanceof} expression, having two
  * arguments: an expression and a reference type.
  */
 
-class JInstanceOfOp
-    extends JExpression {
+class JInstanceOfOp extends JExpression {
 
     /** The expression denoting the value to be tested. */
     private JExpression expr;
@@ -19,18 +18,18 @@ class JInstanceOfOp
     private Type typeSpec;
 
     /**
-     * Construct an AST node for an instanceof expression given
-     * its line number, the relational expression and reference
+     * Constructs an AST node for an {@code instanceof} expression given
+     * its line number, the relational expression, and reference
      * type.
      * 
      * @param line
-     *                the line in which the instanceof expression
-     *                occurs in the source file.
+     *            the line in which the instanceof expression
+     *            occurs in the source file.
      * @param expr
-     *                the expression denoting the value to be
-     *                tested.
+     *            the expression denoting the value to be
+     *            tested.
      * @param typeSpec
-     *                the reference type we are testing for.
+     *            the reference type we are testing for.
      */
 
     public JInstanceOfOp(int line, JExpression expr, Type typeSpec) {
@@ -40,13 +39,13 @@ class JInstanceOfOp
     }
 
     /**
-     * Analysis of an instanceof operation requires analyzing the
-     * expression to be tested, resolving the type was are
-     * testing for, and determining if the test is legal, or if
-     * the answer can be determined at compile time.
+     * Analysis of an {@code instanceof} operation requires analyzing the
+     * expression to be tested, resolving the type we are testing for, and 
+     * determining if the test is legal, or if the answer can be determined 
+     * at compile time.
      * 
      * @param context
-     *                context in which names are resolved.
+     *            context in which names are resolved.
      * @return the analyzed (and possibly rewritten) AST subtree.
      */
 
@@ -73,11 +72,11 @@ class JInstanceOfOp
     }
 
     /**
-     * Generate code for the type test.
+     * Generates code for the type test.
      * 
      * @param output
-     *                the code emitter (basically an abstraction
-     *                for producing the .class file).
+     *            the code emitter (basically an abstraction
+     *            for producing the .class file).
      */
 
     public void codegen(CLEmitter output) {
@@ -87,10 +86,10 @@ class JInstanceOfOp
     }
 
     /**
-     * Short-circuiting branching for instanceof.
+     * Short-circuiting branching for {@code instanceof}.
      *                                                                         
      * @param output   
-     *       code emitter.
+     *            code emitter.
      * @param targetLabel                                             
      *            the label to which we should branch.                         
      * @param onTrue

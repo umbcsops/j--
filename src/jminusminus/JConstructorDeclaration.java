@@ -8,6 +8,8 @@ import static jminusminus.CLConstants.*;
 /**
  * The AST node for a constructor declaration. A constructor looks very much
  * like a method.
+ *
+ * @see JMethodDeclaration
  */
 
 class JConstructorDeclaration extends JMethodDeclaration implements JMember {
@@ -19,7 +21,7 @@ class JConstructorDeclaration extends JMethodDeclaration implements JMember {
     JClassDeclaration definingClass;
 
     /**
-     * Construct an AST node for a constructor declaration given the line
+     * Constructs an AST node for a constructor declaration given the line
      * number, modifiers, constructor name, formal parameters, and the
      * constructor body.
      * 
@@ -44,7 +46,7 @@ class JConstructorDeclaration extends JMethodDeclaration implements JMember {
     }
 
     /**
-     * Declare this constructor in the parent (class) context.
+     * Declares this constructor in the parent (class) context.
      * 
      * @param context
      *            the parent (class) context.
@@ -115,7 +117,7 @@ class JConstructorDeclaration extends JMethodDeclaration implements JMember {
     }
 
     /**
-     * Add this constructor declaration to the partial class.
+     * Adds this constructor declaration to the partial class.
      * 
      * @param context
      *            the parent (class) context.
@@ -136,7 +138,7 @@ class JConstructorDeclaration extends JMethodDeclaration implements JMember {
     }
 
     /**
-     * Generate code for the constructor declaration.
+     * Generates code for the constructor declaration.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the

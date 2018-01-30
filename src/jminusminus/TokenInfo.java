@@ -97,7 +97,7 @@ class TokenInfo {
     private int line;
 
     /**
-     * Constructs a TokenInfo from its kind, the semantic text forming the token,
+     * Constructs a TokenInfo given its kind, the semantic text forming the token,
      * and its line number.
      * 
      * @param kind
@@ -115,7 +115,7 @@ class TokenInfo {
     }
 
     /**
-     * Constructs a TokenInfo from its kind and its line number. Its image is
+     * Constructs a TokenInfo given its kind and its line number. Its image is
      * simply its string representation.
      * 
      * @param kind

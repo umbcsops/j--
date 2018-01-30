@@ -19,7 +19,7 @@ class JNewArrayOp extends JExpression {
     private ArrayList<JExpression> dimExprs;
 
     /**
-     * Construct an AST node for a "new" array operation.
+     * Constructs an AST node for a "new" array operation.
      * 
      * @param line
      *            the line in which the operation occurs in the source file.
@@ -54,7 +54,7 @@ class JNewArrayOp extends JExpression {
     }
 
     /**
-     * Generate code to push the bounds on the stack and then generate the
+     * Generates code to push the bounds on the stack and then generates the
      * appropriate array creation instruction.
      * 
      * @param output
@@ -68,7 +68,7 @@ class JNewArrayOp extends JExpression {
             dimExpr.codegen(output);
         }
 
-        // Generate the appropriate array creation instruction
+        // Generates the appropriate array creation instruction
         if (dimExprs.size() == 1) {
             output.addArrayInstruction(
                     type.componentType().isReference() ? ANEWARRAY : NEWARRAY,

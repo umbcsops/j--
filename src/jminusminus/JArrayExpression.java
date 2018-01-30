@@ -10,8 +10,7 @@ import static jminusminus.CLConstants.*;
  * index.
  */
 
-class JArrayExpression
-    extends JExpression implements JLhs {
+class JArrayExpression extends JExpression implements JLhs {
 
     /** The array. */
     private JExpression theArray;
@@ -20,15 +19,15 @@ class JArrayExpression
     private JExpression indexExpr;
 
     /**
-     * Construct an AST node for an array indexing operation.
+     * Constructs an AST node for an array indexing operation.
      * 
      * @param line
-     *                line in which the operation occurs in the
-     *                source file.
+     *            line in which the operation occurs in the
+     *            source file.
      * @param theArray
-     *                the array we're indexing.
+     *            the array we're indexing.
      * @param indexExpr
-     *                the index expression.
+     *            the index expression.
      */
 
     public JArrayExpression(int line, JExpression theArray,
@@ -39,11 +38,11 @@ class JArrayExpression
     }
 
     /**
-     * Perform semantic analysis on an array indexing expression
-     * such as A[i].
+     * Performs semantic analysis on an array indexing expression
+     * such as {@code A[i]}.
      * 
      * @param context
-     *                context in which names are resolved.
+     *            context in which names are resolved.
      * @return the analyzed (and possibly rewritten) AST subtree.
      */
 
@@ -66,7 +65,7 @@ class JArrayExpression
      * analyzing it for its Rvalue.
      * 
      * @param context
-     *                context in which names are resolved.
+     *            context in which names are resolved.
      */
 
     public JExpression analyzeLhs(Context context) {
@@ -75,13 +74,13 @@ class JArrayExpression
     }
 
     /**
-     * Perform code generation from the JArrayExpression using
-     * the specified code emitter. Generate the code necessary
-     * for loading the Rvalue.
+     * Performs code generation for this {@code JArrayExpression} using
+     * the specified code emitter. Generates the code necessary for 
+     * loading the Rvalue.
      * 
      * @param output
-     *                the code emitter (basically an abstraction
-     *                for producing the .class file).
+     *            the code emitter (basically an abstraction
+     *            for producing the .class file).
      */
 
     public void codegen(CLEmitter output) {
@@ -99,13 +98,13 @@ class JArrayExpression
     }
 
     /**
-     * Generate the code required for setting up an Lvalue, eg
+     * Generates the code required for setting up an Lvalue, for example,
      * for use in an assignment. Here, this requires loading the
      * array and the index.
      * 
      * @param output
-     *                the code emitter (basically an abstraction
-     *                for producing the .class file).
+     *            the code emitter (basically an abstraction
+     *            for producing the .class file).
      */
 
     public void codegenLoadLhsLvalue(CLEmitter output) {
@@ -116,10 +115,10 @@ class JArrayExpression
     }
 
     /**
-     * Generate the code required for loading an Rvalue for this
-     * variable, eg for use in a +=. Here, this requires
-     * duplicating the array and the index on the stack and doing
-     * an array load.
+     * Generates the code required for loading an Rvalue for this
+     * variable, for example, for use in a {@code +=}. Here, this 
+     * requires duplicating the array and the index on the stack and 
+     * doing an array load.
      * 
      * @param output
      *                the code emitter (basically an abstraction
@@ -146,15 +145,15 @@ class JArrayExpression
     }
 
     /**
-     * Generate the code required for duplicating the Rvalue that
-     * is on the stack becuase it is to be used in a surrounding
-     * expression, as in a[i] = x = <expr> or x = y--. Here this
-     * means copying it down two locations (beneath the array and
-     * index).
+     * Generates the code required for duplicating the Rvalue that
+     * is on the stack because it is to be used in a surrounding
+     * expression, as in {@code a[i] = x =} &lt;expr&gt; or 
+     * {@code x = y--}. Here this means copying it down two locations 
+     * (beneath the array and index).
      * 
      * @param output
-     *                the code emitter (basically an abstraction
-     *                for producing the .class file).
+     *            the code emitter (basically an abstraction
+     *            for producing the .class file).
      */
 
     public void codegenDuplicateRvalue(CLEmitter output) {
@@ -163,12 +162,12 @@ class JArrayExpression
     }
 
     /**
-     * Generate the code required for doing the actual
+     * Generates the code required for doing the actual
      * assignment. Here, this requires an array store.
      * 
      * @param output
-     *                the code emitter (basically an abstraction
-     *                for producing the .class file).
+     *            the code emitter (basically an abstraction
+     *            for producing the .class file).
      */
 
     public void codegenStore(CLEmitter output) {

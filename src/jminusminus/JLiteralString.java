@@ -12,7 +12,7 @@ class JLiteralString extends JExpression {
     private String text;
 
     /**
-     * Construct an AST node for a string literal given its line number and
+     * Constructs an AST node for a string literal given its line number and
      * string representation.
      * 
      * @param line

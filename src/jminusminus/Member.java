@@ -114,7 +114,7 @@ class Method extends Member {
     private java.lang.reflect.Method method;
 
     /**
-     * Constructs a Method is constructed from its internal representation.
+     * Constructs a Method given its internal representation.
      * 
      * @param method
      *            a Java method in the relection API.

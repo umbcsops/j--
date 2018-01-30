@@ -25,8 +25,8 @@ class JCastOp extends JExpression {
     private Converter converter;
 
     /**
-     * Construct an AST node for a cast operation from its line number, cast,
-     * and expression.
+     * Constructs an AST node for a cast operation given its line number, 
+     * cast, and expression.
      * 
      * @param line
      *            the line in which the operation occurs in the source file.
@@ -46,7 +46,7 @@ class JCastOp extends JExpression {
     /**
      * Analyzing a cast expression means, resolving the type (to which we are
      * casting), checking the legality of the cast, and computing a (possibly
-     * null) conversion for use in code generation.
+     * {@code null}) conversion for use in code generation.
      * 
      * @param context
      *            context in which names are resolved.
@@ -72,7 +72,7 @@ class JCastOp extends JExpression {
 
     /**
      * Generating code for a cast expression involves generating code for the
-     * original expr, and then for any necessary conversion.
+     * original expr and then for any necessary conversion.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -118,7 +118,7 @@ class Conversions {
     private Hashtable<String, Converter> table;
 
     /**
-     * Construct a table of conversions and populate it.
+     * Constructs a table of conversions and populate it.
      */
 
     public Conversions() {
@@ -145,7 +145,7 @@ class Conversions {
     }
 
     /**
-     * Define a conversion. This is used locally, for populating the table.
+     * Defines a conversion. This is used locally, for populating the table.
      * 
      * @param source
      *            the original type.
@@ -160,7 +160,7 @@ class Conversions {
     }
 
     /**
-     * Retrieve a converter for converting from some original type to a target
+     * Retrieves a converter for converting from some original type to a target
      * type; the converter may be empty (requiring no code for run-time
      * execution).
      * 
@@ -191,7 +191,7 @@ interface Converter {
     public static Converter WidenReference = Identity;
 
     /**
-     * Emit code necessary to convert (cast) a source type to a target type.
+     * Emits code necessary to convert (cast) a source type to a target type.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -229,7 +229,7 @@ class NarrowReference implements Converter {
     private Type target;
 
     /**
-     * Construct a narrowing converter.
+     * Constructs a narrowing converter.
      * 
      * @param target
      *            the target type.
@@ -250,7 +250,7 @@ class NarrowReference implements Converter {
 }
 
 /**
- * Boxing requires invoking the appropriate conversion method from the (Java)
+ * Boxing requires invoking the appropriate conversion method from the Java
  * API.
  */
 
@@ -263,7 +263,7 @@ class Boxing implements Converter {
     private Type target;
 
     /**
-     * Construct a Boxing converter.
+     * Constructs a Boxing converter.
      * 
      * @param source
      *            the source type.
@@ -289,7 +289,7 @@ class Boxing implements Converter {
 }
 
 /**
- * Unboxing requires invoking the appropriate conversion method from the (Java)
+ * Unboxing requires invoking the appropriate conversion method from the Java
  * API.
  */
 
@@ -301,18 +301,18 @@ class UnBoxing implements Converter {
     /** The target type. */
     private Type target;
 
-    /** The (Java) method to invoke for the conversion. */
+    /** The Java method to invoke for the conversion. */
     private String methodName;
 
     /**
-     * Construct an UnBoxing converter.
+     * Constructs an UnBoxing converter.
      * 
      * @param source
      *            the source type.
      * @param target
      *            the target type.
      * @param methodName
-     *            the (Java) method to invoke for the conversion.
+     *            the Java method to invoke for the conversion.
      */
 
     public UnBoxing(Type source, Type target, String methodName) {

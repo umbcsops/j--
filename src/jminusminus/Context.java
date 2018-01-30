@@ -10,24 +10,25 @@ import java.util.Set;
  * A Context encapsulates the environment in which an AST is analyzed. It
  * represents a scope; the scope of a variable is captured by its context. It's
  * the symbol table.
- * 
+ * <p>
  * Because scopes are lexically nested in Java (and so in j--), the environment
  * can be seen as a stack of contexts, each of which is a mapping from names to
- * their definitions (IDefns). A Context keeps track of it's (most closely)
- * surrounding context, its surrounding class context, and its surrounding
- * compilation unit context, as well as a map of from names to definitions in
- * the level of scope the Context represents. Contexts are created for the
- * compilation unit (a CompilationUnitContext), a class (a ClassContext), each
- * method (a MethodContext), and each block (a LocalContext). If we were to add
- * the for-statement to j--, we would necessarily create a (local) context.
- * 
+ * their definitions ({@link IDefns}). A Context keeps track of its (most 
+ * closely) surrounding context, its surrounding class context, and its 
+ * surrounding compilation unit context, and as well as a map from names to 
+ * definitions in the level of scope that the Context represents. Contexts are 
+ * created for the compilation unit (a {@link CompilationUnitContext}), a class
+ * (a {@link ClassContext}), each method (a {@link MethodContext}), and each 
+ * block (a LocalContext). If we were to add the for-statement to j--, we would
+ * necessarily create a (local) context.
+ * <p>
  * From the outside, the structure looks like a tree strung over the AST. But
  * from any location on the AST, that is from any point along a particular
  * branch, it looks like a stack of context objects leading back to the root of
  * the AST, that is, back to the JCompilationUnit object at the root.
- * 
+ * <p>
  * Part of this structure is built during pre-analysis; pre-analysis reaches
- * only into the type (eg class) declaration for typing the members;
+ * only into the type (for example a class) declaration for typing the members;
  * pre-analysis does not reach into the method bodies. The rest of it is built
  * during analysis.
  */
@@ -52,7 +53,7 @@ class Context {
     protected Map<String, IDefn> entries;
 
     /**
-     * Construct a Context.
+     * Constructs a Context.
      * 
      * @param surrounding
      *            the surrounding context (scope).
@@ -72,7 +73,7 @@ class Context {
     }
 
     /**
-     * Add an entry to the symbol table, binding a name to its definition in the
+     * Adds an entry to the symbol table, binding a name to its definition in the
      * current context.
      * 
      * @param name
@@ -91,12 +92,12 @@ class Context {
     }
 
     /**
-     * Return the definition for a name in the environment. If it's not found in
+     * Returns the definition for a name in the environment. If it's not found in
      * this context, we look for it in the surrounding context(s).
      * 
      * @param name
      *            the name whose definition we're looking for.
-     * @return the definition (or null, if not found).
+     * @return the definition; {@code null}, if not found.
      */
 
     public IDefn lookup(String name) {
@@ -107,12 +108,12 @@ class Context {
     }
 
     /**
-     * Return the definition for a type name in the environment. For now, we
-     * look for types only in the CompilationUnitContext.
+     * Returns the definition for a type name in the environment. For now, we
+     * look for types only in the {@code CompilationUnitContext}.
      * 
      * @param name
      *            the name of the type whose definition we're looking for.
-     * @return the definition (or null, if not found).
+     * @return the definition; {@code null}, if not found.
      */
 
     public Type lookupType(String name) {
@@ -121,7 +122,7 @@ class Context {
     }
 
     /**
-     * Add the type to the environment.
+     * Adds the type to the environment.
      * 
      * @param line
      *            line number of type declaration.
@@ -138,7 +139,7 @@ class Context {
     }
 
     /**
-     * The type that defines this context (used principally for checking
+     * Returns the type that defines this context (used principally for checking
      * acessibility).
      * 
      * @return the type that defines this context.
@@ -149,7 +150,7 @@ class Context {
     }
 
     /**
-     * Return the surrounding context (scope) in the stack of contexts.
+     * Returns the surrounding context (scope) in the stack of contexts.
      * 
      * @return the surrounding context.
      */
@@ -159,7 +160,7 @@ class Context {
     }
 
     /**
-     * Return the surrounding class context.
+     * Returns the surrounding class context.
      * 
      * @return the surrounding class context.
      */
@@ -169,7 +170,7 @@ class Context {
     }
 
     /**
-     * Return the surrounding compilation unit context. This is where imported
+     * Returns the surrounding compilation unit context. This is where imported
      * types and other types defined in the compilation unit are declared.
      * 
      * @return the compilation unit context.
@@ -180,7 +181,7 @@ class Context {
     }
 
     /**
-     * Return the closest surrounding method context. Return null if we're not
+     * Returns the closest surrounding method context. Returns null if we're not
      * within a method.
      * 
      * @return the method context.
@@ -195,7 +196,7 @@ class Context {
     }
 
     /**
-     * The names declared in this context.
+     * Returns the names declared in this context.
      * 
      * @return the set of declared names.
      */
@@ -205,7 +206,7 @@ class Context {
     }
 
     /**
-     * Write the contents of this context to STDOUT.
+     * Writes the contents of this context to STDOUT.
      * 
      * @param p
      *            for pretty printing with indentation.
@@ -218,14 +219,14 @@ class Context {
 }
 
 /**
- * The compilation unit context is always the outermost context, and is where
+ * The compilation unit context is always the outermost context and is where
  * imported types and locally defined types (classes) are declared.
  */
 
 class CompilationUnitContext extends Context {
 
     /**
-     * Construct a new compilation unit context. There are no surrounding
+     * Constructs a new compilation unit context. There are no surrounding
      * contexts.
      */
 
@@ -257,9 +258,9 @@ class CompilationUnitContext extends Context {
 }
 
 /**
- * Represents the context (scope, environment, symbol table) for a type, eg a
- * class, in j--. It also keeps track of its surrounding context(s), and the
- * type whose context it represents.
+ * Represents the context (scope, environment, symbol table) for a type, for 
+ * example a class, in j--. It also keeps track of its surrounding context(s)
+ * and the type whose context it represents.
  */
 
 class ClassContext extends Context {
@@ -268,7 +269,7 @@ class ClassContext extends Context {
     private JAST definition;
 
     /**
-     * Construct a class context.
+     * Constructs a class context.
      * 
      * @param definition
      *            the AST node of the type that this class represents.
@@ -283,7 +284,7 @@ class ClassContext extends Context {
     }
 
     /**
-     * Return the AST node of the type defined by this class.
+     * Returns the AST node of the type defined by this class.
      * 
      * @return the AST of the type defined by this class.
      */
@@ -298,7 +299,7 @@ class ClassContext extends Context {
  * A local context is a context (scope) in which local variables (including
  * formal parameters) can be declared. Local variables are allocated at fixed
  * offsets from the base of the current method's stack frame; this is done
- * during anaysis. The definitions for local variables record these offsets. The
+ * during analysis. The definitions for local variables record these offsets. The
  * offsets are used in code generation.
  */
 
@@ -308,7 +309,7 @@ class LocalContext extends Context {
     protected int offset;
 
     /**
-     * Construct a local context. A local context is constructed for each block.
+     * Constructs a local context. A local context is constructed for each block.
      * 
      * @param surrounding
      *            the surrounding context.
@@ -324,7 +325,7 @@ class LocalContext extends Context {
 
     /**
      * The "next" offset. A simple getter. Not to be used for allocating new
-     * offsets (nextOffset() is used for that).
+     * offsets (the {@code nextOffset} method is used for that).
      * 
      * @return the next available offset.
      */
@@ -334,7 +335,7 @@ class LocalContext extends Context {
     }
 
     /**
-     * Allocate a new offset (eg for a parameter or local variable).
+     * Allocates a new offset (for example, for a parameter or local variable).
      * 
      * @return the next allocated offset.
      */
@@ -387,7 +388,7 @@ class MethodContext extends LocalContext {
     private boolean hasReturnStatement = false;
 
     /**
-     * Construct a method context.
+     * Constructs a method context.
      * 
      * @param surrounding
      *            the surrounding (class) context.
@@ -416,7 +417,7 @@ class MethodContext extends LocalContext {
     }
 
     /**
-     * Record fact that (non-void) method has at least one return.
+     * Records fact that (non-void) method has at least one return.
      */
 
     public void confirmMethodHasReturn() {
@@ -434,9 +435,9 @@ class MethodContext extends LocalContext {
     }
 
     /**
-     * Return the return type of this method.
+     * Returns the return type of this method.
      * 
-     * @return return type of this method.
+     * @return the type of this method.
      */
 
     public Type methodReturnType() {

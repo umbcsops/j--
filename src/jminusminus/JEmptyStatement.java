@@ -11,7 +11,7 @@ package jminusminus;
 class JEmptyStatement extends JStatement {
 
     /**
-     * Construct an AST node for an empty statement.
+     * Constructs an AST node for an empty statement.
      * 
      * @param line
      *            line in which the empty statement occurs in the source file.

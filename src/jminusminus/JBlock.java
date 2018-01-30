@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 /**
  * The AST node for a block, which delimits a nested level of scope.
+ *
+ * @see LocalContext
  */
 
 class JBlock extends JStatement {
@@ -19,7 +21,7 @@ class JBlock extends JStatement {
     private LocalContext context;
 
     /**
-     * Construct an AST node for a block given its line number, and the list of
+     * Constructs an AST node for a block given its line number, and the list of
      * statements forming the block body.
      * 
      * @param line
@@ -34,7 +36,7 @@ class JBlock extends JStatement {
     }
 
     /**
-     * Return the list of statements comprising the block.
+     * Returns the list of statements comprising the block.
      * 
      * @return list of statements.
      */

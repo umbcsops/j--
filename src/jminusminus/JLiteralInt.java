@@ -5,7 +5,7 @@ package jminusminus;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for an int literal.
+ * The AST node for an {@code int} literal.
  */
 
 class JLiteralInt extends JExpression {
@@ -14,8 +14,8 @@ class JLiteralInt extends JExpression {
     private String text;
 
     /**
-     * Construct an AST node for an int literal given its line number and string
-     * representation.
+     * Constructs an AST node for an {@code int} literal given its line number 
+     * and string representation.
      * 
      * @param line
      *            line in which the literal occurs in the source file.

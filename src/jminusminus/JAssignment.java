@@ -5,14 +5,13 @@ package jminusminus;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for an assignment statement. This is an abtract class into which
- * we factor behavior common to all assignment operations.
+ * This abstract base class is the AST node for an assignment statement. 
  */
 
 abstract class JAssignment extends JBinaryExpression {
 
     /**
-     * Construct an AST node for an assignment operation.
+     * Constructs an AST node for an assignment operation.
      * 
      * @param line
      *            line in which the assignment operation occurs in the source
@@ -40,7 +39,7 @@ abstract class JAssignment extends JBinaryExpression {
 class JAssignOp extends JAssignment {
 
     /**
-     * Construct the AST node for an assignment (=) expression given the lhs and
+     * Constructs the AST node for an assignment (=) expression given the lhs and
      * rhs operands.
      * 
      * @param line
@@ -57,7 +56,7 @@ class JAssignOp extends JAssignment {
     }
 
     /**
-     * Analyze the lhs and rhs, checking that types match, and set the result
+     * Analyzes the lhs and rhs, checking that types match, and sets the result
      * type.
      * 
      * @param context
@@ -116,7 +115,7 @@ class JAssignOp extends JAssignment {
 class JPlusAssignOp extends JAssignment {
 
     /**
-     * Construct the AST node for a += expression given its lhs and rhs
+     * Constructs the AST node for a += expression given its lhs and rhs
      * operands.
      * 
      * @param line
@@ -133,8 +132,8 @@ class JPlusAssignOp extends JAssignment {
     }
 
     /**
-     * Analyze the lhs and rhs, rewrite rhs as lhs + rhs (string concatenation)
-     * if lhs is a String, and set the result type.
+     * Analyzes the lhs and rhs, rewrites rhs as lhs + rhs (string concatenation)
+     * if lhs is of type {@code String}, and sets the result type.
      * 
      * @param context
      *            context in which names are resolved.

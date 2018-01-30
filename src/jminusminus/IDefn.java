@@ -32,7 +32,7 @@ class TypeNameDefn implements IDefn {
     private Type type;
 
     /**
-     * Construct a type name definition given its type.
+     * Constructs a type name definition given its type.
      * 
      * @param type
      *            the definition's type.
@@ -43,7 +43,7 @@ class TypeNameDefn implements IDefn {
     }
 
     /**
-     * The type for this definition.
+     * Returns the type for this definition.
      * 
      * @return the definition's type.
      */
@@ -57,7 +57,7 @@ class TypeNameDefn implements IDefn {
 /**
  * The definition for a local variable (including formal parameters). All local
  * variables are allocated on the stack at fixed offsets from the base of the
- * stack frame, and all have types. Some local variables have initializations.
+ * stack frame and all have types. Some local variables have initializations.
  */
 
 class LocalVariableDefn implements IDefn {
@@ -74,7 +74,7 @@ class LocalVariableDefn implements IDefn {
     private boolean isInitialized;
 
     /**
-     * Construct a local variable definition for a local variable.
+     * Constructs a local variable definition for a local variable.
      * 
      * @param type
      *            the variable's type.
@@ -89,7 +89,7 @@ class LocalVariableDefn implements IDefn {
     }
 
     /**
-     * The type for this variable.
+     * Returns the type for this variable.
      * 
      * @return the type.
      */
@@ -99,7 +99,7 @@ class LocalVariableDefn implements IDefn {
     }
 
     /**
-     * The offset of this variable on the stack frame.
+     * Returns the offset of this variable on the stack frame.
      * 
      * @return the offset.
      */
@@ -109,7 +109,7 @@ class LocalVariableDefn implements IDefn {
     }
 
     /**
-     * Initialize this local variable.
+     * Initializes this local variable.
      */
 
     public void initialize() {

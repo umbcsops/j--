@@ -32,7 +32,7 @@ class JMessageExpression extends JExpression {
     private Method method;
 
     /**
-     * Construct an AST node for a message expression without an ambiguous part.
+     * Constructs an AST node for a message expression without an ambiguous part.
      * 
      * @param line
      *            line in which the expression occurs in the source file.
@@ -50,7 +50,7 @@ class JMessageExpression extends JExpression {
     }
 
     /**
-     * Construct an AST node for a message expression having an ambiguous part.
+     * Constructs an AST node for a message expression having an ambiguous part.
      * 
      * @param line
      *            line in which the expression occurs in the source file.
@@ -85,6 +85,7 @@ class JMessageExpression extends JExpression {
      * @param context
      *            context in which names are resolved.
      * @return the analyzed (and possibly rewritten) AST subtree.
+     * @see    Method
      */
 
     public JExpression analyze(Context context) {
@@ -165,12 +166,13 @@ class JMessageExpression extends JExpression {
      * loading the target onto the stack, generating code to load the actual
      * arguments onto the stack, and then invoking the named Method. Notice that
      * if this is a statement expression (as marked by a parent
-     * JStatementExpression) then we also generate code for popping the stacked
-     * value for any non-void invocation.
+     * {@link JStatementExpression}) then we also generate code for popping the 
+     * stacked value for any non-void invocation.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
      *            .class file).
+     * @see   Method
      */
 
     public void codegen(CLEmitter output) {

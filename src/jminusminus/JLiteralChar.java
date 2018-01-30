@@ -5,7 +5,7 @@ package jminusminus;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for a char literal.
+ * The AST node for a {@code char} literal.
  */
 
 class JLiteralChar extends JExpression {
@@ -14,8 +14,8 @@ class JLiteralChar extends JExpression {
     private String text;
 
     /**
-     * Construct an AST node for a char literal given its line number and text
-     * representation.
+     * Constructs an AST node for a {@code char} literal given its line number 
+     * and text representation.
      * 
      * @param line
      *            line in which the literal occurs in the source file.

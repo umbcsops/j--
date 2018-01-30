@@ -10,23 +10,22 @@ import static jminusminus.CLConstants.*;
  * initializing expressions.
  */
 
-class JArrayInitializer
-    extends JExpression {
+class JArrayInitializer extends JExpression {
 
     /** The initializations. */
     private ArrayList<JExpression> initials;
 
     /**
-     * Construct an AST node for an array initializer given the
+     * Constructs an AST node for an array initializer given the
      * (expected) array type and initial values.
      * 
      * @param line
-     *                line in which this array initializer occurs
-     *                in the source file.
+     *            line in which this array initializer occurs
+     *            in the source file.
      * @param expected
-     *                the type of the array we're initializing.
+     *            the type of the array we're initializing.
      * @param initials
-     *                initializations.
+     *            initializations.
      */
 
     public JArrayInitializer(int line, Type expected,
@@ -37,12 +36,12 @@ class JArrayInitializer
     }
 
     /**
-     * Analysis of array initializer involves making sure that
+     * Analysis of this array initializer involves making sure that
      * that the type of the initials is the same as the component
      * type.
      * 
      * @param context
-     *                context in which names are resolved.
+     *            context in which names are resolved.
      * @return the analyzed (and possibly rewritten) AST subtree.
      */
 
@@ -67,12 +66,12 @@ class JArrayInitializer
     }
 
     /**
-     * Perform code generation necessary to construct the
-     * initializing array and leave it on top of the stack.
+     * Performs code generation necessary to construct the
+     * initializing array and leaves it on top of the stack.
      * 
      * @param output
-     *                the code emitter (basically an abstraction
-     *                for producing the .class file).
+     *            the code emitter (basically an abstraction
+     *            for producing the .class file).
      */
 
     public void codegen(CLEmitter output) {

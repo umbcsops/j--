@@ -20,8 +20,8 @@ class JIfStatement extends JStatement {
     private JStatement elsePart;
 
     /**
-     * Construct an AST node for an if-statement given its line number, the test
-     * expression, the consequent, and the alternate.
+     * Constructs an AST node for an if-statement given its line number, the 
+     * test expression, the consequent, and the alternate.
      * 
      * @param line
      *            line in which the if-statement occurs in the source file.
@@ -43,7 +43,7 @@ class JIfStatement extends JStatement {
 
     /**
      * Analyzing the if-statement means analyzing its components and checking
-     * that the test is boolean.
+     * that the test is a boolean.
      * 
      * @param context
      *            context in which names are resolved.

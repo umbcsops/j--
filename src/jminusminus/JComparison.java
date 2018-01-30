@@ -5,14 +5,13 @@ package jminusminus;
 import static jminusminus.CLConstants.*;
 
 /**
- * The AST node for a comparison expression. This class captures common aspects
- * of comparison operations.
+ * This abstract base class is the AST node for a comparison expression. 
  */
 
 abstract class JComparison extends JBooleanBinaryExpression {
 
     /**
-     * Create an AST node for a comparison expression.
+     * Constructs an AST node for a comparison expression.
      * 
      * @param line
      *            line in which the expression occurs in the source file.
@@ -50,14 +49,14 @@ abstract class JComparison extends JBooleanBinaryExpression {
 }
 
 /**
- * The AST node for a greater-than (>) expression. Implements short-circuiting
- * branching.
+ * The AST node for a greater-than (&gt;) expression. Implements 
+ * short-circuiting branching.
  */
 
 class JGreaterThanOp extends JComparison {
 
     /**
-     * Construct an AST node for a greater-than expression given its line
+     * Constructs an AST node for a greater-than expression given its line
      * number, and the lhs and rhs operands.
      * 
      * @param line
@@ -74,7 +73,7 @@ class JGreaterThanOp extends JComparison {
     }
 
     /**
-     * Branching code generation for > operation.
+     * Branching code generation for &gt; operation.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the
@@ -88,8 +87,8 @@ class JGreaterThanOp extends JComparison {
     public void codegen(CLEmitter output, String targetLabel, boolean onTrue) {
         lhs.codegen(output);
         rhs.codegen(output);
-        output
-                .addBranchInstruction(onTrue ? IF_ICMPGT : IF_ICMPLE,
+        
+        output.addBranchInstruction(onTrue ? IF_ICMPGT : IF_ICMPLE,
                         targetLabel);
     }
 
@@ -103,7 +102,7 @@ class JGreaterThanOp extends JComparison {
 class JLessEqualOp extends JComparison {
 
     /**
-     * Construct an AST node for a less-than-or-equal-to expression given its
+     * Constructs an AST node for a less-than-or-equal-to expression given its
      * line number, and the lhs and rhs operands.
      * 
      * @param line
@@ -134,8 +133,8 @@ class JLessEqualOp extends JComparison {
     public void codegen(CLEmitter output, String targetLabel, boolean onTrue) {
         lhs.codegen(output);
         rhs.codegen(output);
-        output
-                .addBranchInstruction(onTrue ? IF_ICMPLE : IF_ICMPGT,
+        
+        output.addBranchInstruction(onTrue ? IF_ICMPLE : IF_ICMPGT,
                         targetLabel);
     }
 
