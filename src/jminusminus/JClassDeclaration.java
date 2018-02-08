@@ -261,7 +261,7 @@ class JClassDeclaration extends JAST implements JTypeDecl {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

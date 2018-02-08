@@ -118,7 +118,7 @@ class JSuperConstruction extends JExpression {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

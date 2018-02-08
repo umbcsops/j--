@@ -132,7 +132,7 @@ class JFieldDeclaration extends JAST implements JMember {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

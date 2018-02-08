@@ -328,7 +328,10 @@ class NBasicBlock {
      * Checks to see if there is an LIRInstruction with this id in the block's
      * lir.
      * 
-     * @return true or false.
+     * @param id
+     *            the id to check for.
+     * @return {@code true} if there is a LIRInstruction with this id;
+     *         {@code false} otherwise.
      */
     public boolean idIsFree(int id) {
         if (this.getInstruction(id) != null) {

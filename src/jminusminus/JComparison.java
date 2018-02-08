@@ -95,7 +95,7 @@ class JGreaterThanOp extends JComparison {
 }
 
 /**
- * The AST node for a less-than-or-equal-to (<=) expression. Implements
+ * The AST node for a less-than-or-equal-to (&lt;=) expression. Implements
  * short-circuiting branching.
  */
 
@@ -119,7 +119,7 @@ class JLessEqualOp extends JComparison {
     }
 
     /**
-     * Branching code generation for <= operation.
+     * Branching code generation for &lt;= operation.
      * 
      * @param output
      *            the code emitter (basically an abstraction for producing the

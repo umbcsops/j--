@@ -7,7 +7,8 @@ import static jminusminus.NPhysicalRegister.*;
 import java.util.ArrayList;
 
 /**
- * High-level intermediate representation (HIR) of a JVM instruction.
+ * This abstract base class is for the high-level intermediate representation 
+ * (HIR) of a JVM instruction.
  */
 
 abstract class NHIRInstruction {
@@ -54,7 +55,8 @@ abstract class NHIRInstruction {
     public NLIRInstruction lir;
 
     /**
-     * Construct an NHIRInstruction object.
+     * Constructs a NHIRInstruction instance given the block that contains
+     * this HIR instruction and the unique identifier for this instruction.
      * 
      * @param block
      *            enclosing block.
@@ -67,7 +69,9 @@ abstract class NHIRInstruction {
     }
 
     /**
-     * Construct an NHIRInstruction object.
+     * Constructs a NHIRInstruction instance given the block that contains
+     * this HIR instruction, unique identifier for this instruction, the short
+     * type name, and the long type name for this instruction.
      * 
      * @param block
      *            enclosing block.
@@ -80,20 +84,21 @@ abstract class NHIRInstruction {
      */
 
     protected NHIRInstruction(NBasicBlock block, int id, String sType,
-            String lType) {
+                                                         String lType) {
         this.block = block;
-        this.id = id;
+        this.id    = id;
         this.sType = sType;
         this.lType = lType;
     }
 
     /**
-     * Return true if this instruction is the same as the other, false
+     * Returns true if this instruction is the same as the other; false
      * otherwise. Two instructions are the same if their ids are the same.
      * 
      * @param other
      *            the instruction to compare to.
-     * @return true if the instructions are the same, false otherwise.
+     * @return {@code true} if the instructions are the same; 
+     *         {@code false} otherwise.
      */
 
     public boolean equals(NHIRInstruction other) {
@@ -101,12 +106,12 @@ abstract class NHIRInstruction {
     }
 
     /**
-     * Convert and return a low-level representation (LIR) of this HIR
+     * Converts and returns a low-level representation (LIR) of this HIR
      * instruction. Also adds the returned LIR instruction to the list of LIR
      * instructions for the block containing this instruction, along with any
      * other intermediate LIR instructions needed.
      * 
-     * @return LIR instruction corresponding to this HIR instruction.
+     * @return the LIR instruction corresponding to this HIR instruction.
      */
 
     public NLIRInstruction toLir() {
@@ -114,10 +119,10 @@ abstract class NHIRInstruction {
     }
 
     /**
-     * Return the identifier of this instruction with the short type name
+     * Returns the identifier of this instruction with the short type name
      * prefixed.
      * 
-     * @return identifier of this IR instruction with the short type name
+     * @return the identifier of this IR instruction with the short type name
      *         prefixed.
      */
 
@@ -126,7 +131,7 @@ abstract class NHIRInstruction {
     }
 
     /**
-     * Return a string representation of this instruction.
+     * Returns a string representation of this instruction.
      * 
      * @return string representation of this instruction.
      */
@@ -153,7 +158,7 @@ class NHIRArithmetic extends NHIRInstruction {
     public int rhs;
 
     /**
-     * Construct an NHIRArithmetic instruction.
+     * Constructs an NHIRArithmetic instruction.
      * 
      * @param block
      *            enclosing block.
@@ -176,7 +181,7 @@ class NHIRArithmetic extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -192,7 +197,7 @@ class NHIRArithmetic extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -229,7 +234,7 @@ class NHIRIntConstant extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -242,7 +247,7 @@ class NHIRIntConstant extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -278,7 +283,7 @@ class NHIRStringConstant extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -291,7 +296,7 @@ class NHIRStringConstant extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -352,7 +357,7 @@ class NHIRConditionalJump extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -368,7 +373,7 @@ class NHIRConditionalJump extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -406,7 +411,7 @@ class NHIRGoto extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -419,7 +424,7 @@ class NHIRGoto extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -478,7 +483,7 @@ class NHIRInvoke extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -564,7 +569,7 @@ class NHIRInvoke extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -613,7 +618,7 @@ class NHIRReturn extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -635,7 +640,7 @@ class NHIRReturn extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -697,7 +702,7 @@ class NHIRPutField extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -712,7 +717,7 @@ class NHIRPutField extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -765,7 +770,7 @@ class NHIRGetField extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -779,7 +784,7 @@ class NHIRGetField extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -825,7 +830,7 @@ class NHIRNewArray extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -839,7 +844,7 @@ class NHIRNewArray extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -892,7 +897,7 @@ class NHIRALoad extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -908,7 +913,7 @@ class NHIRALoad extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -968,7 +973,7 @@ class NHIRAStore extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -985,7 +990,7 @@ class NHIRAStore extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -1045,7 +1050,7 @@ class NHIRPhiFunction extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -1058,7 +1063,7 @@ class NHIRPhiFunction extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -1104,7 +1109,7 @@ class NHIRLoadLocal extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public NLIRInstruction toLir() {
@@ -1118,7 +1123,7 @@ class NHIRLoadLocal extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -1158,7 +1163,7 @@ class NHIRLocal extends NHIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {

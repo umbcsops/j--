@@ -432,7 +432,7 @@ class CLObjectInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -483,7 +483,7 @@ class CLFieldInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -569,7 +569,7 @@ class CLMethodInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -672,7 +672,7 @@ class CLArrayInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -759,7 +759,7 @@ class CLArithmeticInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -806,7 +806,7 @@ class CLBitInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -842,7 +842,7 @@ class CLComparisonInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -878,7 +878,7 @@ class CLConversionInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -1142,7 +1142,7 @@ class CLFlowControlInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -1312,7 +1312,7 @@ class CLLoadStoreInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -1368,7 +1368,7 @@ class CLStackInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {
@@ -1404,7 +1404,7 @@ class CLMiscInstruction extends CLInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public ArrayList<Integer> toBytes() {

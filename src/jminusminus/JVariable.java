@@ -302,7 +302,7 @@ class JVariable extends JExpression implements JLhs {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

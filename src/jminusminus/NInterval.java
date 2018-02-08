@@ -202,7 +202,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * Register a use (read or write)>
+     * Register a use (read or write).
      * 
      * @param index
      *            the site of the use.
@@ -215,10 +215,12 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * Check if this vreg is alive at a given index.
+     * Check if this virtual register is alive at a given index.
      * 
      * @param atIndex
      *            the index at which to see if this register is live.
+     * @return {@code true} if this virtual register is alive at the given 
+     *         index; {@code false} otherwise.
      */
 
     public boolean isLiveAt(int atIndex) {

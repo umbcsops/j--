@@ -3,12 +3,14 @@
 package jminusminus;
 
 import static jminusminus.CLConstants.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -117,7 +119,8 @@ public class NEmitter {
     }
 
     /**
-     * Construct an NEmitter instance.
+     * Constructs a NEmitter instance given the source file, list of CLFile 
+     * objects, and the register allocation scheme.
      * 
      * @param sourceFile
      *            the source j-- program file name.
@@ -133,7 +136,9 @@ public class NEmitter {
         classes = new HashMap<CLFile, HashMap<CLMethodInfo, NControlFlowGraph>>();
         for (CLFile clFile : clFiles) {
             CLConstantPool cp = clFile.constantPool;
-            HashMap<CLMethodInfo, NControlFlowGraph> methods = new HashMap<CLMethodInfo, NControlFlowGraph>();
+            HashMap<CLMethodInfo, NControlFlowGraph> methods = 
+                                    new HashMap<CLMethodInfo, NControlFlowGraph>();
+
             for (int i = 0; i < clFile.methodsCount; i++) {
                 CLMethodInfo m = clFile.methods.get(i);
 
@@ -223,7 +228,7 @@ public class NEmitter {
     }
 
     /**
-     * Set the destination directory for the SPIM files to the specified value.
+     * Sets the destination directory for the SPIM files to the specified value.
      * 
      * @param destDir
      *            destination directory.
@@ -244,8 +249,8 @@ public class NEmitter {
     }
 
     /**
-     * Write out SPIM file(s) to the file system. The destination directory for
-     * the files can be set using the destinationDir(String dir) method.
+     * Writes out SPIM file(s) to the file system. The destination directory for
+     * the files can be set using the {@code destinationDir} method.
      */
 
     public void write() {

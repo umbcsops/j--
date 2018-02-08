@@ -1013,6 +1013,9 @@ public class CLAbsorber {
      * file as command-line argument and dumps its (ClassFile) structure --
      * CLFile in our representation -- to STDOUT in a format similar to that of
      * javap.
+     *
+     * @param args
+     *            the command-line arguments.
      */
 
     public static void main(String[] args) {

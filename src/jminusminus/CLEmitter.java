@@ -1212,7 +1212,7 @@ public class CLEmitter {
      * Add a no argument instruction. Following instructions can be added using
      * this method:
      * 
-     * <p/>
+     * <p>
      * Arithmetic Instructions:
      * 
      * <pre>
@@ -1221,7 +1221,7 @@ public class CLEmitter {
      *   DREM, INEG, LNEG, FNEG, DNEG
      * </pre>
      * 
-     * <p/>
+     * <p>
      * Array Instructions:
      * 
      * <pre>
@@ -1230,7 +1230,7 @@ public class CLEmitter {
      *   BASTORE, CASTORE, SASTORE, ARRAYLENGTH
      * </pre>
      * 
-     * <p/>
+     * <p>
      * Bit Instructions:
      * 
      * <pre>
@@ -1238,14 +1238,14 @@ public class CLEmitter {
      *   IXOR, LXOR
      * </pre>
      * 
-     * <p/>
+     * <p>
      * Comparison Instructions:
      * 
      * <pre>
      *   DCMPG, DCMPL, FCMPG, FCMPL, LCMP
      * </pre>
      * 
-     * <p/>
+     * <p>
      * Conversion Instructions:
      * 
      * <pre>
@@ -1253,7 +1253,7 @@ public class CLEmitter {
      *   F2L, D2I, D2L, D2F
      * </pre>
      * 
-     * <p/>
+     * <p>
      * Load Store Instructions:
      * 
      * <pre>
@@ -1269,21 +1269,21 @@ public class CLEmitter {
      *   ACONST_NULL, WIDE (added automatically where necesary)
      * </pre>
      * 
-     * <p/>
+     * <p>
      * Method Instructions:
      * 
      * <pre>
      *   IRETURN, LRETURN, FRETURN, DRETURN, ARETURN, RETURN
      * </pre>
      * 
-     * <p/>
+     * <p>
      * Stack Instructions:
      * 
      * <pre>
      *   POP, POP2, DUP, DUP_X1, DUP_X2, DUP2, DUP2_X1, DUP2_X2, SWAP
      * </pre>
      * 
-     * <p/>
+     * <p>
      * Miscellaneous Instructions:
      * 
      * <pre>
@@ -1341,7 +1341,7 @@ public class CLEmitter {
      * necessary by adding a WIDE instruction before the instruction. Following
      * instructions can be added using this method:
      * 
-     * <p/>
+     * <p>
      * Load Store Instructions:
      * 
      * <pre>
@@ -1349,7 +1349,7 @@ public class CLEmitter {
      *   DSTORE, ASTORE, BIPUSH, SIPUSH
      * </pre>
      * 
-     * <p/>
+     * <p>
      * Flow Control Instructions:
      * 
      * <pre>
@@ -1429,17 +1429,17 @@ public class CLEmitter {
     }
 
     /**
-     * Add a member (field & method) access instruction. Following instructions
+     * Add a member (field &amp; method) access instruction. Following instructions
      * can be added using this method:
      * 
-     * <p/>
+     * <p>
      * Field Instructions:
      * 
      * <pre>
      *   GETSTATIC, PUTSTATIC, GETFIELD, PUTFIELD
      * </pre>
      * 
-     * <p/>
+     * <p>
      * Method Instructions:
      * 
      * <pre>
@@ -1890,6 +1890,8 @@ public class CLEmitter {
     /**
      * Return the CLFile instance corresponding to the class built by this
      * emitter.
+     *
+     * @return the CLFile corresponding to the class built by this emitter.
      */
 
     public CLFile clFile() {
@@ -2195,7 +2197,7 @@ class ByteClassLoader extends ClassLoader {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public Class<?> loadClass(String name, boolean resolve)

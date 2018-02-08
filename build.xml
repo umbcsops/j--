@@ -105,7 +105,7 @@
                  packagenames="jminusminus.*,spim.*"
                  windowtitle="${APP_FULL_NAME}" 
 		 	     doctitle="${APP_FULL_NAME}">
-            <link href="http://java.sun.com/javase/6/docs/api/" />
+            <link href="https://docs.oracle.com/javase/8/docs/api/" />
         </javadoc>
     </target>
 

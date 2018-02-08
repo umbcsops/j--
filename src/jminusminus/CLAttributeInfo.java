@@ -117,7 +117,7 @@ class CLConstantValueAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -126,7 +126,7 @@ class CLConstantValueAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -302,7 +302,7 @@ class CLCodeAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -324,7 +324,7 @@ class CLCodeAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -468,7 +468,7 @@ class CLExceptionsAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -480,7 +480,7 @@ class CLExceptionsAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -610,7 +610,7 @@ class CLInnerClassesAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -622,7 +622,7 @@ class CLInnerClassesAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -677,7 +677,7 @@ class CLEnclosingMethodAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -687,7 +687,7 @@ class CLEnclosingMethodAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -723,7 +723,7 @@ class CLSyntheticAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -731,7 +731,7 @@ class CLSyntheticAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -771,7 +771,7 @@ class CLSignatureAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -780,7 +780,7 @@ class CLSignatureAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -821,7 +821,7 @@ class CLSourceFileAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -830,7 +830,7 @@ class CLSourceFileAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -872,7 +872,7 @@ class CLSourceDebugExtensionAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -883,7 +883,7 @@ class CLSourceDebugExtensionAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -1007,7 +1007,7 @@ class CLLineNumberTableAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -1019,7 +1019,7 @@ class CLLineNumberTableAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -1153,7 +1153,7 @@ class CLLocalVariableTableAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -1165,7 +1165,7 @@ class CLLocalVariableTableAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -1305,7 +1305,7 @@ class CLLocalVariableTypeTableAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -1317,7 +1317,7 @@ class CLLocalVariableTypeTableAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -1359,7 +1359,7 @@ class CLDeprecatedAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -1367,7 +1367,7 @@ class CLDeprecatedAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -1732,7 +1732,7 @@ class CLRuntimeVisibleAnnotationsAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -1744,7 +1744,7 @@ class CLRuntimeVisibleAnnotationsAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -1799,7 +1799,7 @@ class CLRuntimeInvisibleAnnotationsAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -1811,7 +1811,7 @@ class CLRuntimeInvisibleAnnotationsAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -1936,7 +1936,7 @@ class CLRuntimeVisibleParameterAnnotationsAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -1948,7 +1948,7 @@ class CLRuntimeVisibleParameterAnnotationsAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -2009,7 +2009,7 @@ class CLRuntimeInvisibleParameterAnnotationsAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -2021,7 +2021,7 @@ class CLRuntimeInvisibleParameterAnnotationsAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -2066,7 +2066,7 @@ class CLAnnotationDefaultAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -2075,7 +2075,7 @@ class CLAnnotationDefaultAttribute extends CLAttributeInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

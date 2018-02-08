@@ -79,7 +79,7 @@ class JWhileStatement extends JStatement {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

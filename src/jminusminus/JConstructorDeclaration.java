@@ -164,7 +164,7 @@ class JConstructorDeclaration extends JMethodDeclaration implements JMember {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

@@ -63,6 +63,9 @@ abstract class CLMemberInfo {
      * 
      * @param out
      *            output stream.
+     * @exception IOException
+     *                if the contents of this class member can't be written
+     *                to the specified output stream.
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -129,7 +132,7 @@ class CLFieldInfo extends CLMemberInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -168,7 +171,7 @@ class CLMethodInfo extends CLMemberInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

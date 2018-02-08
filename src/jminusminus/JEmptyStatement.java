@@ -22,7 +22,7 @@ class JEmptyStatement extends JStatement {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public JAST analyze(Context context) {
@@ -31,7 +31,7 @@ class JEmptyStatement extends JStatement {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void codegen(CLEmitter output) {
@@ -39,7 +39,7 @@ class JEmptyStatement extends JStatement {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

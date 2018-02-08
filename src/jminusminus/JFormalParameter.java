@@ -91,7 +91,7 @@ class JFormalParameter extends JAST {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

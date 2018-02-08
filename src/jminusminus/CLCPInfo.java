@@ -77,7 +77,7 @@ class CLConstantClassInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -86,7 +86,7 @@ class CLConstantClassInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public boolean equals(Object obj) {
@@ -100,7 +100,7 @@ class CLConstantClassInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -142,7 +142,7 @@ abstract class CLConstantMemberRefInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -152,7 +152,7 @@ abstract class CLConstantMemberRefInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public boolean equals(Object obj) {
@@ -188,7 +188,7 @@ class CLConstantFieldRefInfo extends CLConstantMemberRefInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -218,7 +218,7 @@ class CLConstantMethodRefInfo extends CLConstantMemberRefInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -249,7 +249,7 @@ class CLConstantInterfaceMethodRefInfo extends CLConstantMemberRefInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -282,7 +282,7 @@ class CLConstantStringInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -291,7 +291,7 @@ class CLConstantStringInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public boolean equals(Object obj) {
@@ -305,7 +305,7 @@ class CLConstantStringInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -354,7 +354,7 @@ class CLConstantIntegerInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -367,7 +367,7 @@ class CLConstantIntegerInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public boolean equals(Object obj) {
@@ -381,7 +381,7 @@ class CLConstantIntegerInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -430,7 +430,7 @@ class CLConstantFloatInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -439,7 +439,7 @@ class CLConstantFloatInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public boolean equals(Object obj) {
@@ -453,7 +453,7 @@ class CLConstantFloatInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -534,7 +534,7 @@ class CLConstantLongInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -543,7 +543,7 @@ class CLConstantLongInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public boolean equals(Object obj) {
@@ -557,7 +557,7 @@ class CLConstantLongInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -638,7 +638,7 @@ class CLConstantDoubleInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -647,7 +647,7 @@ class CLConstantDoubleInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public boolean equals(Object obj) {
@@ -661,7 +661,7 @@ class CLConstantDoubleInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -700,7 +700,7 @@ class CLConstantNameAndTypeInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -710,7 +710,7 @@ class CLConstantNameAndTypeInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public boolean equals(Object obj) {
@@ -725,7 +725,7 @@ class CLConstantNameAndTypeInfo extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -767,7 +767,7 @@ class CLConstantUtf8Info extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void write(CLOutputStream out) throws IOException {
@@ -776,7 +776,7 @@ class CLConstantUtf8Info extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public boolean equals(Object obj) {
@@ -790,7 +790,7 @@ class CLConstantUtf8Info extends CLCPInfo {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

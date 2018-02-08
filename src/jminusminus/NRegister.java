@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * An abstraction for a (virtual or physical) register.
+ * This abstract base class is for both a physical and virtual
+ * register.
  */
 
 abstract class NRegister {
@@ -18,7 +19,8 @@ abstract class NRegister {
     protected String name;
 
     /**
-     * Construct an NRegister.
+     * Constructs a {@code NRegister} given the register number
+     * and register name.
      * 
      * @param number
      *            register number.
@@ -32,9 +34,9 @@ abstract class NRegister {
     }
 
     /**
-     * Return the number of this register.
+     * Returns the number of this register.
      * 
-     * @return register number.
+     * @return the register number.
      */
 
     public int number() {
@@ -42,9 +44,9 @@ abstract class NRegister {
     }
 
     /**
-     * Return the name of this register.
+     * Returns the name of this register.
      * 
-     * @return register name.
+     * @return the register name.
      */
 
     public String name() {
@@ -66,7 +68,8 @@ class NVirtualRegister extends NRegister {
     private String lType;
 
     /**
-     * Construct an NVirutalRegister.
+     * Constructs a {@code NVirutalRegister} given the register number, the
+     * short type name, and the long type name of the value in the register.
      * 
      * @param number
      *            register number.
@@ -83,7 +86,7 @@ class NVirtualRegister extends NRegister {
     }
 
     /**
-     * Return a string representation of this virtual register.
+     * Returns a string representation of this virtual register.
      * 
      * @return string representation.
      */
@@ -210,25 +213,26 @@ class NPhysicalRegister extends NRegister {
      * Maps register number to the register's representation.
      */
     public static final NPhysicalRegister[] regInfo = {
-            new NPhysicalRegister(0, "zero"), new NPhysicalRegister(1, "at"),
-            new NPhysicalRegister(2, "v0"), new NPhysicalRegister(3, "v1"),
-            new NPhysicalRegister(4, "a0"), new NPhysicalRegister(5, "a1"),
-            new NPhysicalRegister(6, "a2"), new NPhysicalRegister(7, "a3"),
-            new NPhysicalRegister(8, "t0"), new NPhysicalRegister(9, "t1"),
-            new NPhysicalRegister(10, "t2"), new NPhysicalRegister(11, "t3"),
-            new NPhysicalRegister(12, "t4"), new NPhysicalRegister(13, "t5"),
-            new NPhysicalRegister(14, "t6"), new NPhysicalRegister(15, "t7"),
-            new NPhysicalRegister(16, "s0"), new NPhysicalRegister(17, "s1"),
-            new NPhysicalRegister(18, "s2"), new NPhysicalRegister(19, "s3"),
-            new NPhysicalRegister(20, "s4"), new NPhysicalRegister(21, "s5"),
-            new NPhysicalRegister(22, "s6"), new NPhysicalRegister(23, "s7"),
-            new NPhysicalRegister(24, "t8"), new NPhysicalRegister(25, "t9"),
-            new NPhysicalRegister(26, "k0"), new NPhysicalRegister(27, "k1"),
-            new NPhysicalRegister(28, "gp"), new NPhysicalRegister(29, "sp"),
-            new NPhysicalRegister(30, "fp"), new NPhysicalRegister(31, "ra"), };
+            new NPhysicalRegister(0, "zero"),  new NPhysicalRegister(1,  "at"),
+            new NPhysicalRegister(2,   "v0"),  new NPhysicalRegister(3,  "v1"),
+            new NPhysicalRegister(4,   "a0"),  new NPhysicalRegister(5,  "a1"),
+            new NPhysicalRegister(6,   "a2"),  new NPhysicalRegister(7,  "a3"),
+            new NPhysicalRegister(8,   "t0"),  new NPhysicalRegister(9,  "t1"),
+            new NPhysicalRegister(10,  "t2"),  new NPhysicalRegister(11, "t3"),
+            new NPhysicalRegister(12,  "t4"),  new NPhysicalRegister(13, "t5"),
+            new NPhysicalRegister(14,  "t6"),  new NPhysicalRegister(15, "t7"),
+            new NPhysicalRegister(16,  "s0"),  new NPhysicalRegister(17, "s1"),
+            new NPhysicalRegister(18,  "s2"),  new NPhysicalRegister(19, "s3"),
+            new NPhysicalRegister(20,  "s4"),  new NPhysicalRegister(21, "s5"),
+            new NPhysicalRegister(22,  "s6"),  new NPhysicalRegister(23, "s7"),
+            new NPhysicalRegister(24,  "t8"),  new NPhysicalRegister(25, "t9"),
+            new NPhysicalRegister(26,  "k0"),  new NPhysicalRegister(27, "k1"),
+            new NPhysicalRegister(28,  "gp"),  new NPhysicalRegister(29, "sp"),
+            new NPhysicalRegister(30,  "fp"),  new NPhysicalRegister(31, "ra")  };
 
     /**
-     * Construct an NPhysicalRegister.
+     * Constructs a {@code NPhysicalRegister} given the register number and 
+     * register name.
      * 
      * @param number
      *            number of the register.
@@ -241,7 +245,7 @@ class NPhysicalRegister extends NRegister {
     }
 
     /**
-     * Return a string representation of this physical register.
+     * Returns a string representation of this physical register.
      * 
      * @return string representation.
      */

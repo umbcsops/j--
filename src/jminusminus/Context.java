@@ -13,7 +13,7 @@ import java.util.Set;
  * <p>
  * Because scopes are lexically nested in Java (and so in j--), the environment
  * can be seen as a stack of contexts, each of which is a mapping from names to
- * their definitions ({@link IDefns}). A Context keeps track of its (most 
+ * their definitions ({@link IDefn}s). A Context keeps track of its (most 
  * closely) surrounding context, its surrounding class context, and its 
  * surrounding compilation unit context, and as well as a map from names to 
  * definitions in the level of scope that the Context represents. Contexts are 
@@ -76,6 +76,8 @@ class Context {
      * Adds an entry to the symbol table, binding a name to its definition in the
      * current context.
      * 
+     * @param line
+     *            the line number of the entry.
      * @param name
      *            the name being declared.
      * @param definition
@@ -236,7 +238,7 @@ class CompilationUnitContext extends Context {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -345,7 +347,7 @@ class LocalContext extends Context {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -445,7 +447,7 @@ class MethodContext extends LocalContext {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

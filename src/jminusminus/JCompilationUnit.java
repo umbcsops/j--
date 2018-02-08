@@ -220,7 +220,7 @@ class JCompilationUnit extends JAST {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

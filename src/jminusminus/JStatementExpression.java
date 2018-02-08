@@ -57,7 +57,7 @@ class JStatementExpression extends JStatement {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

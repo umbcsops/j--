@@ -220,7 +220,7 @@ class Field extends Member {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     protected java.lang.reflect.Member member() {
@@ -275,7 +275,7 @@ class Constructor extends Member {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     protected java.lang.reflect.Member member() {

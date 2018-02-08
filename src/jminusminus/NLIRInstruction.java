@@ -133,7 +133,7 @@ class NLIRArithmetic extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void allocatePhysicalRegisters() {
@@ -148,7 +148,7 @@ class NLIRArithmetic extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -166,7 +166,7 @@ class NLIRArithmetic extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -205,7 +205,7 @@ class NLIRIntConstant extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void allocatePhysicalRegisters() {
@@ -214,7 +214,7 @@ class NLIRIntConstant extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -222,7 +222,7 @@ class NLIRIntConstant extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -275,7 +275,7 @@ class NLIRStringConstant extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void allocatePhysicalRegisters() {
@@ -284,7 +284,7 @@ class NLIRStringConstant extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -304,7 +304,7 @@ class NLIRStringConstant extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -359,7 +359,7 @@ class NLIRConditionalJump extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void allocatePhysicalRegisters() {
@@ -372,7 +372,7 @@ class NLIRConditionalJump extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -395,7 +395,7 @@ class NLIRConditionalJump extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -431,7 +431,7 @@ class NLIRGoto extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -440,7 +440,7 @@ class NLIRGoto extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -502,7 +502,7 @@ class NLIRInvoke extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void allocatePhysicalRegisters() {
@@ -514,7 +514,7 @@ class NLIRInvoke extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -523,7 +523,7 @@ class NLIRInvoke extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -571,7 +571,7 @@ class NLIRReturn extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -579,7 +579,7 @@ class NLIRReturn extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -637,7 +637,7 @@ class NLIRPutField extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -645,7 +645,7 @@ class NLIRPutField extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -700,7 +700,7 @@ class NLIRGetField extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -708,7 +708,7 @@ class NLIRGetField extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -757,7 +757,7 @@ class NLIRNewArray extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -765,7 +765,7 @@ class NLIRNewArray extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -814,7 +814,7 @@ class NLIRALoad extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -822,7 +822,7 @@ class NLIRALoad extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -873,7 +873,7 @@ class NLIRAStore extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -881,7 +881,7 @@ class NLIRAStore extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -917,7 +917,7 @@ class NLIRPhiFunction extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -972,7 +972,7 @@ class NLIRMove extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void allocatePhysicalRegisters() {
@@ -985,7 +985,7 @@ class NLIRMove extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -993,7 +993,7 @@ class NLIRMove extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -1042,7 +1042,7 @@ class NLIRLoadLocal extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -1093,7 +1093,7 @@ class NLIRLoad extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -1105,7 +1105,7 @@ class NLIRLoad extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {
@@ -1159,7 +1159,7 @@ class NLIRStore extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void allocatePhysicalRegisters() {
@@ -1171,7 +1171,7 @@ class NLIRStore extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void toSpim(PrintWriter out) {
@@ -1183,7 +1183,7 @@ class NLIRStore extends NLIRInstruction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public String toString() {

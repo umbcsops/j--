@@ -108,7 +108,7 @@ class JInstanceOfOp extends JExpression {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

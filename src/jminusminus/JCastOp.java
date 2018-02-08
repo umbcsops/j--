@@ -85,7 +85,7 @@ class JCastOp extends JExpression {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {
@@ -209,7 +209,7 @@ interface Converter {
 class Identity implements Converter {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void codegen(CLEmitter output) {
@@ -240,7 +240,7 @@ class NarrowReference implements Converter {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void codegen(CLEmitter output) {
@@ -277,7 +277,7 @@ class Boxing implements Converter {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void codegen(CLEmitter output) {
@@ -322,7 +322,7 @@ class UnBoxing implements Converter {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void codegen(CLEmitter output) {
@@ -339,7 +339,7 @@ class UnBoxing implements Converter {
 class I2C implements Converter {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void codegen(CLEmitter output) {

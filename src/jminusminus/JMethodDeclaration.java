@@ -215,7 +215,7 @@ class JMethodDeclaration
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 
     public void writeToStdOut(PrettyPrinter p) {

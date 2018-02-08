@@ -8,7 +8,7 @@ import java.util.Queue;
 import static jminusminus.NPhysicalRegister.*;
 
 /**
- * Implemets a naive register allocation method. Each interval is considered
+ * Implements a naive register allocation method. Each interval is considered
  * live for the entire cfg. Intervals are assigned physical registers on a first
  * come basis. When we run out of registers, we reuse the ones already assigned
  * and spill.
@@ -17,7 +17,8 @@ import static jminusminus.NPhysicalRegister.*;
 public class NNaiveRegisterAllocator extends NRegisterAllocator {
 
     /**
-     * Construct a NNaiveRegisterAllocator.
+     * Constructs a {@code NNaiveRegisterAllocator} given a control flow
+     * graph.
      * 
      * @param cfg
      *            an instance of a control flow graph.
@@ -28,7 +29,7 @@ public class NNaiveRegisterAllocator extends NRegisterAllocator {
     }
 
     /**
-     * Build intervals with (naive) register allocation information in them.
+     * Builds intervals with (naive) register allocation information in them.
      */
 
     public void allocation() {
