@@ -284,11 +284,7 @@ public class Parser {
      */
 
     private boolean seeBasicType() {
-        if (see(BOOLEAN) || see(CHAR) || see(INT)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (see(BOOLEAN) || see(CHAR) || see(INT));
     }
 
     /**
@@ -770,7 +766,8 @@ public class Parser {
      */
 
     private ArrayList<JVariableDeclarator> variableDeclarators(Type type) {
-        ArrayList<JVariableDeclarator> variableDeclarators = new ArrayList<JVariableDeclarator>();
+        ArrayList<JVariableDeclarator> variableDeclarators = 
+                                       new ArrayList<JVariableDeclarator>();
         do {
             variableDeclarators.add(variableDeclarator(type));
         } while (have(COMMA));
@@ -958,11 +955,12 @@ public class Parser {
         int line = scanner.token().line();
         JExpression expr = expression();
         if (expr instanceof JAssignment || expr instanceof JPreIncrementOp
-                || expr instanceof JPostDecrementOp
-                || expr instanceof JMessageExpression
-                || expr instanceof JSuperConstruction
-                || expr instanceof JThisConstruction || expr instanceof JNewOp
-                || expr instanceof JNewArrayOp) {
+                                        || expr instanceof JPostDecrementOp
+                                        || expr instanceof JMessageExpression
+                                        || expr instanceof JSuperConstruction
+                                        || expr instanceof JThisConstruction 
+                                        || expr instanceof JNewOp
+                                        || expr instanceof JNewArrayOp) {
             // So as not to save on stack
             expr.isStatementExpression = true;
         } else {
@@ -1423,7 +1421,8 @@ public class Parser {
         }
     }
 
-    // A tracing aid. Invoke to debug the parser at various
+    // A tracing aid. Invoke to debug the parser to see what token
+    // is being parsed at that point.
     //
     // private void trace( String message )
     // {

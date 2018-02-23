@@ -383,14 +383,7 @@ class Scanner {
      */
 
     private boolean isWhitespace(char c) {
-        switch (c) {
-        case ' ':
-        case '\t':
-        case '\n': // CharReader maps all new lines to '\n'
-        case '\f':
-            return true;
-        }
-        return false;
+        return (c == ' ' || c == '\t' || c == '\n' || c == '\f');
     }
 
     /**

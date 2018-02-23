@@ -2208,6 +2208,11 @@ class ByteClassLoader extends ClassLoader {
                 cls = findSystemClass(name);
             } catch (Exception e) {
                 // Ignore these
+            } catch (NoClassDefFoundError e) {
+                // If we get here we know the class exists, 
+                // so change the name to its binary name as defined
+                // in the Java Language Specifications
+                cls = findSystemClass(name.replace("/", "."));
             }
         }
         if (cls == null) {

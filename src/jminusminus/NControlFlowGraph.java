@@ -1198,17 +1198,6 @@ class NControlFlowGraph {
         for (int ins : hirMap.keySet()) {
             hirMap.get(ins).toLir();
         }
-
-        // We now know how many virtual registers are needed, so
-        // we can initialize bitset fields in each block that are
-        // needed for interval calculation.
-        int size = registers.size();
-        for (NBasicBlock block : basicBlocks) {
-            block.liveDef = new BitSet(size);
-            block.liveUse = new BitSet(size);
-            block.liveIn = new BitSet(size);
-            block.liveOut = new BitSet(size);
-        }
     }
 
     /**
