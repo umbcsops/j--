@@ -282,9 +282,11 @@ class JClassDeclaration extends JAST implements JTypeDecl {
         }
         if (classBlock != null) {
             p.println("<ClassBlock>");
+            p.indentRight();
             for (JMember member : classBlock) {
                 ((JAST) member).writeToStdOut(p);
             }
+            p.indentLeft();
             p.println("</ClassBlock>");
         }
         p.indentLeft();

@@ -54,7 +54,7 @@ public class GenFactorial {
         e.addMethod(accessFlags, "<init>", "()V", null, true);
         e.addNoArgInstruction(ALOAD_0);
         e.addMemberAccessInstruction(INVOKESPECIAL, "java/lang/Object",
-                "<init>", "()V");
+                                                    "<init>", "()V");
         e.addNoArgInstruction(RETURN);
 
         // Add compute() method to Factorial
@@ -73,7 +73,7 @@ public class GenFactorial {
         e.addNoArgInstruction(ICONST_1);
         e.addNoArgInstruction(ISUB);
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "Factorial", "compute",
-                "(I)I");
+                                                    "(I)I");
         e.addNoArgInstruction(IMUL);
         e.addNoArgInstruction(IRETURN);
 
@@ -82,67 +82,96 @@ public class GenFactorial {
         accessFlags.add("public");
         accessFlags.add("static");
         e.addMethod(accessFlags, "main", "([Ljava/lang/String;)V", null, true);
+
         e.addExceptionHandler("tryStart", "tryEnd", "catch",
-                "java/lang/NumberFormatException");
+                              "java/lang/NumberFormatException");
         e.addLabel("tryStart");
         e.addReferenceInstruction(NEW, "Factorial");
         e.addNoArgInstruction(DUP);
         e.addMemberAccessInstruction(INVOKESPECIAL, "Factorial", "<init>",
-                "()V");
+                                                    "()V");
         e.addNoArgInstruction(ASTORE_1);
         e.addNoArgInstruction(ALOAD_0);
         e.addNoArgInstruction(ICONST_0);
         e.addNoArgInstruction(AALOAD);
         e.addMemberAccessInstruction(INVOKESTATIC, "java/lang/Integer",
-                "parseInt", "(Ljava/lang/String;)I");
+                                                   "parseInt", 
+                                                   "(Ljava/lang/String;)I");
         e.addNoArgInstruction(ISTORE_2);
-        e.addMemberAccessInstruction(GETSTATIC, "java/lang/System", "out",
-                "Ljava/io/PrintStream;");
+        e.addMemberAccessInstruction(GETSTATIC, "java/lang/System", 
+                                                "out",
+                                                "Ljava/io/PrintStream;");
+        
         e.addReferenceInstruction(NEW, "java/lang/StringBuffer");
         e.addNoArgInstruction(DUP);
+
         e.addMemberAccessInstruction(INVOKESPECIAL, "java/lang/StringBuffer",
-                "<init>", "()V");
+                                                    "<init>", 
+                                                    "()V");
         e.addLDCInstruction("Factorial(");
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "append", "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+                                                    "append", 
+                                "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+
         e.addNoArgInstruction(ILOAD_2);
+        
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "append", "(I)Ljava/lang/StringBuffer;");
+                                                    "append", 
+                                                 "(I)Ljava/lang/StringBuffer;");
         e.addLDCInstruction(") = ");
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "append", "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+                                                    "append", 
+                                "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+        
         e.addNoArgInstruction(ALOAD_1);
         e.addNoArgInstruction(ILOAD_2);
+        
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "Factorial", "compute",
-                "(I)I");
+                                                    "(I)I");
+
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "append", "(I)Ljava/lang/StringBuffer;");
+                                                    "append", 
+                                                "(I)Ljava/lang/StringBuffer;");
+        
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "toString", "()Ljava/lang/String;");
+                                                    "toString", 
+                                                    "()Ljava/lang/String;");
+
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/io/PrintStream",
-                "println", "(Ljava/lang/String;)V");
+                                                    "println", 
+                                                    "(Ljava/lang/String;)V");
         e.addLabel("tryEnd");
+        
         e.addBranchInstruction(GOTO, "done");
+        
         e.addLabel("catch");
         e.addNoArgInstruction(ASTORE_1);
         e.addMemberAccessInstruction(GETSTATIC, "java/lang/System", "err",
-                "Ljava/io/PrintStream;");
+                                                "Ljava/io/PrintStream;");
+        
         e.addReferenceInstruction(NEW, "java/lang/StringBuffer");
         e.addNoArgInstruction(DUP);
+        
         e.addMemberAccessInstruction(INVOKESPECIAL, "java/lang/StringBuffer",
-                "<init>", "()V");
+                                                    "<init>", "()V");
         e.addLDCInstruction("Invalid number ");
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "append", "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+                                                    "append", 
+                                "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
         e.addNoArgInstruction(ALOAD_0);
         e.addNoArgInstruction(ICONST_0);
         e.addNoArgInstruction(AALOAD);
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "append", "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+                                                    "append", 
+                                "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "toString", "()Ljava/lang/String;");
+                                                    "toString", 
+                                                    "()Ljava/lang/String;");
+        
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/io/PrintStream",
-                "println", "(Ljava/lang/String;)V");
+                                                    "println", 
+                                                    "(Ljava/lang/String;)V");
         e.addLabel("done");
         e.addNoArgInstruction(RETURN);
 

@@ -46,7 +46,7 @@ public class GenIntFactorial {
         e.addMethod(accessFlags, "<init>", "()V", null, true);
         e.addNoArgInstruction(ALOAD_0);
         e.addMemberAccessInstruction(INVOKESPECIAL, "java/lang/Object",
-                "<init>", "()V");
+                                                    "<init>", "()V");
         e.addNoArgInstruction(RETURN);
 
         // Add factorial() method to IntFactorial
@@ -65,7 +65,7 @@ public class GenIntFactorial {
         e.addNoArgInstruction(ICONST_1);
         e.addNoArgInstruction(ISUB);
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "IntFactorial",
-                "factorial", "(I)I");
+                                                    "factorial", "(I)I");
         e.addNoArgInstruction(IMUL);
         e.addNoArgInstruction(IRETURN);
 
@@ -77,39 +77,61 @@ public class GenIntFactorial {
         e.addReferenceInstruction(NEW, "IntFactorial");
         e.addNoArgInstruction(DUP);
         e.addMemberAccessInstruction(INVOKESPECIAL, "IntFactorial", "<init>",
-                "()V");
+                                                    "()V");
         e.addNoArgInstruction(ASTORE_1);
         e.addNoArgInstruction(ALOAD_0);
         e.addNoArgInstruction(ICONST_0);
         e.addNoArgInstruction(AALOAD);
         e.addMemberAccessInstruction(INVOKESTATIC, "java/lang/Integer",
-                "parseInt", "(Ljava/lang/String;)I");
+                                                   "parseInt", 
+                                                   "(Ljava/lang/String;)I");
         e.addNoArgInstruction(ISTORE_2);
         e.addMemberAccessInstruction(GETSTATIC, "java/lang/System", "out",
-                "Ljava/io/PrintStream;");
+                                                "Ljava/io/PrintStream;");
+
         e.addReferenceInstruction(NEW, "java/lang/StringBuffer");
         e.addNoArgInstruction(DUP);
+        
         e.addMemberAccessInstruction(INVOKESPECIAL, "java/lang/StringBuffer",
-                "<init>", "()V");
+                                                    "<init>", 
+                                                    "()V");
+
         e.addLDCInstruction("Factorial(");
+        
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "append", "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+                                                    "append", 
+                                "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+        
         e.addNoArgInstruction(ILOAD_2);
+        
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "append", "(I)Ljava/lang/StringBuffer;");
+                                                    "append", 
+                                                "(I)Ljava/lang/StringBuffer;");
+        
         e.addLDCInstruction(") = ");
+        
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "append", "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+                                                    "append", 
+                                "(Ljava/lang/String;)Ljava/lang/StringBuffer;");
+        
         e.addNoArgInstruction(ALOAD_1);
         e.addNoArgInstruction(ILOAD_2);
+        
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "IntFactorial",
-                "factorial", "(I)I");
+                                                    "factorial", 
+                                                    "(I)I");
+
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "append", "(I)Ljava/lang/StringBuffer;");
+                                                    "append", 
+                                                "(I)Ljava/lang/StringBuffer;");
+
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/lang/StringBuffer",
-                "toString", "()Ljava/lang/String;");
+                                                    "toString", 
+                                                    "()Ljava/lang/String;");
+
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/io/PrintStream",
-                "println", "(Ljava/lang/String;)V");
+                                                    "println", 
+                                                    "(Ljava/lang/String;)V");
         e.addNoArgInstruction(RETURN);
 
         // Write IntFactorial.class to file system

@@ -45,12 +45,16 @@ public class GenHelloWorld {
         accessFlags.add("public");
         accessFlags.add("static");
         e.addMethod(accessFlags, "main", "([Ljava/lang/String;)V", null, true);
+
         e.addMemberAccessInstruction(GETSTATIC, "java/lang/System", "out",
-                "Ljava/io/PrintStream;");
+                                                "Ljava/io/PrintStream;");
+
         e.addMemberAccessInstruction(INVOKESTATIC, "HelloWorld", "message",
-                "()Ljava/lang/String;");
+                                                   "()Ljava/lang/String;");
+        
         e.addMemberAccessInstruction(INVOKEVIRTUAL, "java/io/PrintStream",
-                "println", "(Ljava/lang/String;)V");
+                                                    "println", 
+                                                    "(Ljava/lang/String;)V");
         e.addNoArgInstruction(RETURN);
 
         // Write HelloWorld.class to file system

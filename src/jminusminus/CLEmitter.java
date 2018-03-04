@@ -4,24 +4,26 @@ package jminusminus;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.DataOutputStream;
 import java.io.OutputStream;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
+
 import static jminusminus.CLConstants.*;
 import static jminusminus.CLConstants.Category.*;
 
 /**
  * This class provides a high level interface for creating (in-memory and file
  * based) representation of Java classes.
- * 
+ * <p>
  * j-- uses this interface to produce target JVM bytecode from a j-- source
  * program. During the pre-analysis and analysis phases, j-- produces partial
  * (in-memory) classes for the type declarations within the compilation unit,
@@ -114,7 +116,7 @@ public class CLEmitter {
     private int mLabelCount;
 
     /**
-     * Whether there there was an instruction added after the last call to
+     * Whether there was an instruction added after the last call to
      * addLabel( String label ). If not, the branch instruction that was added
      * with that label would jump beyond the code section, which is not
      * acceptable to the runtime class loader. Therefore, if this flag is false,
@@ -149,16 +151,18 @@ public class CLEmitter {
      */
 
     private void initializeMethodVariables() {
-        mAccessFlags = 0;
-        mNameIndex = -1;
+        mAccessFlags     = 0;
+        mNameIndex       = -1;
         mDescriptorIndex = -1;
-        mArgumentCount = 0;
-        mPC = 0;
-        mAttributes = new ArrayList<CLAttributeInfo>();
+        mArgumentCount   = 0;
+        mPC              = 0;
+
+        mAttributes        = new ArrayList<CLAttributeInfo>();
         mExceptionHandlers = new ArrayList<CLException>();
-        mCode = new ArrayList<CLInstruction>();
-        mCodeAttributes = new ArrayList<CLAttributeInfo>();
-        mLabels = new Hashtable<String, Integer>();
+        mCode              = new ArrayList<CLInstruction>();
+        mCodeAttributes    = new ArrayList<CLAttributeInfo>();
+        mLabels            = new Hashtable<String, Integer>();
+        
         mLabelCount = 1;
         mInstructionAfterLabel = false;
     }
@@ -274,15 +278,15 @@ public class CLEmitter {
         // Set the members of the ClassFile structure to their
         // appropriate values
         clFile.constantPoolCount = constantPool.size() + 1;
-        clFile.constantPool = constantPool;
-        clFile.interfacesCount = interfaces.size();
-        clFile.interfaces = interfaces;
-        clFile.fieldsCount = fields.size();
-        clFile.fields = fields;
-        clFile.methodsCount = methods.size();
-        clFile.methods = methods;
-        clFile.attributesCount = attributes.size();
-        clFile.attributes = attributes;
+        clFile.constantPool      = constantPool;
+        clFile.interfacesCount   = interfaces.size();
+        clFile.interfaces        = interfaces;
+        clFile.fieldsCount       = fields.size();
+        clFile.fields            = fields;
+        clFile.methodsCount      = methods.size();
+        clFile.methods           = methods;
+        clFile.attributesCount   = attributes.size();
+        clFile.attributes        = attributes;
     }
 
     /**
@@ -886,12 +890,13 @@ public class CLEmitter {
     // /////////////////////////////////////////////////////
 
     /**
-     * Construct a CLEmitter instance.
+     * Constructs a CLEmitter instance given a boolean on whether or not the 
+     * class file will be written to the file system.
      * 
      * @param toFile
-     *            if true, the in-memory representation of the class file will
-     *            be written to the file system. Otherwise, it won't be saved as
-     *            a file.
+     *            if {@code true} the in-memory representation of the class 
+     *            file will be written to the file system. Otherwise, it won't 
+     *            be saved as a file.
      */
 
     public CLEmitter(boolean toFile) {
@@ -900,7 +905,7 @@ public class CLEmitter {
     }
 
     /**
-     * Set the destination directory for the class file to the specified value.
+     * Sets the destination directory for the class file to the specified value.
      * 
      * @param destDir
      *            destination directory.
@@ -921,9 +926,11 @@ public class CLEmitter {
     }
 
     /**
-     * Add a class or interface. This method instantiates a class file
-     * representation in memory, so must be called prior to methods that add
-     * information (fields, methods, instructions, etc.) to the class.
+     * Adds a class or interface to the class file. 
+     * <p>
+     * This method instantiates a class file representation in memory, so this 
+     * method <em>must</em> be called prior to methods that add information 
+     * (fields, methods, instructions, etc.) to the class.
      * 
      * @param accessFlags
      *            the access flags for the class or interface.
@@ -942,13 +949,14 @@ public class CLEmitter {
     public void addClass(ArrayList<String> accessFlags, String thisClass,
             String superClass, ArrayList<String> superInterfaces,
             boolean isSynthetic) {
-        clFile = new CLFile();
+        clFile       = new CLFile();
         constantPool = new CLConstantPool();
-        interfaces = new ArrayList<Integer>();
-        fields = new ArrayList<CLFieldInfo>();
-        methods = new ArrayList<CLMethodInfo>();
-        attributes = new ArrayList<CLAttributeInfo>();
+        interfaces   = new ArrayList<Integer>();
+        fields       = new ArrayList<CLFieldInfo>();
+        methods      = new ArrayList<CLMethodInfo>();
+        attributes   = new ArrayList<CLAttributeInfo>();
         innerClasses = new ArrayList<CLInnerClassInfo>();
+
         errorHasOccurred = false;
         clFile.magic = MAGIC;
         clFile.majorVersion = MAJOR_VERSION;
@@ -982,7 +990,7 @@ public class CLEmitter {
     }
 
     /**
-     * Add an inner class. Note that this only registers the inner class with
+     * Adds an inner class. Note that this only registers the inner class with
      * its parent and does not create the class.
      * 
      * @param accessFlags
@@ -1011,7 +1019,7 @@ public class CLEmitter {
     }
 
     /**
-     * Add a field without initialization.
+     * Adds a field without initialization.
      * 
      * @param accessFlags
      *            access flags for the field.
@@ -1029,10 +1037,11 @@ public class CLEmitter {
     }
 
     /**
-     * Add an int, short, char, byte, or boolean field with initialization. If
-     * the field is final, the initialization is added to the constant pool. The
-     * initializations are all stored as ints, where boolean true and false are
-     * 1 and 0 respectively, and short, char, and byte must be cast to int.
+     * Adds an {@code int}, {@code short}, {@code char}, {@code byte}, or 
+     * {@code boolean} field with initialization. If the field is final, the 
+     * initialization is added to the constant pool. The initializations are 
+     * all stored as ints, where boolean true and false are 1 and 0 
+     * respectively, and short, char, and byte must be cast to int.
      * 
      * @param accessFlags
      *            access flags for the field.
@@ -1053,8 +1062,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add a float field with initialization. If the field is final, the
-     * initialization is added to the constant pool.
+     * Adds a {@code float} field with initialization. If the field is final, 
+     * the initialization is added to the constant pool.
      * 
      * @param accessFlags
      *            access flags for the field.
@@ -1073,8 +1082,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add a long field with initialization. If the field is final, the
-     * initialization is added to the constant pool.
+     * Adds a {@code long} field with initialization. If the field is final, 
+     * the initialization is added to the constant pool.
      * 
      * @param accessFlags
      *            access flags for the field.
@@ -1093,8 +1102,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add a double field with initialization. If the field is final, the
-     * initialization is added to the constant pool.
+     * Adds a {@code double} field with initialization. If the field is final, 
+     * the initialization is added to the constant pool.
      * 
      * @param accessFlags
      *            access flags for the field.
@@ -1113,8 +1122,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add a String type field with initialization. If the field is final, the
-     * initialization is added to the constant pool.
+     * Adds a {@code String} type field with initialization. If the field is final, 
+     * the initialization is added to the constant pool.
      * 
      * @param accessFlags
      *            access flags for the field.
@@ -1133,7 +1142,7 @@ public class CLEmitter {
     }
 
     /**
-     * Add a method. Instructions can subsequently be added to this method using
+     * Adds a method. Instructions can subsequently be added to this method using
      * the appropriate methods for adding instructions.
      * 
      * @param accessFlags
@@ -1179,7 +1188,7 @@ public class CLEmitter {
     }
 
     /**
-     * Add an exception handler.
+     * Adds an exception handler.
      * 
      * @param startLabel
      *            the exception handler is active from the instruction following
@@ -1195,7 +1204,7 @@ public class CLEmitter {
      *            the exception type that this exception handler is designated
      *            to catch, as a fully qualified name in internal form. If null,
      *            this exception handler is called for all exceptions; this is
-     *            used to immplement "finally".
+     *            used to implement "finally".
      */
 
     public void addExceptionHandler(String startLabel, String endLabel,
@@ -1209,8 +1218,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add a no argument instruction. Following instructions can be added using
-     * this method:
+     * Adds a no argument instruction. The following instructions can be added 
+     * using this method:
      * 
      * <p>
      * Arithmetic Instructions:
@@ -1290,7 +1299,7 @@ public class CLEmitter {
      *   NOP, ATHROW, MONITORENTER, MONITOREXIT
      * </pre>
      * 
-     * The opcodes for instructions are defined in CLConstants class.
+     * The opcodes for instructions are defined in {@link CLConstants} class.
      * 
      * @param opcode
      *            opcode of the instruction.
@@ -1337,9 +1346,9 @@ public class CLEmitter {
     }
 
     /**
-     * Add a one argument instruction. Wideable instructions are widened if
-     * necessary by adding a WIDE instruction before the instruction. Following
-     * instructions can be added using this method:
+     * Adds a one argument instruction. Wideable instructions are widened if
+     * necessary by adding a {@code WIDE} instruction before the instruction. 
+     * The following instructions can be added using this method:
      * 
      * <p>
      * Load Store Instructions:
@@ -1353,10 +1362,10 @@ public class CLEmitter {
      * Flow Control Instructions:
      * 
      * <pre>
-     * RET
+     *   RET
      * </pre>
      * 
-     * The opcodes for instructions are defined in CLConstants class.
+     * The opcodes for instructions are defined in {@link CLConstants} class.
      * 
      * @param opcode
      *            opcode of the instruction.
@@ -1403,9 +1412,9 @@ public class CLEmitter {
     }
 
     /**
-     * Add an IINC instruction to increment a variable by a constant. The
-     * instruction is widened if necessary by adding a WIDE instruction before
-     * the instruction.
+     * Adds an {@code IINC} instruction to increment a variable by a constant. 
+     * The instruction is widened if necessary by adding a WIDE instruction 
+     * before the instruction.
      * 
      * @param index
      *            local variable index.
@@ -1429,8 +1438,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add a member (field &amp; method) access instruction. Following instructions
-     * can be added using this method:
+     * Adds a member (field &amp; method) access instruction. The following 
+     * instructions can be added using this method:
      * 
      * <p>
      * Field Instructions:
@@ -1447,7 +1456,7 @@ public class CLEmitter {
      *   INVOKEDYNAMIC
      * </pre>
      * 
-     * The opcodes for instructions are defined in CLConstants class.
+     * The opcodes for instructions are defined in {@link CLConstants} class.
      * 
      * @param opcode
      *            opcode of the instruction.
@@ -1522,14 +1531,14 @@ public class CLEmitter {
     }
 
     /**
-     * Add a reference (object) instruction. Following instructions can be added
-     * using this method:
+     * Adds a reference (object) instruction. The following instructions can 
+     * be added using this method:
      * 
      * <pre>
      *   NEW, CHECKCAST, INSTANCEOF
      * </pre>
      * 
-     * The opcodes for instructions are defined in CLConstants class.
+     * The opcodes for instructions are defined in {@link CLConstants} class.
      * 
      * @param opcode
      *            opcode of the instruction.
@@ -1558,14 +1567,14 @@ public class CLEmitter {
     }
 
     /**
-     * Add an array instruction. Following instructions can be added using this
-     * method:
+     * Adds an array instruction. The following instructions can be added using 
+     * this method:
      * 
      * <pre>
      *   NEWARRAY, ANEWARRAY
      * </pre>
      * 
-     * The opcodes for instructions are defined in CLConstants class.
+     * The opcodes for instructions are defined in {@link CLConstants} class.
      * 
      * @param opcode
      *            opcode of the instruction.
@@ -1624,7 +1633,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add a MULTIANEWARRAY instruction for creating multi-dimensional arrays.
+     * Adds a {@code MULTIANEWARRAY} instruction for creating multi-dimensional 
+     * arrays.
      * 
      * @param type
      *            array type in internal form.
@@ -1648,8 +1658,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add a branch instruction. Following instructions can be added using this
-     * method:
+     * Adds a branch instruction. The following instructions can be added using 
+     * this method:
      * 
      * <pre>
      *   IFEQ, IFNE, IFLT, IFGE, IFGT, IFLE, IF_ICMPEQ, IF_ICMPNE, 
@@ -1657,7 +1667,7 @@ public class CLEmitter {
      *   IF_ACMPNE, GOTO, JSR, IF_NULL, IF_NONNULL, GOTO_W, JSR_W
      * </pre>
      * 
-     * The opcodes for instructions are defined in CLConstants class.
+     * The opcodes for instructions are defined in {@link CLConstants} class.
      * 
      * @param opcode
      *            opcode of the instruction.
@@ -1682,7 +1692,7 @@ public class CLEmitter {
     }
 
     /**
-     * Add a TABLESWITCH instruction -- used for switch statements.
+     * Adds a {@code TABLESWITCH} instruction -- used for switch statements.
      * 
      * @param defaultLabel
      *            jump label for default value.
@@ -1705,7 +1715,7 @@ public class CLEmitter {
     }
 
     /**
-     * Add a LOOKUPSWITCH instruction -- used for switch statements.
+     * Adds a {@code LOOKUPSWITCH} instruction -- used for switch statements.
      * 
      * @param defaultLabel
      *            jump label for default value.
@@ -1725,7 +1735,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add an LDC instruction to load an int constant on the operand stack.
+     * Adds an {@code LDC} instruction to load an {@code int} constant on the 
+     * operand stack.
      * 
      * @param i
      *            int constant.
@@ -1736,7 +1747,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add an LDC instruction to load a float constant on the operand stack.
+     * Adds an {@code LDC} instruction to load a {@code float} constant on the 
+     * operand stack.
      * 
      * @param f
      *            float constant.
@@ -1747,7 +1759,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add an LDC instruction to load a long constant on the operand stack.
+     * Adds an {@code LDC} instruction to load a {@code long} constant on the 
+     * operand stack.
      * 
      * @param l
      *            long constant.
@@ -1758,7 +1771,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add an LDC instruction to load a double constant on the operand stack.
+     * Adds an {@code LDC} instruction to load a {@code double} constant on the 
+     * operand stack.
      * 
      * @param d
      *            double constant.
@@ -1769,7 +1783,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add an LDC instruction to load a String constant on the operand stack.
+     * Adds an {@code LDC} instruction to load a {@code String} constant on the 
+     * operand stack.
      * 
      * @param s
      *            String constant.
@@ -1780,7 +1795,7 @@ public class CLEmitter {
     }
 
     /**
-     * Add the specified class attribute to the attribyte section of the class.
+     * Adds the specified class attribute to the attribute section of the class.
      * 
      * @param attribute
      *            class attribute.
@@ -1793,8 +1808,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add the specified method attribute to the attribute section of the method
-     * last added.
+     * Adds the specified method attribute to the attribute section of the 
+     * method last added.
      * 
      * @param attribute
      *            method attribute.
@@ -1807,8 +1822,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add the specified field attribute the attribute section of the field last
-     * added.
+     * Adds the specified field attribute the attribute section of the field 
+     * last added.
      * 
      * @param attribute
      *            field attribute.
@@ -1821,8 +1836,8 @@ public class CLEmitter {
     }
 
     /**
-     * Add the specified code attribute to the attribute section of the code for
-     * the method last added.
+     * Adds the specified code attribute to the attribute section of the code 
+     * for the method last added.
      * 
      * @param attribute
      *            code attribute.
@@ -1835,7 +1850,7 @@ public class CLEmitter {
     }
 
     /**
-     * Add a jump label to the code section of the method being added. A flow
+     * Adds a jump label to the code section of the method being added. A flow
      * control instruction that was added with this label will jump to the
      * instruction right after the label.
      * 
@@ -1849,7 +1864,7 @@ public class CLEmitter {
     }
 
     /**
-     * Construct and return a unique jump label.
+     * Constructs and returns a unique jump label.
      * 
      * @return unique jump label.
      */
@@ -1859,8 +1874,8 @@ public class CLEmitter {
     }
 
     /**
-     * Return the pc (location counter). The next instruction will be added with
-     * this pc.
+     * Returns the pc (location counter). The next instruction will be added 
+     * with this pc.
      * 
      * @return the pc.
      */
@@ -1870,7 +1885,7 @@ public class CLEmitter {
     }
 
     /**
-     * Return the constant pool of the class being built.
+     * Returns the constant pool of the class being built.
      * 
      * @return constant pool.
      */
@@ -1880,7 +1895,7 @@ public class CLEmitter {
     }
 
     /**
-     * Set a new ByteClassLoader for loading classes from byte streams.
+     * Sets a new ByteClassLoader for loading classes from byte streams.
      */
 
     public static void initializeByteClassLoader() {
@@ -1888,8 +1903,8 @@ public class CLEmitter {
     }
 
     /**
-     * Return the CLFile instance corresponding to the class built by this
-     * emitter.
+     * Returns the {@code CLFile} instance corresponding to the class built by 
+     * this emitter.
      *
      * @return the CLFile corresponding to the class built by this emitter.
      */
@@ -1899,7 +1914,7 @@ public class CLEmitter {
     }
 
     /**
-     * Return the class being constructed as a Java Class instance.
+     * Returns the class being constructed as a Java {@code Class} instance.
      * 
      * @return Java Class instance.
      */
@@ -1930,9 +1945,9 @@ public class CLEmitter {
     }
 
     /**
-     * Write out the class to the file system as a .class file if toFile is
-     * true. The destination directory for the file can be set using the
-     * destinationDir(String dir) method.
+     * Writes out the class to the file system as a .class file if 
+     * {@code toFile} is {@code true}. The destination directory for the file 
+     * can be set using the {@link #destinationDir(String)} method.
      */
 
     public void write() {
@@ -1996,7 +2011,7 @@ class CLException {
     public int handlerPC;
 
     /**
-     * Construct a CLException object.
+     * Constructs a CLException object.
      * 
      * @param startLabel
      *            the exception handler is active from the instruction following
@@ -2022,13 +2037,14 @@ class CLException {
     }
 
     /**
-     * Resolve the jump labels to the corresponding pc values using the given
+     * Resolves the jump labels to the corresponding pc values using the given
      * label to pc mapping. If unable to resolve a label, the corresponding pc
      * is set to 0.
      * 
      * @param labelToPC
      *            label to pc mapping.
-     * @return true if all labels were resolved successfully; false otherwise.
+     * @return {@code true} if all labels were resolved successfully; 
+     *         {@code false} otherwise.
      */
 
     public boolean resolveLabels(Hashtable<String, Integer> labelToPC) {
@@ -2057,9 +2073,9 @@ class CLException {
 }
 
 /**
- * Instances of this class form the elements of the CLBranchStack which is used
- * for control flow analysis to compute maximum depth of operand stack for a
- * method.
+ * Instances of this class form the elements of the {@link CLBranchStack} which
+ * is used for control flow analysis to compute maximum depth of operand stack 
+ * for a method.
  */
 
 class CLBranchTarget {
@@ -2071,7 +2087,7 @@ class CLBranchTarget {
     public int stackDepth;
 
     /**
-     * Construct a CLBranchTarget object.
+     * Constructs a CLBranchTarget object.
      * 
      * @param target
      *            the target instruction.
@@ -2100,8 +2116,8 @@ class CLBranchStack {
     private Hashtable<CLInstruction, CLBranchTarget> visitedTargets;
 
     /**
-     * Return an instance of CLBranchTarget with the specified information and
-     * record the target as visited.
+     * Returns an instance of CLBranchTarget with the specified information and
+     * records the target as visited.
      * 
      * @param target
      *            the target instruction.
@@ -2117,8 +2133,8 @@ class CLBranchStack {
     }
 
     /**
-     * Return true if the specified instruction has been visited, false
-     * otherwise.
+     * Returns {@code true} if the specified instruction has been visited;
+     * {@code false} otherwise.
      * 
      * @param target
      *            the target instruction.
@@ -2131,7 +2147,7 @@ class CLBranchStack {
     }
 
     /**
-     * Construct a CLBranchStack object.
+     * Constructs a CLBranchStack object.
      */
 
     public CLBranchStack() {
@@ -2140,7 +2156,7 @@ class CLBranchStack {
     }
 
     /**
-     * Push the specified information into the stack as a CLBranchTarget
+     * Pushes the specified information into the stack as a CLBranchTarget
      * instance if the target has not been visited yet.
      * 
      * @param target
@@ -2157,10 +2173,10 @@ class CLBranchStack {
     }
 
     /**
-     * Pop and return an element from the stack. null is returned if the stack
-     * is empty.
+     * Pops and returns an element from the stack. {@code null} is returned if 
+     * the stack is empty.
      * 
-     * @return an element from the stack.
+     * @return an element from the stack. {@code null} if stack is empty.
      */
 
     public CLBranchTarget pop() {
@@ -2186,7 +2202,7 @@ class ByteClassLoader extends ClassLoader {
     private boolean pkgDefined = false;
 
     /**
-     * Set the bytes representing the class.
+     * Sets the bytes representing the class.
      * 
      * @param bytes
      *            bytes representing the class.
@@ -2247,7 +2263,7 @@ class ByteClassLoader extends ClassLoader {
 class CLOutputStream extends DataOutputStream {
 
     /**
-     * Construct a CLOutputStream from the specified output stream.
+     * Constructs a CLOutputStream from the specified output stream.
      * 
      * @param out
      *            output stream.
@@ -2258,7 +2274,7 @@ class CLOutputStream extends DataOutputStream {
     }
 
     /**
-     * Write four bytes to the output stream to represent the value of the
+     * Writes four bytes to the output stream to represent the value of the
      * argument. The byte values to be written, in the order shown, are:
      * 
      * <pre>
