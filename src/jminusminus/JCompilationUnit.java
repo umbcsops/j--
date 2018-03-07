@@ -103,7 +103,8 @@ class JCompilationUnit extends JAST {
      */
 
     public String packageName() {
-        return packageName == null ? "" : packageName.toString();
+        return packageName == null ? "" : packageName.toString()
+                                                     .replace(".", "/");
     }
 
     /**

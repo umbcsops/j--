@@ -54,7 +54,7 @@ class NInterval implements Comparable<NInterval> {
     public ArrayList<NInterval> children;
 
     /**
-     * Construct a NInterval with the given virtual register ID for the given
+     * Constructs a NInterval with the given virtual register ID for the given
      * control flow graph.
      * 
      * @param virtualRegID
@@ -101,10 +101,11 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * Add a new range to the existing ranges.
+     * Adds a new range to the existing ranges. If the range overlaps then
+     * the old start position will be given the new start range position.
      * 
      * @param newNRange
-     *            - the NRange to add
+     *            the NRange to add
      */
 
     public void addOrExtendNRange(NRange newNRange) {
@@ -153,9 +154,9 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * The next use position of this interval after the first range start of the
-     * foreign interval. If there is no such use, then the first use position is
-     * returned to preserve data flow (in case of loops).
+     * Returns the next use position of this interval after the first range 
+     * start of the foreign interval. If there is no such use, then the first 
+     * use position is returned to preserve data flow (in case of loops).
      * 
      * @param currInterval
      *            the interval with starting point after which we want to find
@@ -178,7 +179,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * The first use position in this interval.
+     * Returns the first use position in this interval.
      * 
      * @return the first use position.
      */
@@ -189,7 +190,8 @@ class NInterval implements Comparable<NInterval> {
 
     /**
      * Sets the start value of the very first range. Note: There will always be
-     * at least one range before this method is used by buildIntervals.
+     * at least one range before this method is used by 
+     * {@link NRegisterAllocator#buildIntervals()}.
      * 
      * @param newStart
      *            the value to which the first range's start will be set.
@@ -202,7 +204,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * Register a use (read or write).
+     * Registers a use (read or write).
      * 
      * @param index
      *            the site of the use.
@@ -215,7 +217,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * Check if this virtual register is alive at a given index.
+     * Checks if this virtual register is alive at a given index.
      * 
      * @param atIndex
      *            the index at which to see if this register is live.
@@ -233,9 +235,10 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * The range in this interval in which the LIR instruction with the given id
-     * is live, or null. This will never return null if called for an interval
-     * from the active list after it has been set up by the allocate method.
+     * Returns the range in this interval in which the LIR instruction with the 
+     * given id is live; {@code null} otherwise. This will never return 
+     * {@code null} if called for an interval from the active list after it has 
+     * been set up by the allocation method.
      * 
      * @param id
      *            LIR instruction id.
@@ -252,7 +255,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * Write the interval information to STDOUT.
+     * Writes the interval information to STDOUT.
      * 
      * @param p
      *            for pretty printing with indentation.
@@ -303,7 +306,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * The start position for the first range.
+     * Returns the start position for the first range.
      * 
      * @return the start position.
      */
@@ -316,7 +319,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * The stop position for the last range.
+     * Returns the stop position for the last range.
      * 
      * @return the stop position.
      */
@@ -329,7 +332,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * Compare start positions (for ordering intervals).
+     * Compares start positions (for ordering intervals).
      * 
      * @param other
      *            interval to compare to.
@@ -354,7 +357,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * Split the current interval at the given index. Responsible for splitting
+     * Splits the current interval at the given index. Responsible for splitting
      * a range if the index falls on one, moving remaining ranges over to child,
      * and moving appropriate usePositions over to the child.
      * 
@@ -406,7 +409,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * The parent interval.
+     * Returns the parent interval.
      * 
      * @return the parent interval.
      */
@@ -419,7 +422,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * The child interval at a given instruction index.
+     * Returns the child interval at a given instruction index.
      * 
      * @param idx
      *            The instruction index.
@@ -436,8 +439,8 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * A child of this interval which is live or ends before the given basic
-     * block's end.
+     * Returns the child of this interval which is live or ends before the given 
+     * basic block's end.
      * 
      * @param b
      *            the basic block.
@@ -465,11 +468,11 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * The child of this interval which is live or starts after the given basic
-     * block's start
+     * Returns the child of this interval which is live or starts after the given 
+     * basic block's start.
      * 
      * @param b
-     *            the basic block
+     *            the basic block.
      * @return the child of this interval which starts at or nearest (after)
      *         this basic block's start (fist lir instruction index).
      */
@@ -508,7 +511,7 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * The basic block in which this interval's end position falls.
+     * Returns the basic block in which this interval's end position falls.
      * 
      * @return the basic block number.
      */
@@ -548,7 +551,8 @@ class NInterval implements Comparable<NInterval> {
     /**
      * Is this interval a child interval?
      * 
-     * @return true or false.
+     * @return {@code true} if this interval is a child interval; 
+     *         {@code false} otherwise.
      */
 
     public boolean isChild() {
@@ -560,9 +564,10 @@ class NInterval implements Comparable<NInterval> {
     }
 
     /**
-     * Is this interval a parent interval? (Ie, does it have children?)
+     * Is this interval a parent interval? (That is, does it have children?)
      * 
-     * @return true or false.
+     * @return {@code true} if this interval is a parent interval; 
+     *         {@code false} otherwise.
      */
 
     public boolean isParent() {
@@ -571,7 +576,7 @@ class NInterval implements Comparable<NInterval> {
 
 }
 
-/** The types of stack pointers. **/
+/** The types of stack pointers. */
 enum OffsetFrom {
     FP, SP
 };
@@ -594,7 +599,7 @@ class NRange implements Comparable<NRange> {
     public int stop;
 
     /**
-     * Construct a liveness range extending from start to stop (positions in the
+     * Constructs a liveness range extending from start to stop (positions in the
      * code).
      * 
      * @param start
@@ -632,21 +637,12 @@ class NRange implements Comparable<NRange> {
      * 
      * @param a
      *            The other range.
-     * @return true or false.
+     * @return {@code true} if this liveness range overlaps;
+     *         {@code false} otherwise.
      */
 
     public boolean rangeOverlaps(NRange a) {
-        if (a.start < this.start) {
-            if (a.stop <= this.start) {
-                return false;
-            } else {
-                return true;
-            }
-        } else if (a.start < this.stop) {
-            return true;
-        } else {
-            return false;
-        }
+        return (a.start <= this.stop && this.start <= a.stop);
     }
 
     /**
@@ -664,7 +660,7 @@ class NRange implements Comparable<NRange> {
     }
 
     /**
-     * The string representation of the range.
+     * Returns the string representation of the range.
      * 
      * @return "[start,stop]"
      */
