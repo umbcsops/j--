@@ -4,6 +4,7 @@ package jminusminus;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import static jminusminus.CLConstants.*;
 
 /**
@@ -11,24 +12,30 @@ import static jminusminus.CLConstants.*;
  * representing individual attributes inherit this class. This file has
  * representations for all attributes specified in JVM Spec Second Edition,
  * including the ones that were added for JDK 1.5.
+ * <p>
+ * Attributes are used in the ClassFile ({@link CLFile}), field_info (
+ * {@link CLFieldInfo}), method_info ({@link CLMethodInfo}), and Code_attribute 
+ * ({@link CLCodeAttribute}) structures of the class file format. While there 
+ * are many kinds of attributes, only some are mandatory; these include:
  * 
- * Attributes are used in the ClassFile (CLFile), field_info (CLFieldInfo),
- * method_info (CLMethodInfo), and Code_attribute (CLCodeAttribute) structures
- * of the class file format. While there are many kinds of attributes, only some
- * are mandatory; these include:
- * 
- * InnerClasses_attribute (class attribute) Synthetic_attribute (class, field,
- * and method attribute) Code_attribute (method attribute) Exceptions_attribute
- * (method attribute)
- * 
- * CLAbsorber is capable of reading all attributes listed in this file. The ones
- * which it does not recognize, it simply skips them and reports a warning to
- * that extent.
- * 
- * CLEmitter implicitly adds the required attributes to the appropriate
+ * <ul>
+ *   <li>InnerClasses_attribute (class attribute)</li>
+ *   <li>Synthetic_attribute (class, field, and method attribute)</li>
+ *   <li>Code_attribute (method attribute)</li>
+ *   <li>Exceptions_attribute (method attribute)</li>
+ * </ul>
+ * <br>
+ * {@link CLAbsorber} is capable of reading all attributes listed in this file. 
+ * The ones which it does not recognize, it simply skips them and reports a 
+ * warning to that extent.
+ * <p>
+ * {@code CLEmitter} implicitly adds the required attributes to the appropriate
  * structure. The optional attributes have to be added explicitly using the
- * addClassAttribute(), addFieldAttribute(), addMethodAttribute(), and
- * addCodeAttribute() methods in CLEmitter.
+ * {@link CLEmitter#addClassAttribute(CLAttributeInfo) addClassAttribute}, 
+ * {@link CLEmitter#addFieldAttribute(CLAttributeInfo) addFieldAttribute}, 
+ * {@link CLEmitter#addMethodAttribute(CLAttributeInfo) addMethodAttribute}, and
+ * {@link CLEmitter#addCodeAttribute(CLAttributeInfo) addCodeAttribute} methods in 
+ * {@code CLEmitter}.
  */
 
 abstract class CLAttributeInfo {

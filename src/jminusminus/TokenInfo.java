@@ -75,9 +75,9 @@ enum TokenKind {
 
 /**
  * A representation of tokens returned by the lexical analyzer method,
- * {@link Scanner#getNextToken()}. A token has a kind identifying what kind of 
- * token it is, an image for providing any semantic text, and the line in which 
- * it occurred in the source file.
+ * {@link Scanner#getNextToken() getNextToken}. A token has a kind identifying 
+ * what kind of token it is, an image for providing any semantic text, and the 
+ * line in which it occurred in the source file.
  */
 
 class TokenInfo {

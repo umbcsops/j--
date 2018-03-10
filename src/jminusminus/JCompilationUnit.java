@@ -22,13 +22,13 @@ import java.util.ArrayList;
  *       types and member interfaces in the environment (contexts). 
  *       {@code preAnalyze} also creates a partial class file (in memory) for 
  *       recording member header information, using the {@code partialCodegen} 
- *       method.
+ *       method.</li>
  * 
  *   <li>Method {@code analyze} is invoked for type-checking field 
  *       initializations and method bodies, and determining the types of all 
  *       expressions. A certain amount of tree surgery is also done here. And 
  *       stack frame offsets are computed for method parameters and local 
- *       variables.
+ *       variables.</li>
  * 
  *   <li>Method {@code codegen} is invoked for generating code for the 
  *       compilation unit to a class file. For each type declaration, it 
@@ -38,7 +38,7 @@ import java.util.ArrayList;
  *       on the CLEmitter which writes the class out to the file system either 
  *       as .class file or as a .s (SPIM) file. Of course, {@code codegen}
  *       makes recursive calls down the tree, to the {@code codegen} methods 
- *       at each node, for generating the appropriate instructions.
+ *       at each node, for generating the appropriate instructions.</li>
  * </ol>
  */
 

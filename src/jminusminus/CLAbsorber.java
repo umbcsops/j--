@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static jminusminus.CLConstants.*;
 
 /**
- * CLAbsorber is for reading a Java class into an in-memory CLFile
+ * CLAbsorber is for reading a Java class into an in-memory {@link CLFile}
  * representation and printing it out to STDOUT in a format similar to that of
  * javap.
  */
@@ -70,8 +70,7 @@ public class CLAbsorber {
                 int tag = in.readUnsignedByte();
                 switch (tag) {
                 case CONSTANT_Class:
-                    cp
-                            .addCPItem(new CLConstantClassInfo(in
+                    cp.addCPItem(new CLConstantClassInfo(in
                                     .readUnsignedShort()));
                     break;
                 case CONSTANT_Fieldref:
@@ -808,7 +807,7 @@ public class CLAbsorber {
     }
 
     /**
-     * Read a AnnotationDefault attribute from t he specified input stream, and
+     * Read an AnnotationDefault attribute from the specified input stream, and
      * return it.
      * 
      * @param in
@@ -988,7 +987,7 @@ public class CLAbsorber {
     }
 
     /**
-     * Return the CLFile representation of the class that was read.
+     * Returns the {@code CLFile} representation of the class that was read.
      * 
      * @return the CLFile representation of the class.
      */
@@ -998,8 +997,8 @@ public class CLAbsorber {
     }
 
     /**
-     * Return true if an error had occurred while reading the class; false
-     * otherwise.
+     * Returns {@code true} if an error had occurred while reading the class; 
+     * {@code false} otherwise.
      * 
      * @return true or false.
      */
@@ -1011,8 +1010,8 @@ public class CLAbsorber {
     /**
      * Driver for CLAbsorber. It accepts the (fully-qualified) name of a class
      * file as command-line argument and dumps its (ClassFile) structure --
-     * CLFile in our representation -- to STDOUT in a format similar to that of
-     * javap.
+     * {@code CLFile} in our representation -- to STDOUT in a format similar to 
+     * that of javap.
      *
      * @param args
      *            the command-line arguments.
@@ -1047,7 +1046,7 @@ public class CLAbsorber {
 class CLInputStream extends DataInputStream {
 
     /**
-     * Construct a CLInputStream object from the specified input stream.
+     * Constructs a CLInputStream object from the specified input stream.
      * 
      * @param in
      *            input stream.
@@ -1058,8 +1057,9 @@ class CLInputStream extends DataInputStream {
     }
 
     /**
-     * Read four input bytes and return a long value in the range 0 through
-     * 4294967295. Let a, b, c, d be the four bytes. The value returned is:
+     * Reads four input bytes and returns a {@code long} value in the range 
+     * 0 through 4294967295. Let a, b, c, d be the four bytes. 
+     * The value returned is:
      * 
      * <pre>
      *   ( b[ 0 ] &amp; 0xFF ) &lt;&lt; 24 ) | 

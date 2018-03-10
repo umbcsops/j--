@@ -190,8 +190,8 @@ class NInterval implements Comparable<NInterval> {
 
     /**
      * Sets the start value of the very first range. Note: There will always be
-     * at least one range before this method is used by 
-     * {@link NRegisterAllocator#buildIntervals()}.
+     * at least one range before this method is used by the
+     * {@link NRegisterAllocator#buildIntervals() buildIntervals} method.
      * 
      * @param newStart
      *            the value to which the first range's start will be set.
