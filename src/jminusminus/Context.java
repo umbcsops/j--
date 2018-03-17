@@ -439,7 +439,7 @@ class MethodContext extends LocalContext {
     /**
      * Returns the return type of this method.
      * 
-     * @return the type of this method.
+     * @return the return type of this method.
      */
 
     public Type methodReturnType() {

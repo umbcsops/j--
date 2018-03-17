@@ -10,7 +10,8 @@ import static jminusminus.CLConstants.*;
  * Representation of cp_info structure (JVM Spec Section 4.5). Classes
  * representing individual constant pool items inherit this class. Instances of
  * these classes are created and populated into the constant pool table when a
- * class is read using CLAbsorber or constructed using CLEmitter.
+ * class is read using {@link CLAbsorber} or constructed using 
+ * {@link CLEmitter}.
  */
 
 abstract class CLCPInfo {
@@ -28,7 +29,7 @@ abstract class CLCPInfo {
     public short tag;
 
     /**
-     * Write the contents of this constant pool item to the specified output
+     * Writes the contents of this constant pool item to the specified output
      * stream.
      * 
      * @param out
@@ -42,7 +43,7 @@ abstract class CLCPInfo {
     }
 
     /**
-     * Write the content of this object to STDOUT in a format similar to that of
+     * Writes the content of this object to STDOUT in a format similar to that of
      * javap.
      * 
      * @param p
@@ -65,7 +66,7 @@ class CLConstantClassInfo extends CLCPInfo {
     public int nameIndex;
 
     /**
-     * Construct a CLConstantClassInfo object.
+     * Constructs a CLConstantClassInfo object.
      * 
      * @param nameIndex
      *            CONSTANT_Class_info.name_index item.
@@ -124,7 +125,7 @@ abstract class CLConstantMemberRefInfo extends CLCPInfo {
     public int nameAndTypeIndex;
 
     /**
-     * Construct a CLConstantMemberRefInfo object.
+     * Constructs a CLConstantMemberRefInfo object.
      * 
      * @param classIndex
      *            CONSTANT_Memberref_info.class_index item.
@@ -175,7 +176,7 @@ abstract class CLConstantMemberRefInfo extends CLCPInfo {
 class CLConstantFieldRefInfo extends CLConstantMemberRefInfo {
 
     /**
-     * Construct a CLConstantFieldRefInfo object.
+     * Constructs a CLConstantFieldRefInfo object.
      * 
      * @param classIndex
      *            CONSTANT_Fieldref_info.class_index item.
@@ -205,7 +206,7 @@ class CLConstantFieldRefInfo extends CLConstantMemberRefInfo {
 class CLConstantMethodRefInfo extends CLConstantMemberRefInfo {
 
     /**
-     * Construct a CLConstantMethodRefInfo object.
+     * Constructs a CLConstantMethodRefInfo object.
      * 
      * @param classIndex
      *            CONSTANT_Methodref_info.class_index item.
@@ -236,7 +237,7 @@ class CLConstantMethodRefInfo extends CLConstantMemberRefInfo {
 class CLConstantInterfaceMethodRefInfo extends CLConstantMemberRefInfo {
 
     /**
-     * Construct a CLConstantInterfaceMethodRefInfo object.
+     * Constructs a CLConstantInterfaceMethodRefInfo object.
      * 
      * @param classIndex
      *            CONSTANT_InterfaceMethodref_info.class_index item.
@@ -270,7 +271,7 @@ class CLConstantStringInfo extends CLCPInfo {
     public int stringIndex;
 
     /**
-     * Construct a CLConstantStringInfo object.
+     * Constructs a CLConstantStringInfo object.
      * 
      * @param stringIndex
      *            CONSTANT_String_info.string_index item.
@@ -325,7 +326,7 @@ class CLConstantIntegerInfo extends CLCPInfo {
     public int i;
 
     /**
-     * Construct a CLConstantIntegerInfo object.
+     * Constructs a CLConstantIntegerInfo object.
      * 
      * @param i
      *            the int number.
@@ -337,7 +338,7 @@ class CLConstantIntegerInfo extends CLCPInfo {
     }
 
     /**
-     * Return CONSTANT_Integer_info.bytes item.
+     * Returns CONSTANT_Integer_info.bytes item.
      * 
      * @return CONSTANT_Integer_info.bytes item.
      */
@@ -401,7 +402,7 @@ class CLConstantFloatInfo extends CLCPInfo {
     public float f;
 
     /**
-     * Construct a CLConstantFloatInfo object.
+     * Constructs a CLConstantFloatInfo object.
      * 
      * @param f
      *            the floating-point number.
@@ -413,7 +414,7 @@ class CLConstantFloatInfo extends CLCPInfo {
     }
 
     /**
-     * Return CONSTANT_Float_info.bytes item.
+     * Returns CONSTANT_Float_info.bytes item.
      * 
      * @return CONSTANT_Float_info.bytes item.
      */
@@ -473,9 +474,9 @@ class CLConstantLongInfo extends CLCPInfo {
     public long l;
 
     /**
-     * Return the 8 bytes of the long value.
+     * Returns the 8 bytes of the {@code long} value.
      * 
-     * @return the 8 bytes of the long value.
+     * @return the 8 bytes of the {@code long} value.
      */
 
     private short[] bytes() {
@@ -490,7 +491,7 @@ class CLConstantLongInfo extends CLCPInfo {
     }
 
     /**
-     * Construct a CLConstantLongInfo object.
+     * Constructs a CLConstantLongInfo object.
      * 
      * @param l
      *            the long number.
@@ -502,7 +503,7 @@ class CLConstantLongInfo extends CLCPInfo {
     }
 
     /**
-     * Return CONSTANT_Long_info.low_bytes item.
+     * Returns CONSTANT_Long_info.low_bytes item.
      * 
      * @return CONSTANT_Long_info.low_bytes item.
      */
@@ -518,7 +519,7 @@ class CLConstantLongInfo extends CLCPInfo {
     }
 
     /**
-     * Return CONSTANT_Long_info.high_bytes item.
+     * Returns CONSTANT_Long_info.high_bytes item.
      * 
      * @return CONSTANT_Long_info.high_bytes item.
      */
@@ -577,7 +578,7 @@ class CLConstantDoubleInfo extends CLCPInfo {
     public double d;
 
     /**
-     * Return the 8 bytes of the double precision floating-point value.
+     * Returns the 8 bytes of the double precision floating-point value.
      * 
      * @return the 8 bytes of the double precision floating-point value.
      */
@@ -594,7 +595,7 @@ class CLConstantDoubleInfo extends CLCPInfo {
     }
 
     /**
-     * Construct a CLConstantDoubleInfo object.
+     * Constructs a CLConstantDoubleInfo object.
      * 
      * @param d
      *            the double precision floating-point number.
@@ -606,7 +607,7 @@ class CLConstantDoubleInfo extends CLCPInfo {
     }
 
     /**
-     * Return CONSTANT_Double_info.low_bytes item.
+     * Returns CONSTANT_Double_info.low_bytes item.
      * 
      * @return CONSTANT_Double_info.low_bytes item.
      */
@@ -622,7 +623,7 @@ class CLConstantDoubleInfo extends CLCPInfo {
     }
 
     /**
-     * Return CONSTANT_Double_info.high_bytes item.
+     * Returns CONSTANT_Double_info.high_bytes item.
      * 
      * @return CONSTANT_Double_info.high_bytes item.
      */
@@ -685,7 +686,7 @@ class CLConstantNameAndTypeInfo extends CLCPInfo {
     public int descriptorIndex;
 
     /**
-     * Construct a CLConstantNameAndTypeInfo object.
+     * Constructs a CLConstantNameAndTypeInfo object.
      * 
      * @param nameIndex
      *            CONSTANT_NameAndType_info.name_index item.
@@ -745,7 +746,7 @@ class CLConstantUtf8Info extends CLCPInfo {
     public byte[] b;
 
     /**
-     * Construct a CLConstantUtf8Info object.
+     * Constructs a CLConstantUtf8Info object.
      * 
      * @param b
      *            a constant string value.
@@ -757,7 +758,7 @@ class CLConstantUtf8Info extends CLCPInfo {
     }
 
     /**
-     * Return CONSTANT_Utf8_info.length item.
+     * Returns CONSTANT_Utf8_info.length item.
      * 
      * @return CONSTANT_Utf8_info.length item.
      */

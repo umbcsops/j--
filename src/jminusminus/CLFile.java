@@ -8,9 +8,9 @@ import static jminusminus.CLConstants.*;
 
 /**
  * Representation of the ClassFile structure (JVM Spec Section 4.2). An instance
- * of CLFile is created when a class is read using CLAbsorber or constructed
- * using CLEmitter.
- * 
+ * of {@code CLFile} is created when a class is read using {@link CLAbsorber} or
+ * constructed using {@link CLEmitter}.
+ * <p>
  * We have our own representation and don't use java.lang.Class because Java
  * does not offer an interface to programmatically create a class file in memory
  * other than creating it in one shot from a byte stream.
@@ -70,7 +70,7 @@ class CLFile {
     public ArrayList<CLAttributeInfo> attributes;
 
     /**
-     * Write the contents of this class to the specified output stream.
+     * Writes the contents of this class to the specified output stream.
      * 
      * @param out
      *            output stream.
@@ -116,7 +116,7 @@ class CLFile {
     }
 
     /**
-     * Write the contents of the class file to STDOUT in a format similar to
+     * Writes the contents of the class file to STDOUT in a format similar to
      * that of javap.
      */
 
@@ -156,7 +156,7 @@ class CLFile {
     }
 
     /**
-     * Return (as a string) the class access permissions and properties
+     * Returns (as a string) the class access permissions and properties
      * contained in the specified mask of flags.
      * 
      * @param accessFlags
@@ -194,7 +194,7 @@ class CLFile {
     }
 
     /**
-     * Return (as a string) the inner class access permissions and properties
+     * Returns (as a string) the inner class access permissions and properties
      * contained in the specified mask of flags.
      * 
      * @param accessFlags
@@ -239,7 +239,7 @@ class CLFile {
     }
 
     /**
-     * Return (as a string) the field access permissions and properties
+     * Returns (as a string) the field access permissions and properties
      * contained in the specified mask of flags.
      * 
      * @param accessFlags
@@ -283,7 +283,7 @@ class CLFile {
     }
 
     /**
-     * Return (as a string) the method access permissions and properties
+     * Returns (as a string) the method access permissions and properties
      * contained in the specified mask of flags.
      * 
      * @param accessFlags
@@ -334,7 +334,7 @@ class CLFile {
     }
 
     /**
-     * Return the integer value (mask) corresponding to the specified access
+     * Returns the integer value (mask) corresponding to the specified access
      * flag.
      * 
      * @param accessFlag

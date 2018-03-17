@@ -65,7 +65,7 @@ class CLPath {
     }
 
     /**
-     * Construct a CLPath object.
+     * Constructs a CLPath object.
      */
 
     public CLPath() {
@@ -73,7 +73,8 @@ class CLPath {
     }
 
     /**
-     * Construct a CLPath object.
+     * Constructs a CLPath object given the directory names defining the path and
+     * the directory for the Java extension classes.
      * 
      * @param path
      *            the directory names defining the class path, separated by path
@@ -115,15 +116,15 @@ class CLPath {
     }
 
     /**
-     * Return a CLInputStream instance for the class with specified name
-     * (fully-qualified; tokens separated by '/') or null if the class was not
-     * found.
+     * Returns a CLInputStream instance for the class with specified name
+     * (fully-qualified; tokens separated by '/') or {@code null} if the class 
+     * was not found.
      * 
      * @param name
      *            the fully-qualified name of the class -- java/util/ArrayList
      *            for example.
      * @return a CLInputStream instance for the class with specified name or
-     *         null if the class was not found.
+     *         {@code null} if the class was not found.
      */
 
     public CLInputStream loadClass(String name) {

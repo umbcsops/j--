@@ -17,6 +17,8 @@ import static jminusminus.CLConstants.Category.*;
  * number operands), pc (location counter), stack units (words produced - words
  * consumed from the operand stack), and local variable index (IRRELEVANT if the
  * instruction does not operate on local variables).
+ *
+ * @see CLConstants
  */
 
 abstract class CLInstruction {
@@ -287,7 +289,7 @@ abstract class CLInstruction {
             new CLInsInfo(JSR_W, "jsr_w", 4, IRRELEVANT, 1, FLOW_CONTROL1) };
 
     /**
-     * Return true if the opcode is valid; false otherwise.
+     * Returns {@code true} if the opcode is valid; {@ocde false} otherwise.
      * 
      * @param opcode
      *            instruction opcode.
@@ -299,7 +301,7 @@ abstract class CLInstruction {
     }
 
     /**
-     * Return the opcode for this instruction.
+     * Returns the opcode for this instruction.
      * 
      * @return the opcode.
      */
@@ -309,7 +311,7 @@ abstract class CLInstruction {
     }
 
     /**
-     * Return the mnemonic for this instruction.
+     * Returns the mnemonic for this instruction.
      * 
      * @return the mnemonic.
      */
@@ -319,9 +321,9 @@ abstract class CLInstruction {
     }
 
     /**
-     * Return the number of operands for this instruction.
+     * Returns the number of operands for this instruction.
      * 
-     * @return number of operands.
+     * @return the number of operands.
      */
 
     public int operandCount() {
@@ -329,7 +331,7 @@ abstract class CLInstruction {
     }
 
     /**
-     * Return the pc for this instruction.
+     * Returns the pc for this instruction.
      * 
      * @return the pc.
      */
@@ -339,7 +341,7 @@ abstract class CLInstruction {
     }
 
     /**
-     * Return the stack units for this instruction.
+     * Returns the stack units for this instruction.
      * 
      * @return the stack units.
      */
@@ -349,7 +351,7 @@ abstract class CLInstruction {
     }
 
     /**
-     * Return the local variable index for this instruction.
+     * Returns the local variable index for this instruction.
      * 
      * @return the local variable index.
      */
@@ -359,7 +361,7 @@ abstract class CLInstruction {
     }
 
     /**
-     * Return the bytecode for this instruction.
+     * Returns the bytecode for this instruction.
      * 
      * @return bytecode.
      */
@@ -367,7 +369,7 @@ abstract class CLInstruction {
     public abstract ArrayList<Integer> toBytes();
 
     /**
-     * Return the byte from i at position byteNum.
+     * Returns the byte from i at position byteNum.
      * 
      * @param i
      *            number whose individual byte is required.
@@ -410,7 +412,7 @@ class CLObjectInstruction extends CLInstruction {
     private int index;
 
     /**
-     * Construct a CLObjectInstruction object.
+     * Constructs a CLObjectInstruction object.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -458,7 +460,7 @@ class CLFieldInstruction extends CLInstruction {
     private int index;
 
     /**
-     * Construct a CLFieldInstruction object.
+     * Constructs a CLFieldInstruction object.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -514,7 +516,7 @@ class CLMethodInstruction extends CLInstruction {
     private int nArgs;
 
     /**
-     * Construct a CLMethodInstruction object for METHOD1 instructions.
+     * Constructs a CLMethodInstruction object for METHOD1 instructions.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -539,7 +541,7 @@ class CLMethodInstruction extends CLInstruction {
     }
 
     /**
-     * Construct a CLMethodInstruction object for METHOD2 instructions.
+     * Constructs a CLMethodInstruction object for METHOD2 instructions.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -557,7 +559,7 @@ class CLMethodInstruction extends CLInstruction {
     }
 
     /**
-     * Set the number of arguments for the method for INVOKEINTERFACE
+     * Sets the number of arguments for the method for INVOKEINTERFACE
      * instruction.
      * 
      * @param nArgs
@@ -609,7 +611,7 @@ class CLArrayInstruction extends CLInstruction {
     private int dim;
 
     /**
-     * Construct a CLArrayInstruction object for ARRAY1 instructions.
+     * Constructs a CLArrayInstruction object for ARRAY1 instructions.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -630,7 +632,7 @@ class CLArrayInstruction extends CLInstruction {
     }
 
     /**
-     * Construct a CLArrayInstruction object for ARRAY2 instructions.
+     * Constructs a CLArrayInstruction object for ARRAY2 instructions.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -654,7 +656,7 @@ class CLArrayInstruction extends CLInstruction {
     }
 
     /**
-     * Construct a CLArrayInstruction object for ARRAY3 instructions.
+     * Constructs a CLArrayInstruction object for ARRAY3 instructions.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -713,7 +715,7 @@ class CLArithmeticInstruction extends CLInstruction {
     private int constVal;
 
     /**
-     * Construct a CLArithmeticInstruction object for ARITHMETIC1 instructions.
+     * Constructs a CLArithmeticInstruction object for ARITHMETIC1 instructions.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -731,7 +733,7 @@ class CLArithmeticInstruction extends CLInstruction {
     }
 
     /**
-     * Construct a CLArithmeticInstruction object for IINC instruction.
+     * Constructs a CLArithmeticInstruction object for IINC instruction.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -788,7 +790,7 @@ class CLArithmeticInstruction extends CLInstruction {
 class CLBitInstruction extends CLInstruction {
 
     /**
-     * Construct a CLBitInstruction object.
+     * Constructs a CLBitInstruction object.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -824,7 +826,7 @@ class CLBitInstruction extends CLInstruction {
 class CLComparisonInstruction extends CLInstruction {
 
     /**
-     * Construct a CLComparisonInstruction object.
+     * Constructs a CLComparisonInstruction object.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -860,7 +862,7 @@ class CLComparisonInstruction extends CLInstruction {
 class CLConversionInstruction extends CLInstruction {
 
     /**
-     * Construct a CLConversionInstruction object.
+     * Constructs a CLConversionInstruction object.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -965,7 +967,7 @@ class CLFlowControlInstruction extends CLInstruction {
     private ArrayList<Integer> offsets;
 
     /**
-     * Construct a CLFlowControlInstruction object for FLOW_CONTROL1
+     * Constructs a CLFlowControlInstruction object for FLOW_CONTROL1
      * instructions.
      * 
      * @param opcode
@@ -987,7 +989,7 @@ class CLFlowControlInstruction extends CLInstruction {
     }
 
     /**
-     * Construct a CLFlowControlInstruction object for RET instruction.
+     * Constructs a CLFlowControlInstruction object for RET instruction.
      * 
      * @param pc
      *            index of this instruction within the code array of a method.
@@ -1010,7 +1012,7 @@ class CLFlowControlInstruction extends CLInstruction {
     }
 
     /**
-     * Construct a CLFlowControlInstruction object for TABLESWITCH instruction.
+     * Constructs a CLFlowControlInstruction object for TABLESWITCH instruction.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -1043,7 +1045,7 @@ class CLFlowControlInstruction extends CLInstruction {
     }
 
     /**
-     * Construct a CLFlowControlInstruction object for LOOKUPSWITCH instruction.
+     * Constructs a CLFlowControlInstruction object for LOOKUPSWITCH instruction.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -1072,13 +1074,14 @@ class CLFlowControlInstruction extends CLInstruction {
     }
 
     /**
-     * Resolve the jump labels to the corresponding offset values using the
+     * Resolves the jump labels to the corresponding offset values using the
      * given label to pc mapping. If unable to resolve a label, the offset is
      * set such that the next instruction will be executed.
      * 
      * @param labelToPC
      *            label to pc mapping.
-     * @return true if all labels were resolved successfully; false otherwise.
+     * @return {@code true} if all labels were resolved successfully; 
+     *         {@code false} otherwise.
      */
 
     public boolean resolveLabels(Hashtable<String, Integer> labelToPC) {
@@ -1132,7 +1135,7 @@ class CLFlowControlInstruction extends CLInstruction {
     }
 
     /**
-     * Return the pc of instruction to jump to.
+     * Returns the pc of instruction to jump to.
      * 
      * @return pc to jump to.
      */
@@ -1246,7 +1249,7 @@ class CLLoadStoreInstruction extends CLInstruction {
     private int constVal;
 
     /**
-     * Construct a CLLoadStoreInstruction object for LOAD_STORE1 instructions.
+     * Constructs a CLLoadStoreInstruction object for LOAD_STORE1 instructions.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -1264,7 +1267,7 @@ class CLLoadStoreInstruction extends CLInstruction {
     }
 
     /**
-     * Construct a CLLoadStoreInstruction object for LOAD_STORE2 instructions.
+     * Constructs a CLLoadStoreInstruction object for LOAD_STORE2 instructions.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -1289,7 +1292,7 @@ class CLLoadStoreInstruction extends CLInstruction {
     }
 
     /**
-     * Construct a CLLoadStoreInstruction object for LOAD_STORE3 and LOAD_STORE4
+     * Constructs a CLLoadStoreInstruction object for LOAD_STORE3 and LOAD_STORE4
      * instructions.
      * 
      * @param opcode
@@ -1350,7 +1353,7 @@ class CLLoadStoreInstruction extends CLInstruction {
 class CLStackInstruction extends CLInstruction {
 
     /**
-     * Construct a CLStackInstruction object.
+     * Constructs a CLStackInstruction object.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -1386,7 +1389,7 @@ class CLStackInstruction extends CLInstruction {
 class CLMiscInstruction extends CLInstruction {
 
     /**
-     * Construct a CLMiscInstruction object.
+     * Constructs a CLMiscInstruction object.
      * 
      * @param opcode
      *            the opcode for this instruction.
@@ -1446,7 +1449,7 @@ class CLInsInfo {
     public Category category;
 
     /**
-     * Construct a CLInsInfo object.
+     * Constructs a CLInsInfo object.
      * 
      * @param opcode
      *            opcode for this instruction.

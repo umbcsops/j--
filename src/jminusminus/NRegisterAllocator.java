@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.BitSet;
 
 /**
- * A register allocator maps virtual registers (from LIR code) to physical
- * registers on the target machine. That there are a limited number of physical
- * registers makes this interesting.
+ * The abstract base class for a register allocator that maps virtual registers 
+ * (from LIR code) to physical registers on the target machine.
  */
 
 public abstract class NRegisterAllocator {
@@ -17,8 +16,8 @@ public abstract class NRegisterAllocator {
     protected NControlFlowGraph cfg;
 
     /**
-     * Construct an NRegisterAllocator object given the control flow graph for
-     * method.
+     * Constructs a {@code NRegisterAllocator} object given the control flow 
+     * graph for method.
      * 
      * @param cfg
      *            control flow graph for a method.
@@ -41,7 +40,7 @@ public abstract class NRegisterAllocator {
     public abstract void allocation();
 
     /**
-     * Build the intervals for a control flow graph.
+     * Builds the intervals for a control flow graph.
      */
 
     protected void buildIntervals() {
@@ -75,6 +74,42 @@ public abstract class NRegisterAllocator {
                             new NRange(blockStart, currLIRid));
                     cfg.intervals.get(reg.number).addUsePosition(currLIRid,
                             InstructionType.read);
+                }
+            }
+        }
+    }
+
+    /**
+     * Preprocesses information needed for naive, linear, and graph register
+     * allocation schemes. More information provided in method comments.
+     */
+    protected void preprocess() {
+        // Allocate any fixed registers (a0, ..., a3 and v0) that were
+        // assigned during generation phase to the appropriate
+        // interval.
+        for (int i = 0; i < 32; i++) {
+            if (cfg.registers.get(i) != null) {
+                cfg.intervals.get(i).pRegister = ((NPhysicalRegister) 
+                                                   cfg.registers.get(i)
+                                                 );
+            }
+        }
+
+        // Assign stack offset (relative to fp) for formal parameters
+        // fourth and above, and stack offset (relative to sp) for
+        // arguments fourth or above.
+        for (NBasicBlock block : cfg.basicBlocks) {
+            for (NLIRInstruction lir : block.lir) {
+                if (lir instanceof NLIRLoadLocal) {
+                    NLIRLoadLocal loadLocal = (NLIRLoadLocal) lir;
+                    if (loadLocal.local >= 4) {
+                        NInterval interval = cfg.intervals.get(
+                                ((NVirtualRegister) loadLocal.write).number());
+                        
+                        interval.spill      = true;
+                        interval.offset     = loadLocal.local - 3;
+                        interval.offsetFrom = OffsetFrom.FP;
+                    }
                 }
             }
         }

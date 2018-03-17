@@ -4,6 +4,8 @@ package jminusminus;
 
 import java.util.ArrayList;
 
+import static jminusminus.NPhysicalRegister.*;
+
 /**
  * Implements the Linear Scan register allocation algorithm.
  */
@@ -24,7 +26,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
     private int[] freePos, usePos, blockPos;
 
     /**
-     * Construct a linear register allocator for the given control flow graph.
+     * Constructs a linear register allocator for the given control flow graph.
      * 
      * @param cfg
      *            the control flow graph instance.
@@ -33,22 +35,23 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
     public NLinearRegisterAllocator(NControlFlowGraph cfg) {
         super(cfg);
         unhandled = new ArrayList<NInterval>();
-        active = new ArrayList<NInterval>();
-        inactive = new ArrayList<NInterval>();
+        active    = new ArrayList<NInterval>();
+        inactive  = new ArrayList<NInterval>();
 
         // Instantiate usePositions and freePos to be the size of
         // the physical registers used.
-        freePos = new int[NPhysicalRegister.MAX_COUNT];
-        usePos = new int[NPhysicalRegister.MAX_COUNT];
-        blockPos = new int[NPhysicalRegister.MAX_COUNT];
+        freePos  = new int[MAX_COUNT];
+        usePos   = new int[MAX_COUNT];
+        blockPos = new int[MAX_COUNT];
+        
         regIntervals = new ArrayList<ArrayList<NInterval>>();
-        for (int i = 0; i < NPhysicalRegister.MAX_COUNT; i++) {
+        for (int i = 0; i < MAX_COUNT; i++) {
             regIntervals.add(new ArrayList<NInterval>());
         }
     }
 
     /**
-     * Perform the linear register allocation, assigning physical registers to
+     * Performs the linear register allocation, assigning physical registers to
      * virtual registers.
      */
 
@@ -61,41 +64,14 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
             this.addSortedToUnhandled(cfg.intervals.get(i));
         }
 
-        // Allocate any fixed registers (a0, ..., a3 and v0) that were
-        // assigned during generation phase to the appropriate
-        // interval.
-        for (int i = 0; i < 32; i++) {
-            if (cfg.registers.get(i) != null) {
-                cfg.intervals.get(i).pRegister = (NPhysicalRegister) cfg.registers
-                        .get(i);
-            }
-        }
-
-        // Assign stack offset (relative to fp) for formal parameters
-        // fourth and above, and stack offset (relative to sp) for
-        // arguments fourth or above.
-        for (NBasicBlock block : cfg.basicBlocks) {
-            for (NLIRInstruction lir : block.lir) {
-                if (lir instanceof NLIRLoadLocal) {
-                    NLIRLoadLocal loadLocal = (NLIRLoadLocal) lir;
-                    if (loadLocal.local >= 4) {
-                        NInterval interval = cfg.intervals
-                                .get(((NVirtualRegister) loadLocal.write)
-                                        .number());
-                        interval.spill = true;
-                        interval.offset = loadLocal.local - 3;
-                        interval.offsetFrom = OffsetFrom.FP;
-                    }
-                }
-            }
-        }
+        this.preprocess();
 
         NInterval currInterval; // the current interval
-        int psi; // the current interval's first start position
+        int psi;                // the current interval's first start position
         ArrayList<NInterval> tmp;
 
         // Linear allocation begins; repeat so long as there are
-        // additional virtual registers to map to physical registers.
+        //   additional virtual registers to map to physical registers.
         while (!unhandled.isEmpty()) {
             currInterval = unhandled.remove(0);
             psi = currInterval.firstRangeStart();
@@ -123,7 +99,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
             for (NInterval nonInActive : tmp) {
                 inactive.remove(nonInActive);
             }
-            if (!this.foundFreeRegFor(currInterval)) {// check
+            if (!this.foundFreeRegFor(currInterval)) {    // check
                 this.allocateBlockedRegFor(currInterval); // never fails
             }
             active.add(currInterval);
@@ -133,7 +109,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
 
     /**
      * Adds a given interval onto the unhandled list, maintaining an order based
-     * on the first range start of the NIntervals.
+     * on the first range start of the {@code NInterval}s.
      * 
      * @param newInterval
      *            the NInterval to sort onto unhandled.
@@ -160,67 +136,63 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
      * 
      * @param currInterval
      *            the current interval for which a physical register is sought.
-     * @return true if a free physical register was found and allocated for
-     *         currInterval, false otherwise.
+     * @return {@code true} if a free physical register was found and allocated 
+     *         for {@code currInterval}; {@code false} otherwise.
      */
 
     private boolean foundFreeRegFor(NInterval currInterval) {
         this.initFreePositions(); // must be reset every iteration
         for (NInterval activeInterval : active) {
             if (activeInterval.pRegister != null)
-                freePos[activeInterval.pRegister.number - NPhysicalRegister.T0] = 0;
+                freePos[activeInterval.pRegister.number - T0] = 0;
         }
         for (NInterval inactiveInterval : inactive) {
-            if (inactiveInterval.nextIntersection(currInterval) >= 0)
-                freePos[inactiveInterval.pRegister.number
-                        - NPhysicalRegister.T0] = Math.min(
-                        freePos[inactiveInterval.pRegister.number
-                                - NPhysicalRegister.T0], inactiveInterval
-                                .nextIntersection(currInterval));
+            if (inactiveInterval.nextIntersection(currInterval) >= 0) {
+                freePos[inactiveInterval.pRegister.number - T0] = Math.min(
+                              freePos[inactiveInterval.pRegister.number - T0],
+                              inactiveInterval.nextIntersection(currInterval));
+            }
         }
 
         // The physical registers available are in NPhysicalRegister.getInfo
         // static array. This is indexed from 0 to NPhysicalRegister.MAX_COUNT
         int reg = this.getBestFreeReg();
-        if (freePos[reg] == 0)
+        if (freePos[reg] == 0) {
             return false;
-        else if (freePos[reg] > currInterval.lastNRangeStop()) {
-            currInterval.pRegister = NPhysicalRegister.regInfo[reg
-                    + NPhysicalRegister.T0];
-            cfg.pRegisters.add(NPhysicalRegister.regInfo[reg
-                    + NPhysicalRegister.T0]);
+        } else if (freePos[reg] > currInterval.lastNRangeStop()) {
+            currInterval.pRegister = regInfo[reg + T0];
+            cfg.pRegisters.add(regInfo[reg + T0]);
             regIntervals.get(reg).add(currInterval);
             return true;
         } else {
             this.addSortedToUnhandled(currInterval.splitAt(freePos[reg]));
             currInterval.spill();
-            currInterval.pRegister = NPhysicalRegister.regInfo[reg
-                    + NPhysicalRegister.T0];
+            currInterval.pRegister = regInfo[reg + T0];
             regIntervals.get(reg).add(currInterval);
             return true;
         }
     }
 
     /**
-     * Sets all free positions of pregisters available for allocation to a
-     * really high number.
+     * Sets all free positions of physical registers available for allocation 
+     * to a really high number.
      */
 
     private void initFreePositions() {
-        for (int i = 0; i < NPhysicalRegister.MAX_COUNT; i++) {
+        for (int i = 0; i < MAX_COUNT; i++) {
             freePos[i] = Integer.MAX_VALUE;
         }
     }
 
     /**
-     * The best free physical register.
+     * The best free physical register number.
      * 
      * @return the register number.
      */
 
     private int getBestFreeReg() {
         int freeRegNumber = 0;
-        for (int i = 0; i < NPhysicalRegister.MAX_COUNT; i++) {
+        for (int i = 0; i < MAX_COUNT; i++) {
             if (freePos[i] > freePos[freeRegNumber])
                 freeRegNumber = i;
         }
@@ -237,37 +209,35 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
     private void allocateBlockedRegFor(NInterval currInterval) {
         this.initUseAndBlockPositions(); // must be reset every iteration
         for (NInterval activeInterval : active) {
-            usePos[activeInterval.pRegister.number - NPhysicalRegister.T0] = Math
-                    .min(usePos[activeInterval.pRegister.number
-                            - NPhysicalRegister.T0], activeInterval
-                            .nextUsageOverlapping(currInterval));
+            usePos[activeInterval.pRegister.number - T0] = Math.min(
+                    usePos[activeInterval.pRegister.number - T0], 
+                    activeInterval.nextUsageOverlapping(currInterval));
         }
         for (NInterval inactiveInterval : inactive) {
-            if (inactiveInterval.nextIntersection(currInterval) >= 0)
-                usePos[inactiveInterval.pRegister.number - NPhysicalRegister.T0] = Math
-                        .min(usePos[inactiveInterval.pRegister.number
-                                - NPhysicalRegister.T0], inactiveInterval
-                                .nextUsageOverlapping(currInterval));
+            if (inactiveInterval.nextIntersection(currInterval) >= 0) {
+                usePos[inactiveInterval.pRegister.number - T0] = Math.min(
+                        usePos[inactiveInterval.pRegister.number - T0], 
+                        inactiveInterval.nextUsageOverlapping(currInterval));
+            }
         }
-        int reg = this.getBestBlockedReg(); // this is just an index in the
-        // usePos array
+        int reg = this.getBestBlockedReg(); // This is just an index in the
+                                            //   usePos array
         if (usePos[reg] < currInterval.firstUsage()) {
             // best to spill current - no reg assignment.
             this.addSortedToUnhandled(currInterval.splitAt(currInterval
-                    .firstUsage() - 5));
+                                                           .firstUsage() - 5));
             currInterval.spill();
             NInterval splitChild = currInterval.splitAt(currInterval
-                    .firstRangeStart());
+                                                        .firstRangeStart());
             this.addSortedToUnhandled(splitChild);
             currInterval.spill();
         } else {
             // spilling frees reg for all of current
-            currInterval.pRegister = NPhysicalRegister.regInfo[reg
-                    + NPhysicalRegister.T0];
+            currInterval.pRegister = regInfo[reg + T0];
             for (NInterval i : regIntervals.get(reg)) {
                 if (currInterval.nextIntersection(i) >= 0) {
                     NInterval splitChild = i.splitAt(currInterval
-                            .firstRangeStart());
+                                                     .firstRangeStart());
                     this.addSortedToUnhandled(splitChild);
                     i.spill();
                 }
@@ -278,25 +248,25 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
 
     /**
      * Initialize use and block positions before processing each virtual
-     * rgister.
+     * register.
      */
 
     private void initUseAndBlockPositions() {
-        for (int i = 0; i < NPhysicalRegister.MAX_COUNT; i++) {
-            usePos[i] = Integer.MAX_VALUE;
+        for (int i = 0; i < MAX_COUNT; i++) {
+            usePos[i]   = Integer.MAX_VALUE;
             blockPos[i] = Integer.MAX_VALUE;
         }
     }
 
     /**
-     * Get the best blocked physical register.
+     * Get the best blocked physical register number.
      * 
      * @return the register number.
      */
 
     private int getBestBlockedReg() {
         int usableRegNumber = 0;
-        for (int i = 0; i < NPhysicalRegister.MAX_COUNT; i++) {
+        for (int i = 0; i < MAX_COUNT; i++) {
             if (usePos[i] > usePos[usableRegNumber])
                 usableRegNumber = i;
         }
@@ -309,7 +279,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
      */
 
     private void resolveDataFlow() {
-        // local data flow construction
+        // Local data flow construction.
         // Devised an alternate way of doing this, perhaps with more
         // clarity, will implement later, but has same effect.
         for (NInterval i : cfg.intervals) {
@@ -317,16 +287,20 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
                 if (i.spill) {
                     for (int c = 0; c < i.children.size(); c++) {
                         if (i.endsAtBlock() == i.children.get(c)
-                                .startsAtBlock()) {
+                                                         .startsAtBlock()) {
                             if (c == 0) {
                                 addStoreInstruction(i, i.lastNRangeStop());
                                 addLoadInstruction(i.children.get(c),
-                                        i.children.get(c).firstRangeStart());
+                                                   i.children.get(c)
+                                                    .firstRangeStart());
                             } else {
                                 addStoreInstruction(i.children.get(c - 1),
-                                        i.children.get(c - 1).lastNRangeStop());
+                                                    i.children.get(c - 1)
+                                                     .lastNRangeStop());
+                                
                                 addLoadInstruction(i.children.get(c),
-                                        i.children.get(c).firstRangeStart());
+                                                   i.children.get(c)
+                                                    .firstRangeStart());
                             }
                         }
                     }
@@ -340,17 +314,21 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
                 for (int i = s.liveIn.nextSetBit(0); i >= 0; i = s.liveIn
                         .nextSetBit(i + 1)) {
                     NInterval parent = cfg.intervals.get(i);
-                    NInterval from = parent.childAtOrEndingBefore(b);
-                    NInterval to = parent.childAtOrStartingAfter(s);
+                    NInterval from   = parent.childAtOrEndingBefore(b);
+                    NInterval to     = parent.childAtOrStartingAfter(s);
                     if (!from.equals(to)) {
-                        addStoreInstruction(from, from.usePositions.floorKey(b
-                                .getLastLIRInstId()));
+                        addStoreInstruction(from, from.usePositions
+                                                      .floorKey(
+                                                        b.getLastLIRInstId())
+                                                               );
                         to = getSegmentWithNearestUse(to, s.getFirstLIRInstId());
                         if (to.usePositions.ceilingEntry(s.getFirstLIRInstId())
                                 .getValue() == InstructionType.read)
                             // no use loading prior to a write.
-                            addLoadInstruction(to, to.usePositions.ceilingKey(s
-                                    .getFirstLIRInstId()));
+                            addLoadInstruction(to, to.usePositions
+                                                     .ceilingKey(
+                                                      s.getFirstLIRInstId())
+                                                                );
                     }
                 }
             }
@@ -364,7 +342,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
      *            the interval segment (could be a parent or child).
      * @param id
      *            the lir id after which a use is sought.
-     * @return the interval segment that that contains the first use at or after
+     * @return the interval segment that contains the first use at or after
      *         the id position and is associated with the interval i through a
      *         sibling or child relationship. Returns i if there is a use after
      *         id within i. Null if no interval exists that is related to i and
@@ -403,7 +381,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
         id++;
         if (b.idIsFree(id)) { // assumes always same instr
             b.insertLIRInst(new NLIRStore(b, id, from.offset, from.offsetFrom,
-                    from.pRegister));
+                                                              from.pRegister));
         }
     }
 
@@ -421,7 +399,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
         id--;
         if (s.idIsFree(id)) { // assumes always same instr
             s.insertLIRInst(new NLIRLoad(s, id, to.offset, to.offsetFrom,
-                    to.pRegister));
+                                                           to.pRegister));
         }
     }
 

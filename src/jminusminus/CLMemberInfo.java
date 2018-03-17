@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 /**
  * Abstraction of field_info and method_info structures (JVM Spec Section 4.6,
- * 4.7). CLFieldInfo and CLMethodInfo classes in this file provide concrete
- * implementations. Instances of these classes are created to store information
- * about class members (fields and methods) when a class is read using
- * CLAbsorber or created using CLEmitter.
+ * 4.7). {@code CLFieldInfo} and {@code CLMethodInfo} classes in this file 
+ * provide concrete implementations. Instances of these classes are created to 
+ * store information about class members (fields and methods) when a class is 
+ * read using {@link CLAbsorber} or created using {@link CLEmitter}.
  */
 
 abstract class CLMemberInfo {
@@ -35,7 +35,7 @@ abstract class CLMemberInfo {
     public ArrayList<CLAttributeInfo> attributes;
 
     /**
-     * Construct a CLMemberInfo object.
+     * Constructs a CLMemberInfo object.
      * 
      * @param accessFlags
      *            member_info.access_flags item.
@@ -59,7 +59,7 @@ abstract class CLMemberInfo {
     }
 
     /**
-     * Write the contents of this class member to the specified output stream.
+     * Writes the contents of this class member to the specified output stream.
      * 
      * @param out
      *            output stream.
@@ -80,7 +80,7 @@ abstract class CLMemberInfo {
     }
 
     /**
-     * Write the contents of this class member to STDOUT in a format similar to
+     * Writes the contents of this class member to STDOUT in a format similar to
      * that of javap.
      * 
      * @param p
@@ -111,7 +111,7 @@ abstract class CLMemberInfo {
 class CLFieldInfo extends CLMemberInfo {
 
     /**
-     * Construct a CLFieldInfo object.
+     * Constructs a CLFieldInfo object.
      * 
      * @param accessFlags
      *            field_info.access_flags item.
@@ -150,7 +150,7 @@ class CLFieldInfo extends CLMemberInfo {
 class CLMethodInfo extends CLMemberInfo {
 
     /**
-     * Construct a CLMethodInfo object.
+     * Constructs a CLMethodInfo object.
      * 
      * @param accessFlags
      *            method_info.access_flags item.
