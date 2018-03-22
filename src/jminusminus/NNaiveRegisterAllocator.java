@@ -82,9 +82,8 @@ public class NNaiveRegisterAllocator extends NRegisterAllocator {
         // Make sure that inputs of LIR instructions are not all
         //   assigned the same register. Also, handle spills 
         //   (i.e., generate loads and stores where needed).
-        for (int i = 1; i < cfg.basicBlocks.size(); i++) { // We
-            // ignore
-            // block B0
+        for (int i = 1; i < cfg.basicBlocks.size(); i++) { 
+            // We ignore block B0
             NBasicBlock block = cfg.basicBlocks.get(i);
             ArrayList<NLIRInstruction> newLir = new ArrayList<NLIRInstruction>();
             for (NLIRInstruction lir : block.lir) {

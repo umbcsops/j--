@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 /**
  * Representation of a class' constant_pool table (JVM Spec Section 4.5). An
- * instance of CLConstantPool is created when a class is read using CLAbsorber
- * or constructed using CLEmitter.
+ * instance of {@code CLConstantPool} is created when a class is read using 
+ * {@link CLAbsorber} or constructed using {@link CLEmitter}.
  */
 
 class CLConstantPool {
@@ -41,7 +41,7 @@ class CLConstantPool {
     }
 
     /**
-     * Construct a CLConstantPool object.
+     * Constructs a CLConstantPool object.
      */
 
     public CLConstantPool() {
@@ -50,7 +50,7 @@ class CLConstantPool {
     }
 
     /**
-     * Return the size of the constant pool.
+     * Returns the size of the constant pool.
      * 
      * @return the size of the constant pool.
      */
@@ -60,7 +60,7 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of the specified item if it exists in the
+     * Returns the constant pool index of the specified item if it exists in the
      * pool, -1 otherwise.
      * 
      * @param cpInfo
@@ -78,12 +78,12 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool item at the specified index, or null if the
-     * index is invalid.
+     * Returns the constant pool item at the specified index, or {@code null} 
+     * if the index is invalid.
      * 
      * @param i
      *            constant pool index.
-     * @return the constant pool item or null.
+     * @return the constant pool item or {@code null}.
      */
 
     public CLCPInfo cpItem(int i) {
@@ -94,7 +94,7 @@ class CLConstantPool {
     }
 
     /**
-     * Add the specified (non null) item to the constant pool table and return
+     * Adds the specified (non-null) item to the constant pool table and returns
      * its index.
      * 
      * @param cpInfo
@@ -120,7 +120,7 @@ class CLConstantPool {
     }
 
     /**
-     * Write the contents of the constant_pool to the specified output stream.
+     * Writes the contents of the constant_pool to the specified output stream.
      * 
      * @param out
      *            output stream.
@@ -138,7 +138,7 @@ class CLConstantPool {
     }
 
     /**
-     * Write the contents of the constant pool to STDOUT in a format similar to
+     * Writes the contents of the constant pool to STDOUT in a format similar to
      * that of javap.
      * 
      * @param p
@@ -161,14 +161,14 @@ class CLConstantPool {
     // instances of the different constant pool items -- classes extending
     // CLCPInfo objects in our representation. Each method
     // accepts as arguments the information needed for creating a
-    // particular contanst pool item, creates an instance
+    // particular constant pool item, creates an instance
     // of the item, checks if the item already exists in the
     // constant pool, adds it if not, and returns the (possibly new) index
     // of the item.
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantClassInfo.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantClassInfo}.
      * 
      * @param s
      *            class or interface name in internal form.
@@ -181,8 +181,8 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantFieldRefInfo.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantFieldRefInfo}.
      * 
      * @param className
      *            class or interface name in internal form.
@@ -200,8 +200,8 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantMethodRefInfo.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantMethodRefInfo}.
      * 
      * @param className
      *            class or interface name in internal form.
@@ -219,8 +219,8 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantInterfaceMethodRefInfo.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantInterfaceMethodRefInfo}.
      * 
      * @param className
      *            class or interface name in internal form.
@@ -240,8 +240,8 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantStringInfo.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantStringInfo}.
      * 
      * @param s
      *            the constant string value.
@@ -254,8 +254,8 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantIntegerInfo.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantIntegerInfo}.
      * 
      * @param i
      *            the constant int value.
@@ -268,8 +268,8 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantFloatInfo.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantFloatInfo}.
      * 
      * @param f
      *            the constant floating-point value.
@@ -282,8 +282,8 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantLongInfo.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantLongInfo}.
      * 
      * @param l
      *            the constant long value.
@@ -296,8 +296,8 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantDoubleInfo.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantDoubleInfo}.
      * 
      * @param d
      *            the constant double value.
@@ -310,8 +310,8 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantNameAndTypeInfo.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantNameAndTypeInfo}.
      * 
      * @param name
      *            field or method name.
@@ -327,8 +327,8 @@ class CLConstantPool {
     }
 
     /**
-     * Return the constant pool index of a singleton instance of
-     * CLConstantUtf8Info.
+     * Returns the constant pool index of a singleton instance of
+     * {@link CLConstantUtf8Info}.
      * 
      * @param s
      *            the constant string value.

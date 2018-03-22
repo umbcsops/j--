@@ -119,7 +119,8 @@ class Type {
 
     /**
      * This setter is used by {@link JCompilationUnit#preAnalyze()} to set this
-     * classRep to the specified partial class, computed during pre-analysis.
+     * {@code classRep} to the specified partial class, computed during 
+     * pre-analysis.
      * 
      * @param classRep
      *            the partial class.
@@ -163,8 +164,8 @@ class Type {
     }
 
     /**
-     * Returns the Type's super type (or null if there is none). Meaningful only
-     * to class Types.
+     * Returns the Type's super type (or {@code null} if there is none). 
+     * Meaningful only to class {@code Types}.
      * 
      * @return the super type or {@code null} if there is no super type.
      */
@@ -238,9 +239,13 @@ class Type {
     }
 
     /**
-     * Return a list of this class' abstract methods? It has abstract
-     * methods if (1) Any method declared in the class is abstract, or (2) Its
-     * superclass has an abstract method which is not overridden here.
+     * Returns a list of this class' abstract methods.
+     * 
+     * It has abstract methods if:
+     * <ol>
+     *   <li>Any method declared in the class is abstract or 
+     *   <li>its superclass has an abstract method which is not overridden here.
+     * </ol>
      * 
      * @return a list of abstract methods.
      */
@@ -602,7 +607,7 @@ class Type {
             return false;
         }
 
-        // Secondly, the member must be either public,
+        // The member must be either public, protected, or private
         if (member.isPublic()) {
             return true;
         }
@@ -856,8 +861,9 @@ class TypeName extends Type {
 
 /**
  * The (temporary) representation of an array's type. It is built by the 
- * {@link Parser} to stand in for a {@link Type} until {@code analyze}, at which 
- * point it is resolved to an actual Type object (having a Class that identifies it).
+ * {@link Parser} to stand in for a {@link Type} until the {@code analyze} 
+ * phase, at which point it is resolved to an actual Type object 
+ * (having a Class that identifies it).
  */
 
 class ArrayTypeName extends Type {

@@ -819,13 +819,22 @@ public class CLConstants {
      * We classify the JVM instructions into the following categories.
      */
     enum Category {
-        OBJECT, FIELD, METHOD1, METHOD2, ARRAY1, ARRAY2, ARRAY3, ARITHMETIC1, ARITHMETIC2, BIT, COMPARISON, CONVERSION, FLOW_CONTROL1, FLOW_CONTROL2, FLOW_CONTROL3, FLOW_CONTROL4, LOAD_STORE1, LOAD_STORE2, LOAD_STORE3, LOAD_STORE4, STACK, MISC;
+        OBJECT, FIELD, 
+        METHOD1, METHOD2, 
+        ARRAY1, ARRAY2, ARRAY3, 
+        ARITHMETIC1, ARITHMETIC2, 
+        BIT, 
+        COMPARISON, 
+        CONVERSION, 
+        FLOW_CONTROL1, FLOW_CONTROL2, FLOW_CONTROL3, FLOW_CONTROL4, 
+        LOAD_STORE1, LOAD_STORE2, LOAD_STORE3, LOAD_STORE4, 
+        STACK, 
+        MISC;
     }
 
     // The constants below simply serve as markers. We are not
     // interested in their values, which however have been picked
-    // so
-    // as not to conflict with others.
+    // so as not to conflict with others.
 
     /**
      * Denotes values that are irrelevant to certain instructions. For example,
