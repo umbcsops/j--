@@ -5,6 +5,8 @@ package jminusminus;
 import java.util.ArrayList;
 import java.util.BitSet;
 
+import static jminusminus.NPhysicalRegister.*;
+
 /**
  * The abstract base class for a register allocator that maps virtual registers 
  * (from LIR code) to physical registers on the target machine.
@@ -52,7 +54,7 @@ public abstract class NRegisterAllocator {
                 continue;
             }
             int blockStart = currBlock.lir.get(0).id;
-            int blockEnd = currBlock.lir.get(currBlock.lir.size() - 1).id;
+            int blockEnd   = currBlock.lir.get(currBlock.lir.size() - 1).id;
             BitSet liveOut = currBlock.liveOut;
             for (int idx = liveOut.nextSetBit(0); idx >= 0; idx = liveOut
                     .nextSetBit(idx + 1)) {
@@ -171,4 +173,82 @@ public abstract class NRegisterAllocator {
         } while (changed);
     }
 
+    /**
+     * Prints the local and global live set informations to STDOUT.
+     *
+     * @param p
+     *          pretty printing with indentation.
+     */
+    protected void writeSetsToStdOut(PrettyPrinter p) {
+        p.println("========== Live set informations ==========\n");
+        p.println("------- Local live sets -------");
+        for (NBasicBlock block : cfg.basicBlocks) {
+            p.println(block.id());
+
+            p.printf("   liveUse: ");
+            BitSet use = block.liveUse;
+            
+            if (use.nextSetBit(0) < 0) p.println();
+
+            for (int i = use.nextSetBit(0); i >= 0; i = use.nextSetBit(i + 1)) {
+                if (i < 32) {
+                    p.printf(regInfo[i] + 
+                            (use.nextSetBit(i + 1) >= 0 ? ", " : "\n"));
+                } else {
+                    p.printf("V" + i + 
+                            (use.nextSetBit(i + 1) >= 0 ? ", " : "\n"));
+                }
+            }
+            p.printf("   liveDef: ");
+            BitSet def = block.liveDef;
+
+            if (def.nextSetBit(0) < 0) p.println("\n");
+
+            for (int i = def.nextSetBit(0); i >= 0; i = def.nextSetBit(i + 1)) {
+                if (i < 32) {
+                    p.printf(regInfo[i] + 
+                            (def.nextSetBit(i + 1) >= 0 ? ", " : "\n\n"));
+                } else {
+                    p.printf("V" + i + 
+                            (def.nextSetBit(i + 1) >= 0 ? ", " : "\n\n"));
+                }
+            }
+        }
+
+        p.println("------- Global live sets -------");
+        for (int idx = cfg.basicBlocks.size() - 1; idx >= 0; idx--) {
+            p.println(cfg.basicBlocks.get(idx).id());
+            
+            p.printf("   liveIn:  ");
+            BitSet in = cfg.basicBlocks.get(idx).liveIn;
+
+            if (in.nextSetBit(0) < 0) p.println();
+
+            for (int i = in.nextSetBit(0); i >= 0; i = in.nextSetBit(i + 1)) {
+                if (i < 32) {
+                    p.printf(regInfo[i] + 
+                            (in.nextSetBit(i + 1) >= 0 ? ", " : "\n"));
+                } else {
+                    p.printf("V" + i + 
+                            (in.nextSetBit(i + 1) >= 0 ? ", " : "\n"));
+                }
+            }
+
+            p.printf("   liveOut: ");
+            BitSet out = cfg.basicBlocks.get(idx).liveOut;
+
+            if (out.nextSetBit(0) < 0) p.println("\n");
+
+            for (int i = out.nextSetBit(0); i >= 0; i = out.nextSetBit(i + 1)) {
+                if (i < 32) {
+                    p.printf(regInfo[i] + 
+                            (out.nextSetBit(i + 1) >= 0 ? ", " : "\n\n"));
+                } else {
+                    p.printf("V" + i + 
+                            (out.nextSetBit(i + 1) >= 0 ? ", " : "\n\n"));
+                }
+            }
+        }
+
+    }
 }

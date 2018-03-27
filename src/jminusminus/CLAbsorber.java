@@ -138,13 +138,16 @@ public class CLAbsorber {
         ArrayList<CLFieldInfo> fields = new ArrayList<CLFieldInfo>();
         try {
             for (int i = 0; i < fieldsCount; i++) {
-                int accessFlags = in.readUnsignedShort();
-                int nameIndex = in.readUnsignedShort();
+                int accessFlags     = in.readUnsignedShort();
+                int nameIndex       = in.readUnsignedShort();
                 int descriptorIndex = in.readUnsignedShort();
                 int attributesCount = in.readUnsignedShort();
-                fields.add(new CLFieldInfo(accessFlags, nameIndex,
-                        descriptorIndex, attributesCount, readAttributes(in,
-                                attributesCount)));
+                fields.add(new CLFieldInfo(accessFlags, 
+                                           nameIndex,
+                                           descriptorIndex, 
+                                           attributesCount, 
+                                           readAttributes(in, attributesCount))
+                          );
             }
         } catch (IOException e) {
             reportError("Error reading fields from file %s", className);
@@ -167,13 +170,16 @@ public class CLAbsorber {
         ArrayList<CLMethodInfo> methods = new ArrayList<CLMethodInfo>();
         try {
             for (int i = 0; i < methodsCount; i++) {
-                int accessFlags = in.readUnsignedShort();
-                int nameIndex = in.readUnsignedShort();
+                int accessFlags     = in.readUnsignedShort();
+                int nameIndex       = in.readUnsignedShort();
                 int descriptorIndex = in.readUnsignedShort();
                 int attributesCount = in.readUnsignedShort();
-                methods.add(new CLMethodInfo(accessFlags, nameIndex,
-                        descriptorIndex, attributesCount, readAttributes(in,
-                                attributesCount)));
+                methods.add(new CLMethodInfo(accessFlags, 
+                                             nameIndex,
+                                             descriptorIndex, 
+                                             attributesCount, 
+                                             readAttributes(in, attributesCount))
+                           );
             }
         } catch (IOException e) {
             reportError("Error reading methods from file %s", className);
@@ -198,8 +204,9 @@ public class CLAbsorber {
             CLConstantPool cp = classFile.constantPool;
             for (int i = 0; i < attributesCount; i++) {
                 int attributeNameIndex = in.readUnsignedShort();
-                long attributeLength = in.readUnsignedInt();
+                long attributeLength   = in.readUnsignedInt();
                 CLAttributeInfo attributeInfo = null;
+
                 String attributeName = new String(((CLConstantUtf8Info) cp
                         .cpItem(attributeNameIndex)).b);
                 if (attributeName.equals(ATT_CONSTANT_VALUE)) {
@@ -295,7 +302,8 @@ public class CLAbsorber {
         CLConstantValueAttribute attribute = null;
         try {
             attribute = new CLConstantValueAttribute(attributeNameIndex,
-                    attributeLength, in.readUnsignedShort());
+                                                     attributeLength, 
+                                                     in.readUnsignedShort());
         } catch (IOException e) {
             reportError("Error reading ConstantValue_attribute from file %s",
                     className);
@@ -316,10 +324,11 @@ public class CLAbsorber {
      */
 
     private CLCodeAttribute readCodeAttribute(CLInputStream in,
-            int attributeNameIndex, long attributeLength) {
+                                              int attributeNameIndex,
+                                              long attributeLength) {
         CLCodeAttribute attribute = null;
         try {
-            int maxStack = in.readUnsignedShort();
+            int maxStack  = in.readUnsignedShort();
             int maxLocals = in.readUnsignedShort();
             ArrayList<Integer> code = new ArrayList<Integer>();
             long codeLength = in.readUnsignedInt();
@@ -329,20 +338,21 @@ public class CLAbsorber {
             int exceptionTableLength = in.readUnsignedShort();
             ArrayList<CLExceptionInfo> exceptionTable = new ArrayList<CLExceptionInfo>();
             for (int l = 0; l < exceptionTableLength; l++) {
-                int startPC = in.readUnsignedShort();
-                int endPC = in.readUnsignedShort();
+                int startPC   = in.readUnsignedShort();
+                int endPC     = in.readUnsignedShort();
                 int handlerPC = in.readUnsignedShort();
                 int catchType = in.readUnsignedShort();
                 exceptionTable.add(new CLExceptionInfo(startPC, endPC,
-                        handlerPC, catchType));
+                                                       handlerPC, catchType));
             }
             int codeAttrAttributesCount = in.readUnsignedShort();
             ArrayList<CLAttributeInfo> codeAttrAttributes = readAttributes(in,
                     codeAttrAttributesCount);
-            attribute = new CLCodeAttribute(attributeNameIndex,
-                    attributeLength, maxStack, maxLocals, codeLength, code,
-                    exceptionTableLength, exceptionTable,
-                    codeAttrAttributesCount, codeAttrAttributes);
+            attribute = new CLCodeAttribute(attributeNameIndex, attributeLength,
+                                            maxStack, maxLocals, 
+                                            codeLength, code,
+                                            exceptionTableLength, exceptionTable,
+                                            codeAttrAttributesCount, codeAttrAttributes);
         } catch (IOException e) {
             reportError("Error reading Code_attribute from file %s", className);
         }
@@ -372,7 +382,9 @@ public class CLAbsorber {
                 exceptionIndexTable.add(in.readUnsignedShort());
             }
             attribute = new CLExceptionsAttribute(attributeNameIndex,
-                    attributeLength, numberOfExceptions, exceptionIndexTable);
+                                                  attributeLength, 
+                                                  numberOfExceptions, 
+                                                  exceptionIndexTable);
         } catch (IOException e) {
             reportError("Error reading Exceptions_attribute from file %s",
                     className);
@@ -400,12 +412,14 @@ public class CLAbsorber {
             int numberOfClasses = in.readUnsignedShort();
             ArrayList<CLInnerClassInfo> classes = new ArrayList<CLInnerClassInfo>();
             for (int m = 0; m < numberOfClasses; m++) {
-                classes.add(new CLInnerClassInfo(in.readUnsignedShort(), in
-                        .readUnsignedShort(), in.readUnsignedShort(), in
-                        .readUnsignedShort()));
+                classes.add(new CLInnerClassInfo(in.readUnsignedShort(), 
+                                                 in.readUnsignedShort(), 
+                                                 in.readUnsignedShort(), 
+                                                 in.readUnsignedShort()));
             }
             attribute = new CLInnerClassesAttribute(attributeNameIndex,
-                    attributeLength, numberOfClasses, classes);
+                                                    attributeLength, 
+                                                    numberOfClasses, classes);
 
         } catch (IOException e) {
             reportError("Error reading InnerClasses_attribute from file %s",
@@ -432,8 +446,9 @@ public class CLAbsorber {
         CLEnclosingMethodAttribute attribute = null;
         try {
             attribute = new CLEnclosingMethodAttribute(attributeNameIndex,
-                    attributeLength, in.readUnsignedShort(), in
-                            .readUnsignedShort());
+                                                       attributeLength, 
+                                                       in.readUnsignedShort(), 
+                                                       in.readUnsignedShort());
         } catch (IOException e) {
             reportError("Error reading EnclosingMethod_attribute from file %s",
                     className);
@@ -477,7 +492,8 @@ public class CLAbsorber {
         CLSignatureAttribute attribute = null;
         try {
             attribute = new CLSignatureAttribute(attributeNameIndex,
-                    attributeLength, in.readUnsignedShort());
+                                                 attributeLength, 
+                                                 in.readUnsignedShort());
         } catch (IOException e) {
             reportError("Error reading Signature_attribute from file %s",
                     className);
@@ -503,7 +519,8 @@ public class CLAbsorber {
         CLSourceFileAttribute attribute = null;
         try {
             attribute = new CLSourceFileAttribute(attributeNameIndex,
-                    attributeLength, in.readUnsignedShort());
+                                                  attributeLength, 
+                                                  in.readUnsignedShort());
         } catch (IOException e) {
             reportError("Error reading SourceFile_attribute from file %s",
                     className);
@@ -532,7 +549,7 @@ public class CLAbsorber {
 
             in.read(b);
             attribute = new CLSourceDebugExtensionAttribute(attributeNameIndex,
-                    attributeLength, b);
+                                                            attributeLength, b);
         } catch (IOException e) {
             reportError("Error reading SourceDebugExtension_attribute "
                     + "from file %s", className);
@@ -564,7 +581,9 @@ public class CLAbsorber {
                         in.readUnsignedShort(), in.readUnsignedShort()));
             }
             attribute = new CLLineNumberTableAttribute(attributeNameIndex,
-                    attributeLength, lineNumberTableLength, lineNumberTable);
+                                                       attributeLength, 
+                                                       lineNumberTableLength, 
+                                                       lineNumberTable);
         } catch (IOException e) {
             reportError("Error reading LineNumberTable_attribute from file %s",
                     className);
@@ -590,16 +609,22 @@ public class CLAbsorber {
         CLLocalVariableTableAttribute attribute = null;
         try {
             int localVariableTableLength = in.readUnsignedShort();
-            ArrayList<CLLocalVariableInfo> localVariableTable = new ArrayList<CLLocalVariableInfo>();
+            ArrayList<CLLocalVariableInfo> localVariableTable = 
+                                           new ArrayList<CLLocalVariableInfo>();
+
             for (int m = 0; m < localVariableTableLength; m++) {
-                localVariableTable.add(new CLLocalVariableInfo(in
-                        .readUnsignedShort(), in.readUnsignedShort(), in
-                        .readUnsignedShort(), in.readUnsignedShort(), in
-                        .readUnsignedShort()));
+                localVariableTable.add(
+                        new CLLocalVariableInfo(in.readUnsignedShort(),
+                                                in.readUnsignedShort(),
+                                                in.readUnsignedShort(),
+                                                in.readUnsignedShort(),
+                                                in.readUnsignedShort())
+                                      );
             }
             attribute = new CLLocalVariableTableAttribute(attributeNameIndex,
-                    attributeLength, localVariableTableLength,
-                    localVariableTable);
+                                                          attributeLength,
+                                                          localVariableTableLength,
+                                                          localVariableTable);
         } catch (IOException e) {
             reportError("Error reading LocalVariableTable_attribute "
                     + "from file %s", className);
@@ -627,14 +652,18 @@ public class CLAbsorber {
             int localVariableTypeTableLength = in.readUnsignedShort();
             ArrayList<CLLocalVariableTypeInfo> localVariableTypeTable = new ArrayList<CLLocalVariableTypeInfo>();
             for (int m = 0; m < localVariableTypeTableLength; m++) {
-                localVariableTypeTable.add(new CLLocalVariableTypeInfo(in
-                        .readUnsignedShort(), in.readUnsignedShort(), in
-                        .readUnsignedShort(), in.readUnsignedShort(), in
-                        .readUnsignedShort()));
+                localVariableTypeTable.add(
+                        new CLLocalVariableTypeInfo(in.readUnsignedShort(),
+                                                    in.readUnsignedShort(),
+                                                    in.readUnsignedShort(),
+                                                    in.readUnsignedShort(),
+                                                    in.readUnsignedShort())
+                                          );
             }
-            attribute = new CLLocalVariableTypeTableAttribute(
-                    attributeNameIndex, attributeLength,
-                    localVariableTypeTableLength, localVariableTypeTable);
+            attribute = new CLLocalVariableTypeTableAttribute(attributeNameIndex,
+                                                              attributeLength,
+                                                    localVariableTypeTableLength,
+                                                    localVariableTypeTable);
         } catch (IOException e) {
             reportError("Error reading LocalVariableTypeTable_attribute"
                     + "file %s", className);
@@ -684,8 +713,10 @@ public class CLAbsorber {
                 annotations.add(annotation);
             }
             attribute = new CLRuntimeVisibleAnnotationsAttribute(
-                    attributeNameIndex, attributeLength, numAnnotations,
-                    annotations);
+                                                       attributeNameIndex,
+                                                       attributeLength,
+                                                       numAnnotations,
+                                                       annotations);
         } catch (IOException e) {
             reportError("Error reading RuntimeVisibleAnnotations_attribute"
                     + "from file %s", className);

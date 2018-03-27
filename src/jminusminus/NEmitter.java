@@ -220,6 +220,14 @@ public class NEmitter {
 
                 // Write the LIR instructions in cfg to STDOUT.
                 cfg.writeLirToStdOut(p);
+
+                // Lastly write the live sets to STDOUT.
+                // Only relevant for linear scan and graph coloring
+                if (regAllocator instanceof NLinearRegisterAllocator ||
+                    regAllocator instanceof NGraphRegisterAllocator) {
+                    
+                    regAllocator.writeSetsToStdOut(p);
+                }
             }
 
             // Store the cfgs for the methods in this class in a map.

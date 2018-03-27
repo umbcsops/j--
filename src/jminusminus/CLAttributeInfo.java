@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import static jminusminus.CLConstants.*;
 
 /**
- * Representation of attribute_info structure (JVM Spec Section 4.8). Classes
- * representing individual attributes inherit this class. This file has
- * representations for all attributes specified in JVM Spec Second Edition,
- * including the ones that were added for JDK 1.5.
+ * The abstract base class for the representation of attribute_info structure 
+ * (JVM Spec Section 4.8). Classes representing individual attributes inherit
+ * this class. This file has representations for all attributes specified in
+ * JVM Spec Second Edition, including the ones that were added for JDK 1.5.
  * <p>
  * Attributes are used in the ClassFile ({@link CLFile}), field_info (
  * {@link CLFieldInfo}), method_info ({@link CLMethodInfo}), and Code_attribute 
@@ -29,7 +29,7 @@ import static jminusminus.CLConstants.*;
  * The ones which it does not recognize, it simply skips them and reports a 
  * warning to that extent.
  * <p>
- * {@code CLEmitter} implicitly adds the required attributes to the appropriate
+ * {@link CLEmitter} implicitly adds the required attributes to the appropriate
  * structure. The optional attributes have to be added explicitly using the
  * {@link CLEmitter#addClassAttribute(CLAttributeInfo) addClassAttribute}, 
  * {@link CLEmitter#addFieldAttribute(CLAttributeInfo) addFieldAttribute}, 

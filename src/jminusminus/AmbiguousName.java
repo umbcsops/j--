@@ -93,7 +93,7 @@ class AmbiguousName {
             }
         } while (true);
 
-        // For now we can assume everything else is fields.
+        // For now we can assume everything else are fields.
         while (st.hasMoreTokens()) {
             result = new JFieldSelection(line, result, st.nextToken());
         }
