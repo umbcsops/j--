@@ -10,11 +10,11 @@ an object-oriented style.
 
 ## Installation
 
-
+[Installation wiki](https://github.com/umbcsops/j--/wiki/Installation)
 
 ## Copyright
 
-Copyright &copy; Bill Campbell, Swami Iyer, and Bahar Akbal-Delibas
+Copyright &copy; Bill Campbell, Swami Iyer, and Bahar Akbal-Deliba&#351;
 
 ## License
 

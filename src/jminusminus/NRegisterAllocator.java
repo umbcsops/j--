@@ -58,8 +58,10 @@ public abstract class NRegisterAllocator {
             BitSet liveOut = currBlock.liveOut;
             for (int idx = liveOut.nextSetBit(0); idx >= 0; idx = liveOut
                     .nextSetBit(idx + 1)) {
-                cfg.intervals.get(idx).addOrExtendNRange(
-                        new NRange(blockStart, blockEnd));
+                cfg.intervals.get(idx)
+                             .addOrExtendNRange(new NRange(blockStart,
+                                                           blockEnd)
+                                               );
             }
             for (int j = currBlock.lir.size() - 1; j >= 0; j--) {
                 int currLIRid = currBlock.lir.get(j).id;
@@ -67,15 +69,19 @@ public abstract class NRegisterAllocator {
                 if (output != null) {
                     cfg.intervals.get(output.number).newFirstRangeStart(
                             currLIRid);
-                    cfg.intervals.get(output.number).addUsePosition(currLIRid,
-                            InstructionType.write);
+                    cfg.intervals.get(output.number)
+                                 .addUsePosition(currLIRid,
+                                                 InstructionType.write);
                 }
                 ArrayList<NRegister> inputs = currBlock.lir.get(j).reads;
                 for (NRegister reg : inputs) {
-                    cfg.intervals.get(reg.number).addOrExtendNRange(
-                            new NRange(blockStart, currLIRid));
-                    cfg.intervals.get(reg.number).addUsePosition(currLIRid,
-                            InstructionType.read);
+                    cfg.intervals.get(reg.number)
+                                 .addOrExtendNRange(new NRange(blockStart,
+                                                               currLIRid)
+                                                   );
+                    cfg.intervals.get(reg.number)
+                                 .addUsePosition(currLIRid,
+                                                 InstructionType.read);
                 }
             }
         }

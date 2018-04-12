@@ -19,7 +19,7 @@ import static jminusminus.TokenKind.*;
  * image of the new token.
  * <p>
  * See Appendix C.2.1 of the textbook or the
- * <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.12">Java Language Specifications</a>
+ * <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html">Java Language Specifications</a>
  * for the full lexical grammar.
  */
 

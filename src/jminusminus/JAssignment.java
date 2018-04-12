@@ -144,7 +144,7 @@ class JPlusAssignOp extends JAssignment {
         if (!(lhs instanceof JLhs)) {
             JAST.compilationUnit.reportSemanticError(line(),
                     "Illegal lhs for assignment");
-	    return this;
+            return this;
         } else {
             lhs = (JExpression) ((JLhs) lhs).analyzeLhs(context);
         }

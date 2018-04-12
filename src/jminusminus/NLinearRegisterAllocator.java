@@ -154,7 +154,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
             }
         }
 
-        // The physical registers available are in NPhysicalRegister.getInfo
+        // The physical registers available are in NPhysicalRegister.regInfo
         // static array. This is indexed from 0 to NPhysicalRegister.MAX_COUNT
         int reg = this.getBestFreeReg();
         if (freePos[reg] == 0) {
