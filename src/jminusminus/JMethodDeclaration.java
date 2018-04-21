@@ -9,8 +9,7 @@ import static jminusminus.CLConstants.*;
  * The AST node for a method declaration.
  */
 
-class JMethodDeclaration
-    extends JAST implements JMember {
+class JMethodDeclaration extends JAST implements JMember {
 
     /** Method modifiers. */
     protected ArrayList<String> mods;
@@ -103,7 +102,7 @@ class JMethodDeclaration
                 "abstract method cannot have a body");
         } else if (body == null && !isAbstract) {
             JAST.compilationUnit.reportSemanticError(line(),
-                "Method with null body must be abstarct");
+                "Method with null body must be abstract");
         } else if (isAbstract && isPrivate) {
             JAST.compilationUnit.reportSemanticError(line(),
                 "private method cannot be declared abstract");
@@ -137,9 +136,10 @@ class JMethodDeclaration
      */
 
     public JAST analyze(Context context) {
-        MethodContext methodContext = 
-	    new MethodContext(context, isStatic, returnType);
-	this.context = methodContext;
+        MethodContext methodContext = new MethodContext(context,
+                                                        isStatic,
+                                                        returnType);
+        this.context = methodContext;
 
         if (!isStatic) {
             // Offset 0 is used to address "this".
@@ -156,12 +156,12 @@ class JMethodDeclaration
         }
         if (body != null) {
             body = body.analyze(this.context);
-	    if (returnType!=Type.VOID && ! methodContext.methodHasReturn()){
-		JAST.compilationUnit.reportSemanticError(line(),
-		    "Non-void method must have a return statement");
-	    }
+            if (returnType!=Type.VOID && ! methodContext.methodHasReturn()){
+                JAST.compilationUnit.reportSemanticError(line(),
+                            "Non-void method must have a return statement");
+            }
         }
-	return this;
+        return this;
     }
 
     /**
@@ -176,8 +176,7 @@ class JMethodDeclaration
 
     public void partialCodegen(Context context, CLEmitter partial) {
         // Generate a method with an empty body; need a return to
-        // make
-        // the class verifier happy.
+        // make the class verifier happy.
         partial.addMethod(mods, name, descriptor, null, false);
 
         // Add implicit RETURN
@@ -220,8 +219,9 @@ class JMethodDeclaration
 
     public void writeToStdOut(PrettyPrinter p) {
         p.printf("<JMethodDeclaration line=\"%d\" name=\"%s\" "
-            + "returnType=\"%s\">\n", line(), name, returnType
-            .toString());
+            + "returnType=\"%s\">\n", line(),
+                                      name,
+                                      returnType.toString());
         p.indentRight();
         if (context != null) {
             context.writeToStdOut(p);

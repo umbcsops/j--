@@ -309,7 +309,7 @@ private TypeName qualifiedIdentifier(): {
             qualifiedIdentifier = token.image; 
         }
         ( 
-            LOOKAHEAD( <DOT> <IDENTIFIER ) // Suppress JavaCC warning
+            LOOKAHEAD( <DOT> <IDENTIFIER> ) // Suppress JavaCC warning
             <DOT> <IDENTIFIER> 
             { qualifiedIdentifier += "." + token.image; } 
         )*
