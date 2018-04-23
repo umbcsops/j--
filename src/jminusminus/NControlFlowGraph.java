@@ -442,7 +442,7 @@ class NControlFlowGraph {
     public ArrayList<String> data;
 
     /**
-     * Construct an NControlFlowGraph object for a method given the constant
+     * Constructs a NControlFlowGraph object for a method given the constant
      * pool for the class containing the method and the object containing
      * information about the method.
      * 
@@ -469,86 +469,11 @@ class NControlFlowGraph {
             tupleAt[tuple.pc] = tuple;
         }
 
-        // Identify the leaders.
-        tuples.get(0).isLeader = true;
-        for (int j = 1; j < tuples.size(); j++) {
-            NTuple tuple = tuples.get(j);
-            boolean jumpInstruction = true;
-            short operandByte1, operandByte2, operandByte3, operandByte4;
-            int offset;
-            switch (tuple.opcode) {
-            case IFEQ:
-            case IFNE:
-            case IFLT:
-            case IFGE:
-            case IFGT:
-            case IFLE:
-            case IF_ICMPEQ:
-            case IF_ICMPNE:
-            case IF_ICMPLT:
-            case IF_ICMPGE:
-            case IF_ICMPGT:
-            case IF_ICMPLE:
-            case IF_ACMPEQ:
-            case IF_ACMPNE:
-            case GOTO:
-            case JSR:
-            case IFNULL:
-            case IFNONNULL:
-                operandByte1 = tuple.operands.get(0);
-                operandByte2 = tuple.operands.get(1);
-                offset = shortValue(operandByte1, operandByte2);
-                tupleAt[tuple.pc + offset].isLeader = true;
-                break;
-            case GOTO_W:
-            case JSR_W:
-                operandByte1 = tuple.operands.get(0);
-                operandByte2 = tuple.operands.get(1);
-                operandByte3 = tuple.operands.get(2);
-                operandByte4 = tuple.operands.get(3);
-                offset = intValue(operandByte1, operandByte2, operandByte3,
-                        operandByte4);
-                tupleAt[tuple.pc + offset].isLeader = true;
-                break;
-            case IRETURN:
-            case LRETURN:
-            case FRETURN:
-            case DRETURN:
-            case ARETURN:
-            case RETURN:
-            case RET:
-            case ATHROW:
-                break;
-            case TABLESWITCH: // TBD
-                break;
-            case LOOKUPSWITCH: // TBD
-                break;
-            default:
-                jumpInstruction = false;
-            }
-            if (jumpInstruction) {
-                if (j < tuples.size() - 1) {
-                    tuples.get(j + 1).isLeader = true;
-                }
-            }
-        }
-
-        // Form blocks.
-        {
-            blockId = 0;
-            NBasicBlock block = new NBasicBlock(this, blockId++);
-            for (NTuple tuple : tuples) {
-                if (tuple.isLeader) {
-                    basicBlocks.add(block);
-                    block = new NBasicBlock(this, blockId++);
-                    if (!pcToBasicBlock.containsKey(tuple.pc)) {
-                        pcToBasicBlock.put(tuple.pc, block);
-                    }
-                }
-                block.tuples.add(tuple);
-            }
-            basicBlocks.add(block);
-        }
+        // Identify the leaders
+        findLeaders(tuples, tupleAt);
+        
+        // Form blocks
+        buildBB(tuples);
 
         // Connect up the blocks for this method, that is, build
         // its control flow graph.
@@ -646,6 +571,103 @@ class NControlFlowGraph {
             block.ref = block.predecessors.size();
             block.fwdBranches = block.predecessors.size() - block.bwdBranches;
         }
+    }
+
+    /**
+     * Finds the leaders for this control flow graph.
+     *
+     * @param tuples
+     *            list of tuples representing the JVM instructions.
+     * @param tupleAt
+     *            array of tuples at each program counter number.
+     */
+
+    private void findLeaders(ArrayList<NTuple> tuples, NTuple[] tupleAt) {
+        tuples.get(0).isLeader = true;
+        for (int j = 1; j < tuples.size(); j++) {
+            NTuple tuple = tuples.get(j);
+            boolean jumpInstruction = true;
+            short operandByte1, operandByte2, operandByte3, operandByte4;
+            int offset;
+            switch (tuple.opcode) {
+            case IFEQ:
+            case IFNE:
+            case IFLT:
+            case IFGE:
+            case IFGT:
+            case IFLE:
+            case IF_ICMPEQ:
+            case IF_ICMPNE:
+            case IF_ICMPLT:
+            case IF_ICMPGE:
+            case IF_ICMPGT:
+            case IF_ICMPLE:
+            case IF_ACMPEQ:
+            case IF_ACMPNE:
+            case GOTO:
+            case JSR:
+            case IFNULL:
+            case IFNONNULL:
+                operandByte1 = tuple.operands.get(0);
+                operandByte2 = tuple.operands.get(1);
+                offset = shortValue(operandByte1, operandByte2);
+                tupleAt[tuple.pc + offset].isLeader = true;
+                break;
+            case GOTO_W:
+            case JSR_W:
+                operandByte1 = tuple.operands.get(0);
+                operandByte2 = tuple.operands.get(1);
+                operandByte3 = tuple.operands.get(2);
+                operandByte4 = tuple.operands.get(3);
+                offset = intValue(operandByte1, operandByte2, operandByte3,
+                        operandByte4);
+                tupleAt[tuple.pc + offset].isLeader = true;
+                break;
+            case IRETURN:
+            case LRETURN:
+            case FRETURN:
+            case DRETURN:
+            case ARETURN:
+            case RETURN:
+            case RET:
+            case ATHROW:
+                break;
+            case TABLESWITCH: // TBD
+                break;
+            case LOOKUPSWITCH: // TBD
+                break;
+            default:
+                jumpInstruction = false;
+            }
+            if (jumpInstruction) {
+                if (j < tuples.size() - 1) {
+                    tuples.get(j + 1).isLeader = true;
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Builds the basic blocks for this control flow graph.
+     *
+     * @param tuples
+     *            the list of tuple representing the JVM instructions.
+     */
+    private void buildBB(ArrayList<NTuple> tuples) {
+        blockId = 0;
+        NBasicBlock block = new NBasicBlock(this, blockId++);
+        for (NTuple tuple : tuples) {
+            if (tuple.isLeader) {
+                basicBlocks.add(block);
+                block = new NBasicBlock(this, blockId++);
+                if (!pcToBasicBlock.containsKey(tuple.pc)) {
+                    pcToBasicBlock.put(tuple.pc, block);
+                }
+            }
+            block.tuples.add(tuple);
+        }
+        basicBlocks.add(block);
     }
 
     /**

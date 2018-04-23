@@ -91,6 +91,7 @@ public abstract class NRegisterAllocator {
      * Preprocesses information needed for naive, linear, and graph register
      * allocation schemes. More information provided in method comments.
      */
+
     protected void preprocess() {
         // Allocate any fixed registers (a0, ..., a3 and v0) that were
         // assigned during generation phase to the appropriate
