@@ -698,7 +698,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Remove blocks that cannot be reached from the begin block (B0). Also
+     * Removes blocks that cannot be reached from the begin block (B0). Also
      * removes these blocks from the predecessor lists.
      */
 
@@ -727,7 +727,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Compute the dominator of each block in this cfg recursively given the
+     * Computes the dominator of each block in this cfg recursively given the
      * starting block and its predecessor.
      * 
      * @param block
@@ -753,7 +753,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Convert tuples in each block to their high-level (HIR) representations.
+     * Converts tuples in each block to their high-level (HIR) representations.
      */
 
     public void tuplesToHir() {
@@ -1165,7 +1165,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Carry out optimizations on the high-level instructions.
+     * Carries out optimizations on the high-level instructions.
      */
 
     public void optimize() {
@@ -1173,7 +1173,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Eliminate redundant phi functions of the form x = (y, x, x, ..., x) with
+     * Eliminates redundant phi functions of the form x = (y, x, x, ..., x) with
      * y.
      */
 
@@ -1204,7 +1204,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Convert the hir instructions in this cfg to lir instructions.
+     * Converts the hir instructions in this cfg to lir instructions.
      */
 
     public void hirToLir() {
@@ -1234,7 +1234,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Resolve the phi functions in this cfg, i.e., for each x = phi(x1, x2,
+     * Resolves the phi functions in this cfg, i.e., for each x = phi(x1, x2,
      * ..., xn) generate an (LIR) move xi, x instruction at the end of the
      * predecessor i of thte block defining the phi function; if the instruction
      * there is a branch, add the instruction prior to the branch.
@@ -1255,8 +1255,7 @@ class NControlFlowGraph {
                     NLIRMove move = new NLIRMove(arg.block, lirId++, arg.lir,
                             phi.lir);
                     int len = targetBlock.hir.size();
-                    if (hirMap.get(targetBlock.hir.get(len - 1)) instanceof NHIRGoto
-                            || hirMap.get(targetBlock.hir.get(len - 1)) instanceof NHIRConditionalJump) {
+                    if (isHIRJmp(hirMap.get(targetBlock.hir.get(len - 1)))) {
                         targetBlock.lir.add(len - 1, move);
                     } else {
                         targetBlock.lir.add(move);
@@ -1267,7 +1266,20 @@ class NControlFlowGraph {
     }
 
     /**
-     * Compute optimal ordering of the basic blocks in this cfg.
+     * Is the NHIRInstruction a conditional jump or unconditional jump?
+     *
+     * @param instr
+     *            the hir instruction to check
+     * @return true if the hir instruction is a jump; false otherwise;
+     */
+
+    private boolean isHIRJmp(NHIRInstruction instr) {
+        return (instr instanceof NHIRGoto || 
+                instr instanceof NHIRConditionalJump);
+    }
+
+    /**
+     * Computes optimal ordering of the basic blocks in this cfg.
      */
 
     public void orderBlocks() {
@@ -1275,11 +1287,12 @@ class NControlFlowGraph {
     }
 
     /**
-     * The basic block at a particular instruction id.
+     * Returns the basic block at a particular instruction id; {@code null}
+     * if the particular instruction id has no basic block associated with it.
      * 
      * @param id
      *            the (LIR) instruction id.
-     * @return the basic block.
+     * @return the basic block; {@code null} if no block has the id.
      */
 
     public NBasicBlock blockAt(int id) {
@@ -1291,7 +1304,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Assign new ids to the LIR instructions in this cfg.
+     * Assigns new ids to the LIR instructions in this cfg.
      */
 
     public void renumberLirInstructions() {
@@ -1305,8 +1318,8 @@ class NControlFlowGraph {
                     continue;
                 }
                 lir.id = nextId;
-                nextId += 5; // an extra slot for spills though we
-                // don't use it
+                nextId += 5; // An extra slot for spills though we
+                             //   don't use it
                 newLir.add(lir);
             }
             block.lir = newLir;
@@ -1314,7 +1327,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Replace references to virtual registers in LIR instructions with
+     * Replaces references to virtual registers in LIR instructions with
      * references to physical registers.
      */
 
@@ -1327,7 +1340,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Write the tuples in this cfg to STDOUT.
+     * Writes the tuples in this cfg to STDOUT.
      * 
      * @param p
      *            for pretty printing with indentation.
@@ -1343,7 +1356,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Write the hir instructions in this cfg to STDOUT.
+     * Writes the hir instructions in this cfg to STDOUT.
      * 
      * @param p
      *            for pretty printing with indentation.
@@ -1359,7 +1372,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Write the lir instructions in this cfg to STDOUT.
+     * Writes the lir instructions in this cfg to STDOUT.
      * 
      * @param p
      *            for pretty printing with indentation.
@@ -1375,7 +1388,7 @@ class NControlFlowGraph {
     }
 
     /**
-     * Write the intervals in this cfg to STDOUT.
+     * Writes the intervals in this cfg to STDOUT.
      * 
      * @param p
      *            for pretty printing with indentation.

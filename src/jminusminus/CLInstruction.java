@@ -289,7 +289,7 @@ abstract class CLInstruction {
             new CLInsInfo(JSR_W, "jsr_w", 4, IRRELEVANT, 1, FLOW_CONTROL1) };
 
     /**
-     * Returns {@code true} if the opcode is valid; {@ocde false} otherwise.
+     * Returns {@code true} if the opcode is valid; {@code false} otherwise.
      * 
      * @param opcode
      *            instruction opcode.
