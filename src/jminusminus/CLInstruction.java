@@ -1041,6 +1041,9 @@ class CLFlowControlInstruction extends CLInstruction {
         this.high = high;
         this.labels = labels;
         pad = 4 - ((pc + 1) % 4);
+        if (pad == 4) {
+            pad = 0;
+        }
         operandCount = pad + 12 + 4 * labels.size();
     }
 
@@ -1070,6 +1073,9 @@ class CLFlowControlInstruction extends CLInstruction {
         this.numPairs = numPairs;
         this.matchLabelPairs = matchLabelPairs;
         pad = 4 - ((pc + 1) % 4);
+        if (pad == 4) {
+            pad = 0;
+        }
         operandCount = pad + 8 + 8 * numPairs;
     }
 
