@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains the most up-to-date **j--** base compiler and
+This repository contains the most up-to-date _j--_ base compiler and
 additional information for the textbook, Introduction to Compiler
 Construction in a Java World by Bill Campbell, Swami Iyer, and 
 Bahar Akbal-Deliba&#351;, which is a non-trivial subset of the Java&trade;
