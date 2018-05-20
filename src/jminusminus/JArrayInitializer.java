@@ -101,15 +101,15 @@ class JArrayInitializer extends JExpression {
             initExpr.codegen(output);
 
             // Code to store the initial value in the array
-	    if (componentType == Type.INT) {
-		output.addNoArgInstruction(IASTORE);
-	    } else if (componentType == Type.BOOLEAN) {
-		output.addNoArgInstruction(BASTORE);
-	    } else if (componentType == Type.CHAR) {
-		output.addNoArgInstruction(CASTORE);
-	    } else if (!componentType.isPrimitive()) {
-		output.addNoArgInstruction(AASTORE);
-	    }
+            if (componentType == Type.INT) {
+                output.addNoArgInstruction(IASTORE);
+            } else if (componentType == Type.BOOLEAN) {
+                output.addNoArgInstruction(BASTORE);
+            } else if (componentType == Type.CHAR) {
+                output.addNoArgInstruction(CASTORE);
+            } else if (!componentType.isPrimitive()) {
+                output.addNoArgInstruction(AASTORE);
+            }
         }
     }
 

@@ -53,7 +53,8 @@ variableDeclarator ::= IDENTIFIER [ASSIGN variableInitializer]
 variableInitializer ::= arrayInitializer | expression
 
 arrayInitializer ::= LCURLY 
-                       [variableInitializer {COMMA variableInitializer}]
+                       [variableInitializer
+                         {COMMA variableInitializer} [COMMA]]
                      RCURLY 
 
 arguments ::= LPAREN [expression {COMMA expression}] RPAREN

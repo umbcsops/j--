@@ -1270,7 +1270,7 @@ class NControlFlowGraph {
      *
      * @param instr
      *            the hir instruction to check
-     * @return true if the hir instruction is a jump; false otherwise;
+     * @return true if the hir instruction is a jump; false otherwise.
      */
 
     private boolean isHIRJmp(NHIRInstruction instr) {

@@ -70,7 +70,7 @@ class JNewOp extends JExpression {
 
         // Where are we now? Check accessability of type
         // resolve() checks accessibility, so the following two
-        // is commented
+        // are commented.
         // Type thisType = context.definingType();
         // thisType.checkAccess( line, type );
 
@@ -102,8 +102,10 @@ class JNewOp extends JExpression {
         for (JExpression argument : arguments) {
             argument.codegen(output);
         }
-        output.addMemberAccessInstruction(INVOKESPECIAL, type.jvmName(),
-                "<init>", constructor.toDescriptor());
+        output.addMemberAccessInstruction(INVOKESPECIAL,
+                                          type.jvmName(),
+                                          "<init>",
+                                          constructor.toDescriptor());
     }
 
     /**

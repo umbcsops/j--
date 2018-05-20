@@ -87,24 +87,24 @@ class JInstanceOfOp extends JExpression {
 
     /**
      * Short-circuiting branching for {@code instanceof}.
-     *                                                                         
-     * @param output   
+     *
+     * @param output
      *            code emitter.
-     * @param targetLabel                                             
-     *            the label to which we should branch.                         
+     * @param targetLabel
+     *            the label to which we should branch.
      * @param onTrue
-     *            do we branch on true?   
+     *            do we branch on true?
      */
 
     public void codegen(CLEmitter output, String targetLabel, boolean onTrue) {
-	codegen(output);
-	if (onTrue) {
-	    // Branch on true
-	    output.addBranchInstruction(IFNE, targetLabel);
-	} else {
-	    // Branch on false
-	    output.addBranchInstruction(IFEQ, targetLabel);
-	}
+        codegen(output);
+        if (onTrue) {
+            // Branch on true
+            output.addBranchInstruction(IFNE, targetLabel);
+        } else {
+            // Branch on false
+            output.addBranchInstruction(IFEQ, targetLabel);
+        }
     }
 
     /**

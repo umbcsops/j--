@@ -46,14 +46,11 @@ class JReturnStatement extends JStatement {
         MethodContext methodContext = context.methodContext();
 
         // The methodContext can be null if return statement
-        // occurs
-        // in a block that is not within a method. For example,
-        // in
-        // the Java grammar, return statement, at least
+        // occurs in a block that is not within a method.
+        // For example, in the Java grammar, return statement, at least
         // syntactically, can occur in a static block. But since
         // j-- does not allow a block to occur outside of a
-        // method,
-        // we don't check for methodContext being null
+        // method, we don't check for methodContext being null
 
         if (methodContext.methodReturnType() == Type.CONSTRUCTOR) {
             if (expr != null) {
@@ -64,7 +61,7 @@ class JReturnStatement extends JStatement {
         } else {
             // Must be a method
             Type returnType = methodContext.methodReturnType();
-	    methodContext.confirmMethodHasReturn();
+            methodContext.confirmMethodHasReturn();
             if (expr != null) {
                 if (returnType == Type.VOID) {
                     // Can't return a value from void method
@@ -72,9 +69,7 @@ class JReturnStatement extends JStatement {
                         "cannot return a value from a void method");
                 } else {
                     // There's a (non-void) return expression.
-                    // Its
-                    // type must match the return type of the
-                    // method
+                    // Its type must match the return type of the method
                     expr = expr.analyze(context);
                     expr.type().mustMatchExpected(line(), returnType);
                 }
