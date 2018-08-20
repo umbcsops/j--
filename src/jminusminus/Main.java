@@ -15,21 +15,21 @@ import static jminusminus.TokenKind.EOF;
  * 
  *   <li>It builds a scanner.</li>
  * 
- *   <li>It builds a parser (using the scanner) and parses the input for producing
- *       an abstact syntax tree (AST).</li>
+ *   <li>It builds a parser (using the scanner) and parses the input for
+ *       producing an abstact syntax tree (AST).</li>
  * 
- *   <li>It sends the {@code preAnalyze} message to that AST, which recursively 
- *       descends the tree so far as the member headers for declaring types and 
+ *   <li>It sends the {@code preAnalyze} message to that AST, which recursively
+ *       descends the tree so far as the member headers for declaring types and
  *       members in the symbol table (represented as a string of contexts).</li>
  * 
  *   <li>It sends the {@code analyze} message to that AST for declaring local 
  *       variables, and checking and assigning types to expressions. Analysis 
- *       also sometimes rewrites some of the abstract syntax tree for clarifying 
+ *       also sometimes rewrites some of the abstract syntax tree for clarifying
  *       the semantics. Analysis does all of this by recursively descending the 
  *       AST down to its leaves.</li>
  * 
  *   <li>Finally, it sends a {@code codegen} message to the AST for generating 
- *       code. Again, {@code codegen} recursively descends the tree, down to its 
+ *       code. Again, {@code codegen} recursively descends the tree, down to its
  *       leaves, generating JVM code for producing a .class or .s (SPIM) file 
  *       for each defined type (class).</li>
  * </ol>
@@ -68,10 +68,10 @@ public class Main {
             } else if (args[i].endsWith("-s") && (i + 1) < args.length) {
                 spimOutput = true;
                 registerAllocation = args[++i];
-                if (!registerAllocation.equals("naive")
-                        && !registerAllocation.equals("linear")
-                        && !registerAllocation.equals("graph")
-                        || registerAllocation.equals("")) {
+                if (!registerAllocation.equals("naive") && 
+                    !registerAllocation.equals("linear") && 
+                    !registerAllocation.equals("graph")
+                    || registerAllocation.equals("")) {
                     printUsage(caller);
                     return;
                 }
@@ -187,16 +187,16 @@ public class Main {
         String usage = "Usage: "
                 + caller
                 + " <options> <source file>\n"
-                + "where possible options include:\n"
-                + "  -t Only tokenize input and print tokens to STDOUT\n"
-                + "  -p Only parse input and print AST to STDOUT\n"
+                + "Where possible options include:\n"
+                + "  -t  Only tokenize input and print tokens to STDOUT\n"
+                + "  -p  Only parse input and print AST to STDOUT\n"
                 + "  -pa Only parse and pre-analyze input and print "
                 + "AST to STDOUT\n"
-                + "  -a Only parse, pre-analyze, and analyze input "
+                + "  -a  Only parse, pre-analyze, and analyze input "
                 + "and print AST to STDOUT\n"
-                + "  -s <naive|linear|graph> Generate SPIM code\n"
-                + "  -r <num> Max. physical registers (1-18) available for allocation; default = 8\n"
-                + "  -d <dir> Specify where to place output files; default = .";
+                + "  -s  <naive|linear|graph> Generate SPIM code\n"
+                + "  -r  <num> Max. physical registers (1-18) available for allocation; default = 8\n"
+                + "  -d  <dir> Specify where to place output files; default = .";
         System.out.println(usage);
     }
 

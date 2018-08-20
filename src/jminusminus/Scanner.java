@@ -347,7 +347,7 @@ class Scanner {
     /**
      * Reports a lexcial error and records the fact that an error has occured.
      * This fact can be ascertained from the Scanner by sending it an
-     * {@code errorHasOccurred} message.
+     * errorHasOccurred message.
      * 
      * @param message
      *            message identifying the error.

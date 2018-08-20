@@ -25,14 +25,14 @@ import java.util.ArrayList;
  *     public static void main( String[] args )
  *     {
  *         try {
- *	       Factorial f = new Factorial();
- *	       int n = Int.parseInt( args[ 0 ] );
- *	       System.out.println( "Factorial( " + n + " ) = " + 
+ *             Factorial f = new Factorial();
+ *             int n = Int.parseInt( args[ 0 ] );
+ *             System.out.println( "Factorial( " + n + " ) = " + 
  *                                 f.compute( n ) );
- *	   }
- *	   catch ( NumberFormatException nfe ) {
- *	       System.err.println( "Invalid number " + args[ 0 ] );
- *	   }
+ *         }
+ *         catch ( NumberFormatException nfe ) {
+ *             System.err.println( "Invalid number " + args[ 0 ] );
+ *         }
  *     }
  * }
  */

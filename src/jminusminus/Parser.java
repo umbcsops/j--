@@ -332,7 +332,7 @@ public class Parser {
     // ////////////////////////////////////////////////
 
     /**
-     * Parse a compilation unit (a program file) and construct an AST for it.
+     * Parses a compilation unit (a program file) and constructs an AST for it.
      * After constructing the Parser, this is its entry point.
      * 
      * <pre>
@@ -365,8 +365,9 @@ public class Parser {
             }
         }
         mustBe(EOF);
-        return new JCompilationUnit(scanner.fileName(), line, packageName,
-                imports, typeDeclarations);
+        return new JCompilationUnit(scanner.fileName(),
+                                    line, packageName,
+                                    imports, typeDeclarations);
     }
 
     /**
