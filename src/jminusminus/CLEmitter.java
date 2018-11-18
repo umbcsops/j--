@@ -191,12 +191,9 @@ public class CLEmitter {
                                     + "label(s)", eCurrentMethod);
                 }
 
-                // We allow catchType to be null (mapping to
-                // index 0),
-                // implying this exception handler is called for
-                // all
-                // exceptions. This is used to implement
-                // "finally"
+                // We allow catchType to be null (mapping to index 0),
+                // implying this exception handler is called for all
+                // exceptions. This is used to implement "finally"
                 int catchTypeIndex = (e.catchType == null) ? 0 : constantPool
                         .constantClassInfo(e.catchType);
                 CLExceptionInfo c = new CLExceptionInfo(e.startPC, e.endPC,
@@ -233,15 +230,13 @@ public class CLEmitter {
                 case DSTORE_1:
                 case DSTORE_2:
                 case DSTORE_3:
-                    // Each long and double occupies two slots in
-                    // the
-                    // local variable table
+                    // Each long and double occupies two slots in the
+                    //   local variable table
                     localVariableIndex++;
                 }
                 maxLocals = Math.max(maxLocals, localVariableIndex + 1);
 
-                // Resolve jump labels in flow control
-                // instructions
+                // Resolve jump labels in flow control instructions
                 if (instr instanceof CLFlowControlInstruction) {
                     if (!((CLFlowControlInstruction) instr)
                             .resolveLabels(mLabels)) {
@@ -254,10 +249,9 @@ public class CLEmitter {
                 byteCode.addAll(instr.toBytes());
             }
 
-            // Code attribute; add only if method is neither
-            // native
-            // nor abstract
-            if (!((mAccessFlags & ACC_NATIVE) == ACC_NATIVE || (mAccessFlags & ACC_ABSTRACT) == ACC_ABSTRACT)) {
+            // Code attribute; add only if method is neither native nor abstract
+            if (!((mAccessFlags & ACC_NATIVE) == ACC_NATIVE ||
+                  (mAccessFlags & ACC_ABSTRACT) == ACC_ABSTRACT)) {
                 addMethodAttribute(codeAttribute(byteCode, exceptionTable,
                         stackDepth(), maxLocals));
             }
@@ -472,8 +466,8 @@ public class CLEmitter {
      */
 
     private boolean validInternalForm(String name) {
-        if ((name == null) || name.equals("") || name.startsWith("/")
-                || name.endsWith("/")) {
+        if ((name == null) || name.equals("") ||
+             name.startsWith("/") || name.endsWith("/")) {
             return false;
         }
         StringTokenizer t = new StringTokenizer(name, "/");
@@ -548,8 +542,7 @@ public class CLEmitter {
         if ((descriptor != null) && (descriptor.length() > 0)) {
             try {
                 // Extract types of arguments and the return type
-                // from
-                // the method descriptor
+                // from the method descriptor
                 String argTypes = descriptor.substring(1, descriptor
                         .lastIndexOf(")"));
                 String returnType = descriptor.substring(descriptor
@@ -647,8 +640,7 @@ public class CLEmitter {
             CLInstruction h = instruction(e.handlerPC);
             if (h != null) {
                 // 1 because the exception that is thrown is
-                // pushed
-                // on top of the operand stack
+                //   pushed on top of the operand stack
                 branchTargets.push(h, 1);
             }
         }
@@ -693,8 +685,8 @@ public class CLEmitter {
                     }
                 }
             } else {
-                if ((opcode == ATHROW)
-                        || ((opcode >= IRETURN) && (opcode <= RETURN))) {
+                if ((opcode == ATHROW) ||
+                    ((opcode >= IRETURN) && (opcode <= RETURN))) {
                     instr = null;
                 }
             }
@@ -890,12 +882,12 @@ public class CLEmitter {
     // /////////////////////////////////////////////////////
 
     /**
-     * Constructs a CLEmitter instance given a boolean on whether or not the 
+     * Constructs a CLEmitter instance given a boolean on whether or not the
      * class file will be written to the file system.
      * 
      * @param toFile
-     *            if {@code true} the in-memory representation of the class 
-     *            file will be written to the file system. Otherwise, it won't 
+     *            if {@code true} the in-memory representation of the class
+     *            file will be written to the file system. Otherwise, it won't
      *            be saved as a file.
      */
 
@@ -926,10 +918,10 @@ public class CLEmitter {
     }
 
     /**
-     * Adds a class or interface to the class file. 
+     * Adds a class or interface to the class file.
      * <p>
-     * This method instantiates a class file representation in memory, so this 
-     * method <em>must</em> be called prior to methods that add information 
+     * This method instantiates a class file representation in memory, so this
+     * method <em>must</em> be called prior to methods that add information
      * (fields, methods, instructions, etc.) to the class.
      * 
      * @param accessFlags
@@ -947,8 +939,8 @@ public class CLEmitter {
      */
 
     public void addClass(ArrayList<String> accessFlags, String thisClass,
-            String superClass, ArrayList<String> superInterfaces,
-            boolean isSynthetic) {
+                         String superClass, ArrayList<String> superInterfaces,
+                                            boolean isSynthetic) {
         clFile       = new CLFile();
         constantPool = new CLConstantPool();
         interfaces   = new ArrayList<Integer>();
@@ -1004,7 +996,7 @@ public class CLEmitter {
      */
 
     public void addInnerClass(ArrayList<String> accessFlags, String innerClass,
-            String outerClass, String innerName) {
+                              String outerClass, String innerName) {
         int flags = 0;
         if (accessFlags != null) {
             for (int j = 0; j < accessFlags.size(); j++) {
@@ -1032,15 +1024,15 @@ public class CLEmitter {
      */
 
     public void addField(ArrayList<String> accessFlags, String name,
-            String type, boolean isSynthetic) {
+                         String type, boolean isSynthetic) {
         addFieldInfo(accessFlags, name, type, isSynthetic, -1);
     }
 
     /**
-     * Adds an {@code int}, {@code short}, {@code char}, {@code byte}, or 
-     * {@code boolean} field with initialization. If the field is final, the 
-     * initialization is added to the constant pool. The initializations are 
-     * all stored as ints, where boolean true and false are 1 and 0 
+     * Adds an {@code int}, {@code short}, {@code char}, {@code byte}, or
+     * {@code boolean} field with initialization. If the field is final, the
+     * initialization is added to the constant pool. The initializations are
+     * all stored as ints, where boolean true and false are 1 and 0
      * respectively, and short, char, and byte must be cast to int.
      * 
      * @param accessFlags
@@ -1056,13 +1048,13 @@ public class CLEmitter {
      */
 
     public void addField(ArrayList<String> accessFlags, String name,
-            String type, boolean isSynthetic, int i) {
-        addFieldInfo(accessFlags, name, type, isSynthetic, constantPool
-                .constantIntegerInfo(i));
+                         String type, boolean isSynthetic, int i) {
+        addFieldInfo(accessFlags, name, type, isSynthetic,
+                     constantPool.constantIntegerInfo(i));
     }
 
     /**
-     * Adds a {@code float} field with initialization. If the field is final, 
+     * Adds a {@code float} field with initialization. If the field is final,
      * the initialization is added to the constant pool.
      * 
      * @param accessFlags
@@ -1076,13 +1068,13 @@ public class CLEmitter {
      */
 
     public void addField(ArrayList<String> accessFlags, String name,
-            boolean isSynthetic, float f) {
-        addFieldInfo(accessFlags, name, "F", isSynthetic, constantPool
-                .constantFloatInfo(f));
+                         boolean isSynthetic, float f) {
+        addFieldInfo(accessFlags, name, "F", isSynthetic,
+                     constantPool.constantFloatInfo(f));
     }
 
     /**
-     * Adds a {@code long} field with initialization. If the field is final, 
+     * Adds a {@code long} field with initialization. If the field is final,
      * the initialization is added to the constant pool.
      * 
      * @param accessFlags
@@ -1096,13 +1088,13 @@ public class CLEmitter {
      */
 
     public void addField(ArrayList<String> accessFlags, String name,
-            boolean isSynthetic, long l) {
-        addFieldInfo(accessFlags, name, "J", isSynthetic, constantPool
-                .constantLongInfo(l));
+                         boolean isSynthetic, long l) {
+        addFieldInfo(accessFlags, name, "J", isSynthetic,
+                     constantPool.constantLongInfo(l));
     }
 
     /**
-     * Adds a {@code double} field with initialization. If the field is final, 
+     * Adds a {@code double} field with initialization. If the field is final,
      * the initialization is added to the constant pool.
      * 
      * @param accessFlags
@@ -1116,14 +1108,14 @@ public class CLEmitter {
      */
 
     public void addField(ArrayList<String> accessFlags, String name,
-            boolean isSynthetic, double d) {
-        addFieldInfo(accessFlags, name, "D", isSynthetic, constantPool
-                .constantDoubleInfo(d));
+                         boolean isSynthetic, double d) {
+        addFieldInfo(accessFlags, name, "D", isSynthetic,
+                     constantPool.constantDoubleInfo(d));
     }
 
     /**
-     * Adds a {@code String} type field with initialization. If the field is final, 
-     * the initialization is added to the constant pool.
+     * Adds a {@code String} type field with initialization. If the field is
+     * final, the initialization is added to the constant pool.
      * 
      * @param accessFlags
      *            access flags for the field.
@@ -1136,14 +1128,14 @@ public class CLEmitter {
      */
 
     public void addField(ArrayList<String> accessFlags, String name,
-            boolean isSynthetic, String s) {
+                         boolean isSynthetic, String s) {
         addFieldInfo(accessFlags, name, "Ljava/lang/String;", isSynthetic,
-                constantPool.constantStringInfo(s));
+                     constantPool.constantStringInfo(s));
     }
 
     /**
-     * Adds a method. Instructions can subsequently be added to this method using
-     * the appropriate methods for adding instructions.
+     * Adds a method. Instructions can subsequently be added to this method
+     * using the appropriate methods for adding instructions.
      * 
      * @param accessFlags
      *            access flags for the method.
