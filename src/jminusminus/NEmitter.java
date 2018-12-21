@@ -39,86 +39,6 @@ public class NEmitter {
     private boolean errorHasOccurred;
 
     /**
-     * Report any error that occurs while creating/writing the spim file, to
-     * STDERR.
-     * 
-     * @param message
-     *            message identifying the error.
-     * @param args
-     *            related values.
-     */
-
-    private void reportEmitterError(String message, Object... args) {
-        System.err.printf(message, args);
-        System.err.println();
-        errorHasOccurred = true;
-    }
-
-    /**
-     * Emits SPIM code to setup a stack frame for the procedure denoted by cfg.
-     * This involves saving the return address (ra), saving the frame pointer
-     * (fp), saving any physical registers (t0, ..., t9, s0, ..., s7) used by
-     * the procedure, and setting up the new value for fp (i.e. pushing a stack
-     * frame).
-     * 
-     * @param cfg
-     *            the control flow graph instance.
-     * @param out
-     *            output stream for SPIM code.
-     */
-
-    private void pushStackFrame(NControlFlowGraph cfg, PrintWriter out) {
-        int frameSize = cfg.pRegisters.size() * 4 + cfg.offset * 4 + 8;
-        out.printf(
-                "    subu    $sp,$sp,%d \t # Stack frame is %d bytes long\n",
-                frameSize, frameSize);
-        out.printf("    sw      $ra,%d($sp) \t # Save return address\n",
-                frameSize - 4);
-        out.printf("    sw      $fp,%d($sp) \t # Save frame pointer\n",
-                frameSize - 8);
-        int i = 12;
-        for (NPhysicalRegister pRegister : cfg.pRegisters) {
-            out.printf("    sw      %s,%d($sp) \t # Save register %s\n",
-                    pRegister, frameSize - i, pRegister);
-            i += 4;
-        }
-        out.printf("    addiu   $fp,$sp,%d \t # Save frame pointer\n",
-                frameSize - 4);
-        out.println();
-    }
-
-    /**
-     * Emits SPIM code to pop the stack frame that was setup for the procedure
-     * denoted by cfg. This involves restoring the return address (ra), the
-     * frame pointer (fp), any physical registers (t0, ..., t9, s0, ..., s7)
-     * used by the procedure, setting fp to the restored value (i.e. popping the
-     * stack frame), and finally jumping to ra (the caller).
-     * 
-     * @param cfg
-     *            the control flow graph instance.
-     * @param out
-     *            output stream for SPIM code.
-     */
-
-    private void popStackFrame(NControlFlowGraph cfg, PrintWriter out) {
-        int frameSize = cfg.pRegisters.size() * 4 + cfg.offset * 4 + 8;
-        out.printf("%s.restore:\n", cfg.labelPrefix);
-        out.printf("    lw      $ra,%d($sp) \t # Restore return address\n",
-                frameSize - 4);
-        out.printf("    lw      $fp,%d($sp) \t # Restore frame pointer\n",
-                frameSize - 8);
-        int i = 12;
-        for (NPhysicalRegister pRegister : cfg.pRegisters) {
-            out.printf("    lw      %s,%d($sp) \t # Restore register %s\n",
-                    pRegister, frameSize - i, pRegister);
-            i += 4;
-        }
-        out.printf("    addiu   $sp,$sp,%d \t # Pop stack\n", frameSize);
-        out.printf("    jr      $ra \t # Return to caller\n", frameSize);
-        out.println();
-    }
-
-    /**
      * Constructs a NEmitter instance given the source file, list of CLFile 
      * objects, and the register allocation scheme.
      * 
@@ -225,7 +145,7 @@ public class NEmitter {
                 // Only relevant for linear scan and graph coloring
                 if (regAllocator instanceof NLinearRegisterAllocator ||
                     regAllocator instanceof NGraphRegisterAllocator) {
-                    
+
                     regAllocator.writeSetsToStdOut(p);
                 }
             }
@@ -237,7 +157,7 @@ public class NEmitter {
 
     /**
      * Sets the destination directory for the SPIM files to the specified value.
-     * 
+     *
      * @param destDir
      *            destination directory.
      */
@@ -248,7 +168,7 @@ public class NEmitter {
 
     /**
      * Has an emitter error occurred up to now?
-     * 
+     *
      * @return true or false.
      */
 
@@ -346,6 +266,86 @@ public class NEmitter {
         } catch (IOException e) {
             reportEmitterError("Cannot write to file %s", file);
         }
+    }
+
+    /**
+     * Report any error that occurs while creating/writing the spim file, to
+     * STDERR.
+     * 
+     * @param message
+     *            message identifying the error.
+     * @param args
+     *            related values.
+     */
+
+    private void reportEmitterError(String message, Object... args) {
+        System.err.printf(message, args);
+        System.err.println();
+        errorHasOccurred = true;
+    }
+
+    /**
+     * Emits SPIM code to setup a stack frame for the procedure denoted by cfg.
+     * This involves saving the return address (ra), saving the frame pointer
+     * (fp), saving any physical registers (t0, ..., t9, s0, ..., s7) used by
+     * the procedure, and setting up the new value for fp (i.e. pushing a stack
+     * frame).
+     * 
+     * @param cfg
+     *            the control flow graph instance.
+     * @param out
+     *            output stream for SPIM code.
+     */
+
+    private void pushStackFrame(NControlFlowGraph cfg, PrintWriter out) {
+        int frameSize = cfg.pRegisters.size() * 4 + cfg.offset * 4 + 8;
+        out.printf(
+                "    subu    $sp,$sp,%d \t # Stack frame is %d bytes long\n",
+                frameSize, frameSize);
+        out.printf("    sw      $ra,%d($sp) \t # Save return address\n",
+                frameSize - 4);
+        out.printf("    sw      $fp,%d($sp) \t # Save frame pointer\n",
+                frameSize - 8);
+        int i = 12;
+        for (NPhysicalRegister pRegister : cfg.pRegisters) {
+            out.printf("    sw      %s,%d($sp) \t # Save register %s\n",
+                    pRegister, frameSize - i, pRegister);
+            i += 4;
+        }
+        out.printf("    addiu   $fp,$sp,%d \t # Save frame pointer\n",
+                frameSize - 4);
+        out.println();
+    }
+
+    /**
+     * Emits SPIM code to pop the stack frame that was setup for the procedure
+     * denoted by cfg. This involves restoring the return address (ra), the
+     * frame pointer (fp), any physical registers (t0, ..., t9, s0, ..., s7)
+     * used by the procedure, setting fp to the restored value (i.e. popping the
+     * stack frame), and finally jumping to ra (the caller).
+     * 
+     * @param cfg
+     *            the control flow graph instance.
+     * @param out
+     *            output stream for SPIM code.
+     */
+
+    private void popStackFrame(NControlFlowGraph cfg, PrintWriter out) {
+        int frameSize = cfg.pRegisters.size() * 4 + cfg.offset * 4 + 8;
+        out.printf("%s.restore:\n", cfg.labelPrefix);
+        out.printf("    lw      $ra,%d($sp) \t # Restore return address\n",
+                frameSize - 4);
+        out.printf("    lw      $fp,%d($sp) \t # Restore frame pointer\n",
+                frameSize - 8);
+        int i = 12;
+        for (NPhysicalRegister pRegister : cfg.pRegisters) {
+            out.printf("    lw      %s,%d($sp) \t # Restore register %s\n",
+                    pRegister, frameSize - i, pRegister);
+            i += 4;
+        }
+        out.printf("    addiu   $sp,$sp,%d \t # Pop stack\n", frameSize);
+        out.printf("    jr      $ra \t # Return to caller\n", frameSize);
+        out.println();
     }
 
 }

@@ -74,7 +74,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
         //   additional virtual registers to map to physical registers.
         while (!unhandled.isEmpty()) {
             currInterval = unhandled.remove(0);
-            psi = currInterval.firstRangeStart();
+            psi = currInterval.firstNRangeStart();
             tmp = new ArrayList<NInterval>();
             for (int i = 0; i < active.size(); i++) {
                 if (active.get(i).lastNRangeStop() < psi) {
@@ -121,8 +121,8 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
         } else {
             int i = 0;
             while (i < unhandled.size()
-                    && unhandled.get(i).firstRangeStart() <= newInterval
-                            .firstRangeStart()) {
+                    && unhandled.get(i).firstNRangeStart() <= newInterval
+                            .firstNRangeStart()) {
                 i++;
             }
             unhandled.add(i, newInterval);
@@ -228,7 +228,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
                                                            .firstUsage() - 5));
             currInterval.spill();
             NInterval splitChild = currInterval.splitAt(currInterval
-                                                        .firstRangeStart());
+                                                        .firstNRangeStart());
             this.addSortedToUnhandled(splitChild);
             currInterval.spill();
         } else {
@@ -237,7 +237,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
             for (NInterval i : regIntervals.get(reg)) {
                 if (currInterval.nextIntersection(i) >= 0) {
                     NInterval splitChild = i.splitAt(currInterval
-                                                     .firstRangeStart());
+                                                     .firstNRangeStart());
                     this.addSortedToUnhandled(splitChild);
                     i.spill();
                 }
@@ -292,7 +292,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
                                 addStoreInstruction(i, i.lastNRangeStop());
                                 addLoadInstruction(i.children.get(c),
                                                    i.children.get(c)
-                                                    .firstRangeStart());
+                                                    .firstNRangeStart());
                             } else {
                                 addStoreInstruction(i.children.get(c - 1),
                                                     i.children.get(c - 1)
@@ -300,7 +300,7 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
                                 
                                 addLoadInstruction(i.children.get(c),
                                                    i.children.get(c)
-                                                    .firstRangeStart());
+                                                    .firstNRangeStart());
                             }
                         }
                     }

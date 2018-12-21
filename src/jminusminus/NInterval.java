@@ -167,7 +167,7 @@ class NInterval implements Comparable<NInterval> {
      */
 
     public int nextUsageOverlapping(NInterval currInterval) {
-        int psi = currInterval.firstRangeStart();
+        int psi = currInterval.firstNRangeStart();
 
         if (usePositions.ceilingKey(psi) != null) {
             return usePositions.ceilingKey(psi);
@@ -311,7 +311,7 @@ class NInterval implements Comparable<NInterval> {
      * @return the start position.
      */
 
-    public int firstRangeStart() {
+    public int firstNRangeStart() {
         if (ranges.isEmpty())
             return -1;
         else
@@ -341,7 +341,7 @@ class NInterval implements Comparable<NInterval> {
      */
 
     public int compareTo(NInterval other) {
-        return this.firstRangeStart() - other.firstRangeStart();
+        return this.firstNRangeStart() - other.firstNRangeStart();
     }
 
     /**
@@ -486,10 +486,10 @@ class NInterval implements Comparable<NInterval> {
         NInterval tmp = this;
         int lowestStartAllowed = b.getLastLIRInstId();// block's end
         for (NInterval child : children) {
-            if (child.firstRangeStart() > idx
-                    && child.firstRangeStart() < lowestStartAllowed) {
+            if (child.firstNRangeStart() > idx
+                    && child.firstNRangeStart() < lowestStartAllowed) {
                 tmp = child;
-                lowestStartAllowed = tmp.firstRangeStart();
+                lowestStartAllowed = tmp.firstNRangeStart();
             }
         }
         return tmp;
@@ -503,8 +503,8 @@ class NInterval implements Comparable<NInterval> {
 
     public int startsAtBlock() {
         for (NBasicBlock b : this.cfg.basicBlocks) {
-            if (this.firstRangeStart() >= b.getFirstLIRInstId()
-                    && this.firstRangeStart() <= b.getLastLIRInstId())
+            if (this.firstNRangeStart() >= b.getFirstLIRInstId()
+                    && this.firstNRangeStart() <= b.getLastLIRInstId())
                 return b.id;
         }
         return -1; // this will never happen
