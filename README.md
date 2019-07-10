@@ -13,11 +13,16 @@ this way because you will most likely be programming in an object-oriented style
 Check out the [installation wiki](https://github.com/umbcsops/j--/wiki/Installation)
 for more information.
 
+## Errata
+
+The PDF version from the original site has not been updated, for the most
+up-to-date version check on the errata page in the Wiki tab.
+
 ## Copyright
 
-Copyright &copy; 2018 Bill Campbell, Swami Iyer, and Bahar Akbal-Deliba&#351;
+Copyright &copy; 2019 Bill Campbell, Swami Iyer, and Bahar Akbal-Deliba&#351;
 
 ## License
 
-This code is released under GPL-3.0+.
+This code base is released under GPL-3.0+.
 

@@ -163,14 +163,13 @@ public class NLinearRegisterAllocator extends NRegisterAllocator {
             currInterval.pRegister = regInfo[reg + T0];
             cfg.pRegisters.add(regInfo[reg + T0]);
             regIntervals.get(reg).add(currInterval);
-            return true;
         } else {
             this.addSortedToUnhandled(currInterval.splitAt(freePos[reg]));
             currInterval.spill();
             currInterval.pRegister = regInfo[reg + T0];
             regIntervals.get(reg).add(currInterval);
-            return true;
         }
+        return true;
     }
 
     /**
