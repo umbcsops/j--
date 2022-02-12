@@ -1064,28 +1064,47 @@ public class Parser {
 
     /**
      * Parse a relational expression.
-     * 
+     *
      * <pre>
-     *   relationalExpression ::= additiveExpression  // level 5
-     *                              [(GT | LE) additiveExpression 
-     *                              | INSTANCEOF referenceType]
-     * </pre>
-     * 
-     * @return an AST for a relationalExpression.
+     *  relationalExpression ::= shiftExpression [ { (GT | LE) shiftExpression } // level 5
+     *                            | INSTANCEOF referenceType]
+     * </pre> 
+     *
+     * @return an aST for a relationalExpression.
      */
-
     private JExpression relationalExpression() {
-        int line = scanner.token().line();
-        JExpression lhs = additiveExpression();
-        if (have(GT)) {
-            return new JGreaterThanOp(line, lhs, additiveExpression());
-        } else if (have(LE)) {
-            return new JLessEqualOp(line, lhs, additiveExpression());
-        } else if (have(INSTANCEOF)) {
-            return new JInstanceOfOp(line, lhs, referenceType());
-        } else {
-            return lhs;
-        }
+      int line = scanner.token().line();
+      JExpression lhs = shiftExpression();
+      if (have(GT)) {
+        return new JGreaterThanOp(line, lhs, shiftExpression());
+      } else if (have(LE)) {
+        return new JLessEqualOp(line, lhs, shiftExpression());
+      } else if (have(INSTANCEOF)) {
+        return new JInstanceOfOp(line, lhs, referenceType());
+      } else {
+        return lhs;
+      }
+    }
+
+    /**
+     * Parse a shift expression.
+     *
+     * <pre>
+     *  shiftExpression ::= additiveExpression [ (SHL | SHR | USHR ) additiveExpression ] // level 4
+     * </pre>
+     */
+    private JExpression shiftExpression() {
+      int line = scanner.token().line();
+      JExpression lhs = additiveExpression();
+      if (have(SHL)) {
+        return new JShiftLeftOp(line, lhs, additiveExpression());
+      } else if (have(SHR)) {
+        return new JShiftRightOp(line, lhs, additiveExpression());
+      } else if (have(USHR)) {
+        return new JShiftRightZeroFillOp(line, lhs, additiveExpression());
+      } else {
+        return lhs;
+      }
     }
 
     /**

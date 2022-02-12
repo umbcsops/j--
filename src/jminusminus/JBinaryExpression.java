@@ -309,54 +309,214 @@ class JDivideOp extends JBinaryExpression {
 
 class JModulusOp extends JBinaryExpression {
 
-    /**
-     * Constructs an AST for a modulus expression given its line number,
-     * and the lhs and rhs operands.
-     * 
-     * @param line
-     *            line in which the modulus expression occurs in the
-     *            source file.
-     * @param lhs
-     *            the lhs operand.
-     * @param rhs
-     *            the rhs operand.
-     */
+  /**
+   * Constructs an AST for a modulus expression given its line number,
+   * and the lhs and rhs operands.
+   * 
+   * @param line
+   *            line in which the modulus expression occurs in the
+   *            source file.
+   * @param lhs
+   *            the lhs operand.
+   * @param rhs
+   *            the rhs operand.
+   */
 
-    public JModulusOp(int line, JExpression lhs, JExpression rhs) {
-        super(line, "%", lhs, rhs);
-    }
+  public JModulusOp(int line, JExpression lhs, JExpression rhs) {
+    super(line, "%", lhs, rhs);
+  }
 
-    /**
-     * Analyzing the % operation involves analyzing its operands, checking
-     * types, and determining the result type.
-     * 
-     * @param context
-     *            context in which names are resolved.
-     * @return the analyzed (and possibly rewritten) AST subtree.
-     */
+  /**
+   * Analyzing the % operation involves analyzing its operands, checking
+   * types, and determining the result type.
+   * 
+   * @param context
+   *            context in which names are resolved.
+   * @return the analyzed (and possibly rewritten) AST subtree.
+   */
 
-    public JExpression analyze(Context context) {
-        lhs = (JExpression) lhs.analyze(context);
-        rhs = (JExpression) rhs.analyze(context);
-        lhs.type().mustMatchExpected(line(), Type.INT);
-        rhs.type().mustMatchExpected(line(), Type.INT);
-        type = Type.INT;
-        return this;
-    }
+  public JExpression analyze(Context context) {
+    lhs = (JExpression) lhs.analyze(context);
+    rhs = (JExpression) rhs.analyze(context);
+    lhs.type().mustMatchExpected(line(), Type.INT);
+    rhs.type().mustMatchExpected(line(), Type.INT);
+    type = Type.INT;
+    return this;
+  }
 
-    /**
-     * Generating code for the / operation involves generating code for the two
-     * operands, and then the multiplication instruction.
-     * 
-     * @param output
-     *            the code emitter (basically an abstraction for producing the
-     *            .class file).
-     */
+  /**
+   * Generating code for the / operation involves generating code for the two
+   * operands, and then the multiplication instruction.
+   * 
+   * @param output
+   *            the code emitter (basically an abstraction for producing the
+   *            .class file).
+   */
 
-    public void codegen(CLEmitter output) {
-        lhs.codegen(output);
-        rhs.codegen(output);
-        output.addNoArgInstruction(IREM);
-    }
+  public void codegen(CLEmitter output) {
+    lhs.codegen(output);
+    rhs.codegen(output);
+    output.addNoArgInstruction(IREM);
+  }
 }
 
+
+class JShiftLeftOp extends JBinaryExpression {
+
+  /**
+   * Constructs an AST for a left shift expression given its line number,
+   * and the lhs and rhs operands.
+   * 
+   * @param line
+   *            line in which the left shift expression occurs in the
+   *            source file.
+   * @param lhs
+   *            the lhs operand.
+   * @param rhs
+   *            the rhs operand.
+   */
+
+  public JShiftLeftOp(int line, JExpression lhs, JExpression rhs) {
+    super(line, "<<", lhs, rhs);
+  }
+
+  /**
+   * Analyzing the &lt;&lt; operation involves analyzing its operands, checking
+   * types, and determining the result type.
+   * 
+   * @param context
+   *            context in which names are resolved.
+   * @return the analyzed (and possibly rewritten) AST subtree.
+   */
+
+  public JExpression analyze(Context context) {
+    lhs = (JExpression) lhs.analyze(context);
+    rhs = (JExpression) rhs.analyze(context);
+    lhs.type().mustMatchExpected(line(), Type.INT);
+    rhs.type().mustMatchExpected(line(), Type.INT);
+    type = Type.INT;
+    return this;
+  }
+
+  /**
+   * Generating code for the &lt;&lt; operation involves generating code for the two
+   * operands, and then the multiplication instruction.
+   * 
+   * @param output
+   *            the code emitter (basically an abstraction for producing the
+   *            .class file).
+   */
+
+  public void codegen(CLEmitter output) {
+    lhs.codegen(output);
+    rhs.codegen(output);
+    output.addNoArgInstruction(ISHL);
+  }
+}
+
+
+class JShiftRightOp extends JBinaryExpression {
+
+  /**
+   * Constructs an AST for a right shift expression given its line number,
+   * and the lhs and rhs operands.
+   * 
+   * @param line
+   *            line in which the right shift expression occurs in the
+   *            source file.
+   * @param lhs
+   *            the lhs operand.
+   * @param rhs
+   *            the rhs operand.
+   */
+
+  public JShiftRightOp(int line, JExpression lhs, JExpression rhs) {
+    super(line, ">>", lhs, rhs);
+  }
+
+  /**
+   * Analyzing the &rt;&rt; operation involves analyzing its operands, checking
+   * types, and determining the result type.
+   * 
+   * @param context
+   *            context in which names are resolved.
+   * @return the analyzed (and possibly rewritten) AST subtree.
+   */
+
+  public JExpression analyze(Context context) {
+    lhs = (JExpression) lhs.analyze(context);
+    rhs = (JExpression) rhs.analyze(context);
+    lhs.type().mustMatchExpected(line(), Type.INT);
+    rhs.type().mustMatchExpected(line(), Type.INT);
+    type = Type.INT;
+    return this;
+  }
+
+  /**
+   * Generating code for the &rt;&rt; operation involves generating code for the two
+   * operands, and then the multiplication instruction.
+   * 
+   * @param output
+   *            the code emitter (basically an abstraction for producing the
+   *            .class file).
+   */
+
+  public void codegen(CLEmitter output) {
+    lhs.codegen(output);
+    rhs.codegen(output);
+    output.addNoArgInstruction(ISHR);
+  }
+}
+
+
+class JShiftRightZeroFillOp extends JBinaryExpression {
+  /**
+   * Constructs an AST for a right shift with zero fill expression given its line number,
+   * and the lhs and rhs operands.
+   * 
+   * @param line
+   *            line in which the right shift with zero fill expression occurs in the
+   *            source file.
+   * @param lhs
+   *            the lhs operand.
+   * @param rhs
+   *            the rhs operand.
+   */
+
+  public JShiftRightZeroFillOp(int line, JExpression lhs, JExpression rhs) {
+    super(line, ">>>", lhs, rhs);
+  }
+
+  /**
+   * Analyzing the &rt;&rt;&rt; operation involves analyzing its operands, checking
+   * types, and determining the result type.
+   * 
+   * @param context
+   *            context in which names are resolved.
+   * @return the analyzed (and possibly rewritten) AST subtree.
+   */
+
+  public JExpression analyze(Context context) {
+    lhs = (JExpression) lhs.analyze(context);
+    rhs = (JExpression) rhs.analyze(context);
+    lhs.type().mustMatchExpected(line(), Type.INT);
+    rhs.type().mustMatchExpected(line(), Type.INT);
+    type = Type.INT;
+    return this;
+  }
+
+  /**
+   * Generating code for the &rt;&rt;&rt; operation involves generating code for the two
+   * operands, and then the multiplication instruction.
+   * 
+   * @param output
+   *            the code emitter (basically an abstraction for producing the
+   *            .class file).
+   */
+
+  public void codegen(CLEmitter output) {
+    lhs.codegen(output);
+    rhs.codegen(output);
+    output.addNoArgInstruction(IUSHR);
+  }
+}
