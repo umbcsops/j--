@@ -199,5 +199,4 @@ public class Main {
                 + "  -d  <dir> Specify where to place output files; default = .";
         System.out.println(usage);
     }
-
 }

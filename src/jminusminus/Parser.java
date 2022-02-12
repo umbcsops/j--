@@ -1135,6 +1135,8 @@ public class Parser {
                 lhs = new JMultiplyOp(line, lhs, unaryExpression());
             } else if (have(DIV)) {
               lhs = new JDivideOp(line, lhs, unaryExpression());
+            } else if (have(MOD)) {
+              lhs = new JModulusOp(line, lhs, unaryExpression());
             } else {
                 more = false;
             }
