@@ -87,7 +87,7 @@ additiveExpression ::= multiplicativeExpression // level 3
                          {(PLUS | MINUS) multiplicativeExpression}
 
 multiplicativeExpression ::= unaryExpression       // level 2
-                               {STAR unaryExpression}
+                               {(STAR | DIV) unaryExpression}
 
 unaryExpression ::= INC unaryExpression  // level 1
                   | MINUS unaryExpression

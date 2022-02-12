@@ -45,6 +45,7 @@ MINUS       ::= "-"
 PLUS        ::= "+"
 PLUS_ASSIGN ::= "+="
 STAR        ::= "*"
+DIV         ::= "/"
 
 // Separators
 COMMA       ::= ","

@@ -1,9 +1,6 @@
-*.class
-
-# Generated files
-java2html/
-javadoc/
-
-# Package Files #
-j--.jar
-spim.jar
+**/*.class
+**/java2html/
+**/javadoc/
+**/j--.jar
+**/spim.jar
+**/j--.zip

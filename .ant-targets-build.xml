@@ -1,0 +1,17 @@
+clean
+compile
+compileJavaCC
+compileSPIM
+help
+j2h
+jar
+javadoc
+package
+runCompilerTests
+runCompilerTestsJavaCC
+testAnalysis
+testJavaCCParser
+testJavaCCScanner
+testParser
+testPreAnalysis
+testScanner

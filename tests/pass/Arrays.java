@@ -17,6 +17,8 @@ public class Arrays {
     public static void main(String[] args) {
         int[][] iaa3 = { { 1, 2, 3 }, { 1, 2, 3, 4 }, {} };
         System.out.println((Object) iaa3);
-    }
 
+        int[][][] iaaa1 = { { { 1, 2}, {3, 4} }, { { 5, 6}, {7, 8 } } };
+        System.out.println(iaaa1[1][0][1]);
+    }
 }

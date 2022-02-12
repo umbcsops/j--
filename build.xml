@@ -28,15 +28,6 @@
         <echo message="help: Lists main targets"/>
     </target>
     
-    <!-- javacc: Generates JavaCC scanner and parser. -->
-    <target name="javacc">
-        <echo message="Generating JavaCC files..."/>
-        <javacc target="${SRC_DIR}/jminusminus/j--.jj"
-                outputdirectory="${SRC_DIR}/jminusminus"
-                javacchome="${LIB_DIR}"
-                static="false" />
-    </target>
-
     <!-- compile: Compiles the jminusminus and SPIM source files. -->
     <target name="compile">
         <echo message="Compiling j-- source files..."/>
@@ -131,7 +122,7 @@
        the sources, binaries, documentation and junit test framework.
     -->
     <target name="package"
-            depends="clean,javacc,compileJavaCC,compileSPIM,jar,javadoc,j2h">
+            depends="clean,compileJavaCC,compileSPIM,jar,javadoc,j2h">
         <echo message="Making a distributable j--.zip..."/>
         <zip destfile="j--.zip"
              basedir="../"
@@ -206,7 +197,7 @@
     JavaCC frontend.
     -->
     <target name="runCompilerTestsJavaCC"
-            depends="javacc,compileJavaCC,compileSPIM,jar">
+            depends="compileJavaCC,compileSPIM,jar">
         <echo message=
             "Compiling and running j-- (JVM) programs using JavaCC frontend..."/>
         <javac srcdir="${basedir}/tests/"
@@ -293,7 +284,7 @@
     testJavaCCScanner: Tests JavaCC scanner by running it on all tests
     under tests/pass directory.
     -->
-    <target name="testJavaCCScanner" depends="javacc,compileJavaCC,jar">
+    <target name="testJavaCCScanner" depends="compileJavaCC,jar">
         <echo message="Running JavaCC scanner on the j-- programs..."/>
         <javac srcdir="${basedir}/tests/"
                destdir="${CLASS_DIR}"
@@ -353,7 +344,7 @@
     testJavaCCParser: Tests JavaCC parser by running it on all tests
     under tests/pass directory.
     -->
-    <target name="testJavaCCParser" depends="javacc,compileJavaCC,jar">
+    <target name="testJavaCCParser" depends="compileJavaCC,jar">
         <echo message="Running JavaCC parser on the j-- programs..."/>
         <javac srcdir="${basedir}/tests/"
                destdir="${CLASS_DIR}"
