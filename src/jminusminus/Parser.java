@@ -1013,28 +1013,108 @@ public class Parser {
     }
 
     /**
-     * Parse a conditional-and expression.
-     * 
+     * Parse a conditional and expression.
+     *
      * <pre>
-     *   conditionalAndExpression ::= equalityExpression // level 10
-     *                                  {LAND equalityExpression}
+     *  conditionalAndExpression ::= inclusiveOrExpression // level 10
+     *                                { LAND inclusiveOrExpression }
      * </pre>
-     * 
-     * @return an AST for a conditionalExpression.
+     *
+     * @return an AST for a conditionalAndExpression.
+     *
      */
-
     private JExpression conditionalAndExpression() {
-        int line = scanner.token().line();
-        boolean more = true;
-        JExpression lhs = equalityExpression();
-        while (more) {
-            if (have(LAND)) {
-                lhs = new JLogicalAndOp(line, lhs, equalityExpression());
-            } else {
-                more = false;
-            }
+      int line = scanner.token().line();
+      boolean more = true;
+
+      JExpression lhs = inclusiveOrExpression();
+      while (more) {
+        if (have(LAND)) {
+          lhs = new JLogicalAndOp(line, lhs, inclusiveOrExpression());
+        } else {
+          more = false;
         }
-        return lhs;
+      }
+
+      return lhs;
+    }
+
+    /**
+     * Parse an inclusive Or expression.
+     *
+     * <pre>
+     *  inclusiveOrExpression ::= exclusiveOrOperation // level 9
+     *                              { IOR exclusiveOrOperation }
+     * </pre>
+     *
+     * @return an AST for an inclusiveOrExpression.
+     */
+    private JExpression inclusiveOrExpression() {
+      int line = scanner.token().line();
+      boolean more = true;
+
+      JExpression lhs = exclusiveOrExpression();
+      while (more) {
+        if (have(IOR)) {
+          lhs = new JBitwiseInclusiveOrOp(line, lhs, exclusiveOrExpression());
+        } else {
+          more = false;
+        }
+      }
+
+      return lhs;
+    }
+
+    /**
+     * Parse an exclusive Or expression.
+     *
+     * <pre>
+     *  exclusiveOrExpression ::= andExpression // level 8
+     *                              { XOR andExpression }
+     * </pre>
+     *
+     * @return an AST for an exclusiveOrExpression.
+     */
+    private JExpression exclusiveOrExpression() {
+      int line = scanner.token().line();
+      boolean more = true;
+
+      JExpression lhs = andExpression();
+      while (more) {
+        if (have(XOR)) {
+          lhs = new JBitwiseExclusiveOrOp(line, lhs, andExpression());
+        } else {
+          more = false;
+        }
+      }
+
+      return lhs;
+    }
+
+    /**
+     * Parse an And expression.
+     *
+     * <pre>
+     *  andExpression ::= andExpression // level 7
+     *                      { AND equalityExpression }
+     * </pre>
+     *
+     * @return an AST for an andExpression.
+     */
+    private JExpression andExpression() {
+      int line = scanner.token().line();
+      boolean more = true;
+
+      JExpression lhs = equalityExpression();
+      while (more) {
+        if (have(AND)) {
+          lhs = new JBitwiseAndOp(line, lhs, equalityExpression());
+        } else {
+          more = false;
+        }
+      }
+
+      return lhs;
     }
 
     /**
@@ -1139,7 +1219,7 @@ public class Parser {
      * 
      * <pre>
      *   multiplicativeExpression ::= unaryExpression  // level 2
-     *                                  {(STAR | DIV) unaryExpression}
+     *                                  {(STAR | DIV | MOD) unaryExpression}
      * </pre>
      * 
      * @return an AST for a multiplicativeExpression.

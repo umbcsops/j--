@@ -46,6 +46,13 @@ PLUS        ::= "+"
 PLUS_ASSIGN ::= "+="
 STAR        ::= "*"
 DIV         ::= "/"
+MOD         ::= "%"
+SHL         ::= "<<"
+SHR         ::= ">>"
+USHR        ::= ">>>"
+IOR         ::= "|"
+XOR         ::= "^"
+AND         ::= "&"
 
 // Separators
 COMMA       ::= ","
