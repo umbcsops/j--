@@ -1270,7 +1270,8 @@ public class Parser {
      * Parse a simple unary expression.
      * 
      * <pre>
-     *   simpleUnaryExpression ::= LNOT unaryExpression
+     *   simpleUnaryExpression ::= NOT unaryExpression
+     *                           | LNOT unaryExpression
      *                           | LPAREN basicType RPAREN 
      *                               unaryExpression
      *                           | LPAREN         
@@ -1284,7 +1285,9 @@ public class Parser {
 
     private JExpression simpleUnaryExpression() {
         int line = scanner.token().line();
-        if (have(LNOT)) {
+        if (have(NOT)) {
+          return new JBitwiseNotOp(line, unaryExpression());
+        } else if (have(LNOT)) {
             return new JLogicalNotOp(line, unaryExpression());
         } else if (seeCast()) {
             mustBe(LPAREN);

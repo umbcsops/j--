@@ -2,7 +2,6 @@
 
 package jminusminus;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import static jminusminus.TokenKind.EOF;

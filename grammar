@@ -105,7 +105,8 @@ unaryExpression ::= INC unaryExpression  // level 1
                   | MINUS unaryExpression
                   | simpleUnaryExpression
 
-simpleUnaryExpression ::= LNOT unaryExpression
+simpleUnaryExpression ::= NOT unaryExpression
+                        | LNOT unaryExpression
                         | LPAREN basicType RPAREN unaryExpression //casted
                         | LPAREN // casted               
                             referenceType

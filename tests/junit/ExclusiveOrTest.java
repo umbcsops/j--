@@ -18,7 +18,7 @@ public class ExclusiveOrTest extends TestCase {
   public void testExclusiveOr() {
     assertEquals(exclusiveOr.exclusiveOr(1, 2), 3);
     assertEquals(exclusiveOr.exclusiveOr(1, -2), -1);
-    assertEquals(exclusiveOr.exclusiveOr(-1, 2), -1);
+    assertEquals(exclusiveOr.exclusiveOr(-1, 2), -3);
     assertEquals(exclusiveOr.exclusiveOr(-1, -2), 1);
     assertEquals(exclusiveOr.exclusiveOr(1, 1), 0);
   }

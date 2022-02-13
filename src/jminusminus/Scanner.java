@@ -202,6 +202,10 @@ class Scanner {
         } 
         return new TokenInfo(AND, line);
 
+      case '~':
+        nextCh();
+        return new TokenInfo(NOT, line);
+
       case '>':
         nextCh();
         if (ch == '>') {

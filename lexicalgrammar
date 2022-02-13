@@ -53,6 +53,7 @@ USHR        ::= ">>>"
 IOR         ::= "|"
 XOR         ::= "^"
 AND         ::= "&"
+NOT         ::= "~"
 
 // Separators
 COMMA       ::= ","

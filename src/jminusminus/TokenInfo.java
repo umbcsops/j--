@@ -25,7 +25,7 @@ enum TokenKind {
     ASSIGN("="), DEC("--"), EQUAL("=="), GT(">"), INC("++"), LAND("&&"), 
     LE("<="), LNOT("!"), MINUS("-"), PLUS("+"), PLUS_ASSIGN("+="), STAR("*"),
     DIV("/"), MOD("%"), SHL("<<"), SHR(">>"), USHR(">>>"), IOR("|"), XOR("^"),
-    AND("&"),
+    AND("&"), NOT("~"),
 
     // Separators
     LPAREN("("), RPAREN(")"), LCURLY("{"), RCURLY("}"), LBRACK("["), 

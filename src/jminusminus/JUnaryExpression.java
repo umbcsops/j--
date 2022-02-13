@@ -177,7 +177,6 @@ class JLogicalNotOp extends JUnaryExpression {
     public void codegen(CLEmitter output, String targetLabel, boolean onTrue) {
         arg.codegen(output, targetLabel, !onTrue);
     }
-
 }
 
 /**
@@ -343,5 +342,68 @@ class JPreIncrementOp extends JUnaryExpression {
             ((JLhs) arg).codegenStore(output);
         }
     }
+}
 
+class JBitwiseNotOp extends JUnaryExpression {
+
+    /**
+     * Constructs an AST node for a ~expr given its line number, and the
+     * operand.
+     * 
+     * @param line
+     *            line in which the expression occurs in the source file.
+     * @param arg
+     *            the operand.
+     */
+
+    public JBitwiseNotOp(int line, JExpression arg) {
+        super(line, "~pre", arg);
+    }
+
+    /**
+     * Analyzes the operand as a lhs (since there is a side effect), check types
+     * and determine the type of the result.
+     * 
+     * @param context
+     *            context in which names are resolved.
+     * @return the analyzed (and possibly rewritten) AST subtree.
+     */
+
+    public JExpression analyze(Context context) {
+        if (!(arg instanceof JLhs)) {
+            JAST.compilationUnit.reportSemanticError(line,
+                    "Operand to ~expr must have an LValue.");
+            type = Type.ANY;
+        } else {
+            arg = (JExpression) arg.analyze(context);
+            arg.type().mustMatchExpected(line(), Type.INT);
+            type = Type.INT;
+        }
+        return this;
+    }
+
+    /**
+     * In generating code for a bitwise not operation. We rely on the 
+     * {@link JLhs} code generation support for generating the proper code.
+     * Notice that we distinguish between
+     * expressions that are statement expressions and those that are not; we
+     * insure the proper value (after the increment) is left atop the stack in
+     * the latter case.
+     * 
+     * @param output
+     *            the code emitter (basically an abstraction for producing the
+     *            .class file).
+     */
+
+    public void codegen(CLEmitter output) {
+      ((JLhs) arg).codegenLoadLhsLvalue(output);
+      ((JLhs) arg).codegenLoadLhsRvalue(output);
+      output.addNoArgInstruction(ICONST_M1);
+      output.addNoArgInstruction(IXOR);
+      if (!isStatementExpression) {
+        // Loading its original rvalue
+        ((JLhs) arg).codegenDuplicateRvalue(output);
+      }
+      ((JLhs) arg).codegenStore(output);
+    }
 }

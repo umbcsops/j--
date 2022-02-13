@@ -135,7 +135,6 @@ class JPlusOp extends JBinaryExpression {
       output.addNoArgInstruction(IADD);
     }
   }
-
 }
 
 /**
@@ -671,4 +670,3 @@ class JBitwiseAndOp extends JBinaryExpression {
     output.addNoArgInstruction(IAND);
   }
 }
-
