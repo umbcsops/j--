@@ -58,7 +58,6 @@ abstract class JUnaryExpression extends JExpression {
 /**
  * The AST node for a unary negation (-) expression.
  */
-
 class JNegateOp extends JUnaryExpression {
 
     /**
@@ -105,7 +104,56 @@ class JNegateOp extends JUnaryExpression {
         arg.codegen(output);
         output.addNoArgInstruction(INEG);
     }
+}
 
+/**
+ * The AST node for a unary plus (+) expression.
+ */
+class JUnaryPlusOp extends JUnaryExpression {
+    /**
+     * Constructs an AST node for a unary plus expression given its line number,
+     * and the operand.
+     * 
+     * @param line
+     *            line in which the negation expression occurs in the source
+     *            file.
+     * @param arg
+     *            the operand.
+     */
+
+    public JUnaryPlusOp(int line, JExpression arg) {
+        super(line, "-", arg);
+    }
+
+    /**
+     * Analyzing the unary plus operation involves analyzing its operand, checking
+     * its type and determining the result type.
+     * 
+     * @param context
+     *            context in which names are resolved.
+     * @return the analyzed (and possibly rewritten) AST subtree.
+     */
+
+    public JExpression analyze(Context context) {
+        arg = arg.analyze(context);
+        arg.type().mustMatchExpected(line(), Type.INT);
+        type = Type.INT;
+        return this;
+    }
+
+    /**
+     * Generating code for the negation operation involves generating code for
+     * the operand, and then a nop.
+     * 
+     * @param output
+     *            the code emitter (basically an abstraction for producing the
+     *            .class file).
+     */
+
+    public void codegen(CLEmitter output) {
+        arg.codegen(output);
+        output.addNoArgInstruction(NOP);
+    }
 }
 
 /**
