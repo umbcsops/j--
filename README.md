@@ -1,3 +1,7 @@
+
+**UPDATE: This repository is no longer being maintained. Please go to [Prof. Swami Iyer's repo](https://github.com/swamiiyer/j--)
+for the latest updates.**
+
 # Overview
 
 This repository contains the most up-to-date _j--_ base compiler and
